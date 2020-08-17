@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "salt",
+    "salt/react"
+  ],
+  "rules": {
+    "react/jsx-closing-bracket-location": [
+      "error",
+      {
+        "selfClosing": "after-props",
+        "nonEmpty": "after-props"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js", ".jsx"
+        ]
+      }
+    ]
+  }
+}
+

@@ -14,4 +14,4 @@ app.get('/', (req, res) => {
     .end();
 });
 
-app.listen(port, () => console.log(`Testimonials API listening at http://localhost:${port}`));
+app.listen(port, () => console.log(`Nomad Server listening at http://localhost:${port}`));

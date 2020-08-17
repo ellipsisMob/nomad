@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Users = () => {
+function Users() {
+
+  const fetchExpress = () => {
+    fetch('http://localhost:8000/')
+      .then(res => res.json())
+      .then(data => console.log('from fetch', data))
+  }
+
   return(
     <div className="test">
       <p>Hello from users</p>
-      <button>Get users</button>
+      <button onClick={fetchExpress}>Get users</button>
     </div>
   )
 }

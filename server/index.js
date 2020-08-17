@@ -1,16 +1,22 @@
 const express = require('express');
+require('dotenv').config()
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const firebase = require('firebase');
 
 const app = express();
-const port = 3001;
+const port = 8000;
+
+app.use(cors());
 
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  console.log('Hello world and nodemon');
+  console.log('id', process.env.APIKEY);
+  console.log('auth', process.env.AUTHDOMAIN);
+  console.log('project', process.env.PROJECTID);
   res
-    .json('Hello world and nodemon')
+    .json('Hello world and nodemon' )
     .status(200)
     .end();
 });

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // Users being fetched from firebase with the right url.
 function Users() {
   const fetchExpress = () => {
-    fetch('http://localhost:8000/data')
+    fetch('http://localhost:8000/api/users')
       .then(res => res.json())
       .then(data => console.log('from fetch', data))
   }

@@ -16,8 +16,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const getData = async () =>  {  
-  const usersRef = db.collection('users');
+const getData = async col =>  {  
+  const usersRef = db.collection(col);
   const snapshot = await usersRef.get();
   if (snapshot.empty) {
     console.log('No matching documents.');
@@ -45,17 +45,18 @@ app.get('/', (req, res) => {
     .end();
 });
 
-app.get('/users', (req, res) => {
-  console.log('getting /users');
+app.get('/api/users', async (req, res) => {
+  const data = await getData('users');
+  console.log('coming from the users endoint', data);
   res
-    .json('users')
+    .json(data)
     .status(200)
     .end();
 });
 
-app.get('/data', cors(), async (req, res) => {
-  const data = await getData();
-  console.log('coming from the data endoint', data);
+app.get('/api/posts', async (req, res) => {
+  const data = await getData('posts');
+  console.log('coming from the posts endpoint', data);
   res
     .json(data)
     .status(200)

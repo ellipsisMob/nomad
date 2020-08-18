@@ -1,11 +1,12 @@
 {
-  "name": "Nomads_backend",
+  "name": "nomads_backend",
   "version": "1.0.0",
   "description": "backend",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
-    "start": "nodemon ."
+    "start": "nodemon .",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Ellipsis",
   "license": "MIT",

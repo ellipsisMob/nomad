@@ -3,9 +3,13 @@ require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const firebase = require('firebase');
+const path = require('path');
 
 const app = express();
 const port = 8000;
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 const firebaseConfig = {
   apiKey: process.env.APIKEY,
@@ -64,6 +68,11 @@ app.get('/api/posts', async (req, res) => {
     .json(data)
     .status(200)
     .end();
+});
+
+// Anything that doesn't match the above, send back index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.listen(port, () => console.log(`Nomad Server listening at http://localhost:${port}`));

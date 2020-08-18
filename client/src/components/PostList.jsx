@@ -8,7 +8,7 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = () => {
       setLoading(true);
-      fetch('http://localhost:8000/api/posts')
+      fetch('/api/posts')
         .then(res => res.json())
         .then(data => setPosts(data))
         .then(() => setLoading(false));

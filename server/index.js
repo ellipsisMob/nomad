@@ -10,13 +10,13 @@ const port = 8000;
 const firebaseConfig = {
   apiKey: process.env.APIKEY,
   authDomain: process.env.AUTHDOMAIN,
-  projectId: process.env.PROJECTID
+  projectId: process.env.PROJECTID,
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const getData = async col =>  {  
+const getData = async col => {
   const usersRef = db.collection(col);
   const snapshot = await usersRef.get();
   if (snapshot.empty) {
@@ -30,7 +30,7 @@ const getData = async col =>  {
     documents.push(doc.data());
   });
   return documents;
-}
+};
 
 app.use(cors());
 app.use(bodyParser.json());

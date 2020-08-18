@@ -19,7 +19,11 @@ const PostList = () => {
       <h1>Recent posts</h1>
       <p>Hello from PostList</p>
       <button type="button" id="fetch" onClick={fetchPosts}>Fetch posts</button>
-      <Post />
+      {posts
+        ? posts.map(post => {
+          return <Post key={post.id} title={post.data.title} body={post.data.body} author={post.data.author} date={post.data.date} /> 
+        })
+        : <h1>loading posts...</h1>}    
     </div>
   );
 };

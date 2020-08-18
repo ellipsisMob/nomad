@@ -27,7 +27,10 @@ const getData = async col => {
   // TypeError: Converting circular structure to JSON fix
   const documents = [];
   snapshot.forEach(doc => {
-    documents.push(doc.data());
+    documents.push({
+      id: doc.id,
+      data: doc.data()
+    });
   });
   return documents;
 };

@@ -1,7 +1,17 @@
-.App {
-  margin: 2%;
+:root {
+  --offwhite: #ECF0F1;
+  --darkgrey: #7F8C8D; 
+  --lightblue: #2980B9;
+  --darkblue: #2C3E50;
+  --red: #E74C3C;
 }
 
 body {
   font-family: 'Roboto', 'Arial', 'sans-serif';
+  background: var(--offwhite);
+  margin:0;
+}
+
+.bars {
+  margin: 2%;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
+import './PostList.css';
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -22,7 +23,6 @@ const PostList = () => {
 
   return (
     <div className="container">
-      <h1>Recent posts</h1>
       {!loading
         ? posts.map(post => (
           <Post

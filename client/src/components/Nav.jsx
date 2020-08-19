@@ -1,32 +1,33 @@
 import React from 'react';
 import {
-  Link,
   Switch,
   Route,
+  Link,
 } from 'react-router-dom';
 import PostList from './PostList';
-import Users from './Users';
+import Profile from './Profile';
 
 const Nav = () => (
-
-  <div>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Posts</Link>
-        </li>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-      </ul>
-    </nav>
+  <div className="navbar">
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/profile">profile</Link>
+      </li>
+      <li>
+        <Link to="/asdf">should show not found</Link>
+      </li>
+    </ul>
     <Switch>
-      <Route path="/">
+      <Route exact path="/">
         <PostList />
       </Route>
-      <Route path="/users">
-        <Users />
+      <Route path="/profile">
+        <Profile />
       </Route>
+      <Route render={() => 'Page not found'} />
     </Switch>
   </div>
 );

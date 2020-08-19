@@ -122,20 +122,6 @@ app.get('/api/posts/:id', async (req, res) => {
   });
 });
 
-const createPost = () => {
-  // Add a new document with a generated id.
-  db.collection("cities").add({
-    name: "Tokyo",
-    country: "Japan"
-  })
-  .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-  })
-  .catch(function(error) {
-    console.error("Error adding document: ", error);
-  });
-}
-
 app.post('/api/posts', async (req, res) => {
   db.collection("posts").add(req.body)
   .then(function(docRef) {

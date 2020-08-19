@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Link,
-} from 'react-router-dom';
-import PostList from './PostList';
-import Profile from './Profile';
-import UserList from './UserList';
+import { Link } from 'react-router-dom';
 import './Nav.css';
 
 const Nav = () => (
@@ -13,31 +8,10 @@ const Nav = () => (
       <li>
         <Link to="/">Home</Link>
       </li>
-      {/* <li>
-        <Link to="/profile">profile</Link>
-      </li> */}
-      <li>
-        <Link to="/asdf">should show not found</Link>
-      </li>
       <li>
         <Link to="/users">Users</Link>
       </li>
     </ul>
-    <Switch>
-      <Route exact path="/">
-        <PostList />
-      </Route>
-      {/* <Route path="/profile">
-        <Profile />
-      </Route> */}
-      <Route path="/users/:id">
-        <Profile />
-      </Route>
-      <Route path="/users">
-        <UserList />
-      </Route>
-      <Route render={() => 'Page not found'} />
-    </Switch>
   </div>
 );
 

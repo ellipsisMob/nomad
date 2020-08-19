@@ -137,7 +137,7 @@ const createPost = () => {
 }
 
 app.post('/api/posts', async (req, res) => {
-  db.collection("cities").add(req.body)
+  db.collection("posts").add(req.body)
   .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);
     res

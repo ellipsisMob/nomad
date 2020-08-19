@@ -8,6 +8,7 @@ import {
 import Topbar from './components/navigation/Topbar';
 import Nav from './components/navigation/Nav';
 import PostList from './components/posts/PostList';
+import SinglePost from './components/posts/SinglePost';
 import Profile from './components/developers/Profile';
 import DevsList from './components/developers/DevsList';
 import Footer from './components/footer/Footer';
@@ -23,6 +24,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <PostList />
+          </Route>
+          <Route exact path="/posts/:id">
+            <SinglePost />
           </Route>
           <Route path="/devs/:id">
             <Profile />

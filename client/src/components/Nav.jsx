@@ -1,33 +1,17 @@
 import React from 'react';
-import {
-  Link,
-  Switch,
-  Route,
-} from 'react-router-dom';
-import PostList from './PostList';
-import Users from './Users';
+import { Link } from 'react-router-dom';
+import './Nav.css';
 
 const Nav = () => (
-
-  <div>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Posts</Link>
-        </li>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-      </ul>
-    </nav>
-    <Switch>
-      <Route path="/">
-        <PostList />
-      </Route>
-      <Route path="/users">
-        <Users />
-      </Route>
-    </Switch>
+  <div className="navbar">
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/devs">Our Developers</Link>
+      </li>
+    </ul>
   </div>
 );
 

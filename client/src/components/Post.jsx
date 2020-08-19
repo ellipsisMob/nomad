@@ -1,16 +1,22 @@
 import React from 'react';
 
 const Post = props => {
+  const {
+    title,
+    body,
+    author,
+    date,
+  } = props;
   return (
-  <div>
-    <h1>{props.title}</h1>
-    <p>
-      {props.body}
-      <span>{props.author}</span>
-      <span>{props.date.seconds}</span>
-    </p>
-  </div>
-  )
+    <div>
+      <h1>{title}</h1>
+      <p>
+        {body}
+        <span>{author}</span>
+        <span>{date.seconds}</span>
+      </p>
+    </div>
+  );
 };
 
 export default Post;

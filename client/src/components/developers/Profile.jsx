@@ -15,7 +15,7 @@ const Profile = props => {
         .then(() => setLoading(false));
     };
     fetchUser();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     console.log('Profile page: ', user);
@@ -25,15 +25,20 @@ const Profile = props => {
     <div>
 
       {!loading
-        ? ( <div>
-          <h1>
-            name: {user.name}
-          </h1>
-          <h1>
-            Age: {user.age}
-          </h1>
-          </div> 
-          )
+        ? (
+          <div>
+            <h1>
+              name:
+              {' '}
+              {user.name}
+            </h1>
+            <h1>
+              Age:
+              {' '}
+              {user.age}
+            </h1>
+          </div>
+        )
         : <h1>loading users...</h1>}
     </div>
   );

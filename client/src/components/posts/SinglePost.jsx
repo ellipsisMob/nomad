@@ -15,7 +15,7 @@ const SinglePost = props => {
         .then(() => setLoading(false));
     };
     fetchPost();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     console.log('SinglePost page: ', post);
@@ -25,15 +25,16 @@ const SinglePost = props => {
     <div>
 
       {!loading
-        ? ( <div>
-          <h1>
-            {post.title}
-          </h1>
-          <p>
-            {post.body}
-          </p>
-          </div> 
-          )
+        ? (
+          <div>
+            <h1>
+              {post.title}
+            </h1>
+            <p>
+              {post.body}
+            </p>
+          </div>
+        )
         : <h1>loading posts...</h1>}
     </div>
   );

@@ -5,11 +5,11 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import Topbar from './components/Topbar';
-import Nav from './components/Nav';
-import PostList from './components/PostList';
-import Profile from './components/Profile';
-import DevsList from './components/DevsList';
+import Topbar from './components/navigation/Topbar';
+import Nav from './components/navigation/Nav';
+import PostList from './components/posts/PostList';
+import Profile from './components/developers/Profile';
+import DevsList from './components/developers/DevsList';
 
 function App() {
   return (

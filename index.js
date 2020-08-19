@@ -1,9 +1,9 @@
 const express = require('express');
-require('dotenv').config();
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const firebase = require('firebase');
 const path = require('path');
+const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -65,25 +65,25 @@ app.get('/api/devs', async (req, res) => {
 });
 
 app.get('/api/devs/:id', async (req, res) => {
-  console.log('Request params id: ', req.params.id)
-  const docRef = db.collection("users").doc(req.params.id);
+  console.log('Request params id: ', req.params.id);
+  const docRef = db.collection('users').doc(req.params.id);
 
-  docRef.get().then(function(doc) {
-      if (doc.exists) {
-          console.log("Document data:", doc.data());
-          res
-          .json(doc.data())
-          .status(200)
-          .end();      
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-          res
-          .status(404)
-          .end();
-      }
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
+  docRef.get().then(doc => {
+    if (doc.exists) {
+      console.log('Document data:', doc.data());
+      res
+        .json(doc.data())
+        .status(200)
+        .end();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
+      res
+        .status(404)
+        .end();
+    }
+  }).catch(error => {
+    console.log('Error getting document:', error);
   });
 });
 
@@ -102,43 +102,43 @@ app.get('/api/posts', async (req, res) => {
 
 // example request: http://localhost:8000/api/posts/0fk48DJ9jic4OWCvUi22
 app.get('/api/posts/:id', async (req, res) => {
-  const docRef = db.collection("posts").doc(req.params.id);
-  docRef.get().then(function(doc) {
-      if (doc.exists) {
-          console.log("Document data:", doc.data());
-          res
-          .json(doc.data())
-          .status(200)
-          .end();
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-          res
-          .status(404)
-          .end();
-      }
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
+  const docRef = db.collection('posts').doc(req.params.id);
+  docRef.get().then(doc => {
+    if (doc.exists) {
+      console.log('Document data:', doc.data());
+      res
+        .json(doc.data())
+        .status(200)
+        .end();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
+      res
+        .status(404)
+        .end();
+    }
+  }).catch(error => {
+    console.log('Error getting document:', error);
   });
 });
 
 // example request: http://localhost:8000/api/posts/
 // In the body add required properties for post
 app.post('/api/posts', async (req, res) => {
-  db.collection("posts").add(req.body)
-  .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-    res
-    .json(req.body)
-    .status(201)
-    .end();
-  })
-  .catch(function(error) {
-    console.error("Error adding document: ", error);
-    res
-    .status(400)
-    .end();
-  });
+  db.collection('posts').add(req.body)
+    .then(docRef => {
+      console.log('Document written with ID: ', docRef.id);
+      res
+        .json(req.body)
+        .status(201)
+        .end();
+    })
+    .catch(error => {
+      console.error('Error adding document: ', error);
+      res
+        .status(400)
+        .end();
+    });
 });
 
 // ID OF THE TO BE DELETED POST TO BE PASSED IN REQ BODY.
@@ -148,17 +148,18 @@ app.post('/api/posts', async (req, res) => {
 //   "id":"KKuWJo5MSynJ8Ryln6FT"
 // }
 app.delete('/api/posts', async (req, res) => {
-  db.collection("posts").doc(req.body.id).delete().then(function() {
-      console.log("Document successfully deleted!");
-      res
+  db.collection('posts').doc(req.body.id).delete().then(() => {
+    console.log('Document successfully deleted!');
+    res
       .status(204)
       .end();
-  }).catch(function(error) {
-      console.error("Error removing document: ", error);
+  })
+    .catch(error => {
+      console.error('Error removing document: ', error);
       res
-      .status(400)
-      .end();
-  });
+        .status(400)
+        .end();
+    });
 });
 
 // Anything that doesn't match the above, send back index.html

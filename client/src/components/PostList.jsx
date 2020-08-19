@@ -14,7 +14,7 @@ const PostList = () => {
         .then(() => setLoading(false));
     };
     fetchPosts();
-  }, [])
+  }, []);
 
   useEffect(() => {
     console.log('from useEffect hook', posts);
@@ -24,10 +24,15 @@ const PostList = () => {
     <div className="container">
       <h1>Recent posts</h1>
       {!loading
-        ? posts.map(post => {
-          return <Post key={post.id} title={post.data.title} body={post.data.body} author={post.data.author} date={post.data.date} />
-        })
-        : <h1>loading posts...</h1>}    
+        ? posts.map(post => (
+          <Post
+            key={post.id}
+            title={post.data.title}
+            body={post.data.body}
+            author={post.data.author}
+            date={post.data.date} />
+        ))
+        : <h1>loading posts...</h1>}
     </div>
   );
 };

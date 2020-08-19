@@ -33,7 +33,7 @@ const getData = async col => {
   snapshot.forEach(doc => {
     documents.push({
       id: doc.id,
-      data: doc.data()
+      data: doc.data(),
     });
   });
   return documents;
@@ -72,7 +72,7 @@ app.get('/api/posts', async (req, res) => {
 
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
 app.listen(port, () => console.log(`Nomad Server listening at http://localhost:${port}`));

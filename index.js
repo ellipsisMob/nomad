@@ -122,6 +122,8 @@ app.get('/api/posts/:id', async (req, res) => {
   });
 });
 
+// example request: http://localhost:8000/api/posts/
+// In the body add required properties for post
 app.post('/api/posts', async (req, res) => {
   db.collection("posts").add(req.body)
   .then(function(docRef) {
@@ -136,6 +138,22 @@ app.post('/api/posts', async (req, res) => {
     res
     .status(400)
     .end();
+  });
+});
+
+// example request: http://localhost:8000/api/posts/:id
+// ID OF THE TO BE DELETED POST TO BE PASSED IN REQ BODY. THIS CAN BE MODIFIED TO OUR NEEDS. ALSO CHANGE CITIES TO POSTS.
+app.delete('/api/posts', async (req, res) => {
+  db.collection("cities").doc(req.body.id).delete().then(function() {
+      console.log("Document successfully deleted!");
+      res
+      .status(204)
+      .end();
+  }).catch(function(error) {
+      console.error("Error removing document: ", error);
+      res
+      .status(400)
+      .end();
   });
 });
 

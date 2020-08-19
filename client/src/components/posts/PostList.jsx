@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
+import CreatePost from './CreatePost';
 import './PostList.css';
 
 const PostList = () => {
@@ -23,6 +24,7 @@ const PostList = () => {
 
   return (
     <div className="container">
+      <CreatePost />
       {!loading
         ? posts.map(post => (
           <Post

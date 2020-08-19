@@ -61,6 +61,29 @@ app.get('/api/users', async (req, res) => {
     .end();
 });
 
+app.get('/api/users/:id', async (req, res) => {
+  console.log('Request params id: ', req.params.id)
+  const docRef = db.collection("users").doc(req.params.id);
+
+  docRef.get().then(function(doc) {
+      if (doc.exists) {
+          console.log("Document data:", doc.data());
+          res
+          .json(doc.data())
+          .status(200)
+          .end();      
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+          res
+          .status(404)
+          .end();
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });
+});
+
 app.get('/api/posts', async (req, res) => {
   const data = await getData('posts');
   console.log('coming from the posts endpoint', data);

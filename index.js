@@ -42,16 +42,19 @@ const getData = async col => {
 app.use(cors());
 app.use(bodyParser.json());
 
+// ===================================================
+// TESTING ROUTE
+// ===================================================
 app.get('/', (req, res) => {
-  console.log('id', process.env.APIKEY);
-  console.log('auth', process.env.AUTHDOMAIN);
-  console.log('project', process.env.PROJECTID);
   res
     .json('Hello world and nodemon')
     .status(200)
     .end();
 });
 
+// ===================================================
+// DEVELOPER ROUTES
+// ===================================================
 app.get('/api/devs', async (req, res) => {
   const data = await getData('users');
   console.log('coming from the users endoint', data);
@@ -84,6 +87,10 @@ app.get('/api/devs/:id', async (req, res) => {
   });
 });
 
+// ===================================================
+// POST ROUTES
+// ===================================================
+// http://localhost:8000/api/posts
 app.get('/api/posts', async (req, res) => {
   const data = await getData('posts');
   console.log('coming from the posts endpoint', data);
@@ -91,6 +98,59 @@ app.get('/api/posts', async (req, res) => {
     .json(data)
     .status(200)
     .end();
+});
+
+// example request: http://localhost:8000/api/posts/0fk48DJ9jic4OWCvUi22
+app.get('/api/posts/:id', async (req, res) => {
+  const docRef = db.collection("posts").doc(req.params.id);
+  docRef.get().then(function(doc) {
+      if (doc.exists) {
+          console.log("Document data:", doc.data());
+          res
+          .json(doc.data())
+          .status(200)
+          .end();
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+          res
+          .status(404)
+          .end();
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });
+});
+
+const createPost = () => {
+  // Add a new document with a generated id.
+  db.collection("cities").add({
+    name: "Tokyo",
+    country: "Japan"
+  })
+  .then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+  });
+}
+
+app.post('/api/posts', async (req, res) => {
+  db.collection("cities").add(req.body)
+  .then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    res
+    .json(req.body)
+    .status(201)
+    .end();
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+    res
+    .status(400)
+    .end();
+  });
 });
 
 // Anything that doesn't match the above, send back index.html

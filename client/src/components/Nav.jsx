@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  Switch,
-  Route,
   Link,
 } from 'react-router-dom';
 import PostList from './PostList';
 import Profile from './Profile';
 import UserList from './UserList';
+import './Nav.css';
 
 const Nav = () => (
   <div className="navbar">

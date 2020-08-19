@@ -9,7 +9,7 @@ import Topbar from './components/Topbar';
 import Nav from './components/Nav';
 import PostList from './components/PostList';
 import Profile from './components/Profile';
-import UserList from './components/UserList';
+import DevsList from './components/DevsList';
 
 function App() {
   return (
@@ -21,11 +21,11 @@ function App() {
           <Route exact path="/">
             <PostList />
           </Route>
-          <Route path="/users/:id">
+          <Route path="/devs/:id">
             <Profile />
           </Route>
-          <Route path="/users">
-            <UserList />
+          <Route path="/devs">
+            <DevsList />
           </Route>
           <Route render={() => 'Page not found'} />
         </Switch>

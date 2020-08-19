@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
     .end();
 });
 
-app.get('/api/users', async (req, res) => {
+app.get('/api/devs', async (req, res) => {
   const data = await getData('users');
   console.log('coming from the users endoint', data);
   res
@@ -61,7 +61,7 @@ app.get('/api/users', async (req, res) => {
     .end();
 });
 
-app.get('/api/users/:id', async (req, res) => {
+app.get('/api/devs/:id', async (req, res) => {
   console.log('Request params id: ', req.params.id)
   const docRef = db.collection("users").doc(req.params.id);
 

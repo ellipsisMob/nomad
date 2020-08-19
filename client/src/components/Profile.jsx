@@ -9,7 +9,7 @@ const Profile = props => {
   useEffect(() => {
     const fetchUser = () => {
       setLoading(true);
-      fetch(`/api/users/${id}`)
+      fetch(`/api/devs/${id}`)
         .then(res => res.json())
         .then(data => setUser(data))
         .then(() => setLoading(false));
@@ -18,21 +18,25 @@ const Profile = props => {
   }, []);
 
   useEffect(() => {
-    console.log('Profile page: ', user)
-  }, [user])
+    console.log('Profile page: ', user);
+  }, [user]);
 
   return (
     <div>
 
       {!loading
-        ? 
-        <div>
-          <h1>name: {user.name}</h1>
-          <h1>Age: {user.age}</h1>
-        </div>
+        ? ( <div>
+          <h1>
+            name: {user.name}
+          </h1>
+          <h1>
+            Age: {user.age}
+          </h1>
+          </div> 
+          )
         : <h1>loading users...</h1>}
     </div>
-  )
-}
+  );
+};
 
 export default Profile;

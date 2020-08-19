@@ -4,33 +4,28 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
 } from 'react-router-dom';
-import PostList from './components/PostList';
-import Profile from './components/Profile';
+import Topbar from './components/navigation/Topbar';
+import Nav from './components/navigation/Nav';
+import PostList from './components/posts/PostList';
+import Profile from './components/developers/Profile';
+import DevsList from './components/developers/DevsList';
 
 function App() {
   return (
     <div className="App">
-      <h1>Blog</h1>
       <Router>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/profile">profile</Link>
-          </li>
-          <li>
-            <Link to="/asdf">should show not found</Link>
-          </li>
-        </ul>
+        <Topbar />
+        <Nav />
         <Switch>
           <Route exact path="/">
             <PostList />
           </Route>
-          <Route path="/profile">
+          <Route path="/devs/:id">
             <Profile />
+          </Route>
+          <Route path="/devs">
+            <DevsList />
           </Route>
           <Route render={() => 'Page not found'} />
         </Switch>

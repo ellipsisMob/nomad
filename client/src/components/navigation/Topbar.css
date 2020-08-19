@@ -1,0 +1,21 @@
+.topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.top-nav {
+  display: flex;
+  flex-direction: row;
+  margin: 0 10px;
+}
+
+.top-logo {
+  font-family: 'Caveat', cursive;
+}
+
+.top-logo a {
+  text-decoration: none;
+  color: black;
+  font-size: 2em;
+}

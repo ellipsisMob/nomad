@@ -141,8 +141,8 @@ app.post('/api/posts', async (req, res) => {
   });
 });
 
-// example request: http://localhost:8000/api/posts/:id
-// ID OF THE TO BE DELETED POST TO BE PASSED IN REQ BODY. THIS CAN BE MODIFIED TO OUR NEEDS. ALSO CHANGE CITIES TO POSTS.
+// ID OF THE TO BE DELETED POST TO BE PASSED IN REQ BODY.
+// example request: http://localhost:8000/api/posts
 // Example delete body:
 // {
 //   "id":"KKuWJo5MSynJ8Ryln6FT"

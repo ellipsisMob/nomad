@@ -1,11 +1,8 @@
 import React from 'react';
 import {
-  Switch,
-  Route,
   Link,
 } from 'react-router-dom';
-import PostList from './PostList';
-import Profile from './Profile';
+import './Nav.css';
 
 const Nav = () => (
   <div className="navbar">
@@ -14,21 +11,9 @@ const Nav = () => (
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/profile">profile</Link>
-      </li>
-      <li>
-        <Link to="/asdf">should show not found</Link>
+        <Link to="/profile">Our devs</Link>
       </li>
     </ul>
-    <Switch>
-      <Route exact path="/">
-        <PostList />
-      </Route>
-      <Route path="/profile">
-        <Profile />
-      </Route>
-      <Route render={() => 'Page not found'} />
-    </Switch>
   </div>
 );
 

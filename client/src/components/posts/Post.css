@@ -1,0 +1,13 @@
+.post {
+    display: flex;
+    flex-direction: column;
+}
+
+.bottomBar {
+    display: flex;
+    flex-direction: row;
+}
+
+.author {
+    margin-right: 3px;
+}

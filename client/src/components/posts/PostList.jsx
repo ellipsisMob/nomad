@@ -24,7 +24,7 @@ const PostList = () => {
 
   return (
     <div className="container">
-      {/* <CreatePost /> */}
+      <CreatePost />
       {!loading
         ? posts.map(post => (
           <Post

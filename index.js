@@ -141,8 +141,8 @@ app.post('/api/posts', async (req, res) => {
     });
 });
 
-// PUT ROUTE
-
+// UPDATE ROUTE
+// ID of the post to be updated should be passed in post body.
 app.put('/api/posts', async (req, res) => {
   const parsedBody = { ...req.body };
   delete parsedBody.id;

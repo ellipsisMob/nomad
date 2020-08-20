@@ -143,10 +143,10 @@ app.post('/api/posts', async (req, res) => {
 
 // PUT ROUTE
 
-app.put('/api/cities', async (req, res) => {
+app.put('/api/posts', async (req, res) => {
   const parsedBody = { ...req.body };
   delete parsedBody.id;
-  db.collection('cities').doc(req.body.id).update(parsedBody)
+  db.collection('posts').doc(req.body.id).update(parsedBody)
     .then(() => {
       res
         .json(parsedBody)

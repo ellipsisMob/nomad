@@ -1,8 +1,12 @@
 import React from 'react';
+import {
+  Link,
+} from 'react-router-dom';
 import './Post.css';
 
 const Post = props => {
   const {
+    id,
     title,
     body,
     author,
@@ -13,6 +17,7 @@ const Post = props => {
       <h2>{title}</h2>
       <p>
         {body}
+        <p><Link key={id} to={`/posts/${id}`}>Full post...</Link></p>
       </p>
       <div className="bottomBar">
         <div className="author">

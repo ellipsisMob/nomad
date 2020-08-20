@@ -24,10 +24,10 @@ const UserList = () => {
 
   return (
     <div className="container">
-      <h1>Users: </h1>
+      <h1>Our Developers:  </h1>
       {!loading
         ? users.map(user => (
-          <Link key={user.id} to={`/devs/${user.id}`}>{user.data.name}</Link>
+          <h3><Link key={user.id} to={`/devs/${user.id}`}>{user.data.name}</Link></h3>
         ))
         : <h1>loading users...</h1>}
     </div>

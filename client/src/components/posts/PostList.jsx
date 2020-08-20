@@ -29,6 +29,7 @@ const PostList = () => {
         ? posts.map(post => (
           <Post
             key={post.id}
+            id={post.id}
             title={post.data.title}
             body={post.data.body}
             author={post.data.author}

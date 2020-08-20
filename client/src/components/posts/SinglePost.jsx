@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-const Profile = props => {
+const SinglePost = props => {
   const { id } = useParams();
-  const [user, setUser] = useState([]);
+  const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchUser = () => {
+    const fetchPost = () => {
       setLoading(true);
-      fetch(`/api/devs/${id}`)
+      fetch(`/api/posts/${id}`)
         .then(res => res.json())
-        .then(data => setUser(data))
+        .then(data => setPost(data))
         .then(() => setLoading(false));
     };
-    fetchUser();
+    fetchPost();
   }, [id]);
 
   useEffect(() => {
-    console.log('Profile page: ', user);
-  }, [user]);
+    console.log('SinglePost page: ', post);
+  }, [post]);
 
   return (
     <div>
@@ -28,20 +28,16 @@ const Profile = props => {
         ? (
           <div>
             <h1>
-              name:
-              {' '}
-              {user.name}
+              {post.title}
             </h1>
-            <h1>
-              Age:
-              {' '}
-              {user.age}
-            </h1>
+            <p>
+              {post.body}
+            </p>
           </div>
         )
-        : <h1>loading users...</h1>}
+        : <h1>loading posts...</h1>}
     </div>
   );
 };
 
-export default Profile;
+export default SinglePost;

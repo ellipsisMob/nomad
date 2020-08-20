@@ -141,6 +141,26 @@ app.post('/api/posts', async (req, res) => {
     });
 });
 
+// UPDATE ROUTE
+// ID of the post to be updated should be passed in post body.
+app.put('/api/posts', async (req, res) => {
+  const parsedBody = { ...req.body };
+  delete parsedBody.id;
+  db.collection('posts').doc(req.body.id).update(parsedBody)
+    .then(() => {
+      res
+        .json(parsedBody)
+        .status(204)
+        .end();
+    })
+    .catch(error => {
+      console.error('Error updating document: ', error);
+      res
+        .status(400)
+        .end();
+    });
+});
+
 // ID OF THE TO BE DELETED POST TO BE PASSED IN REQ BODY.
 // example request: http://localhost:8000/api/posts
 // Example delete body:

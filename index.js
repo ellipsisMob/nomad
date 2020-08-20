@@ -150,13 +150,15 @@ app.post('/api/posts', async (req, res) => {
 // {
 //   "id":"KKuWJo5MSynJ8Ryln6FT"
 // }
-app.delete('/api/posts', async (req, res) => {
-  db.collection('posts').doc(req.body.id).delete().then(() => {
-    console.log('Document successfully deleted!');
-    res
-      .status(204)
-      .end();
-  })
+app.delete('/api/posts/:id', async (req, res) => {
+  console.log(req.params.id);
+  db.collection('posts').doc(req.params.id).delete()
+    .then(() => {
+      console.log('Document successfully deleted!');
+      res
+        .status(204)
+        .end();
+    })
     .catch(error => {
       console.error('Error removing document: ', error);
       res
@@ -164,6 +166,20 @@ app.delete('/api/posts', async (req, res) => {
         .end();
     });
 });
+// app.delete('/api/posts', async (req, res) => {
+//   db.collection('posts').doc(req.body.id).delete().then(() => {
+//     console.log('Document successfully deleted!');
+//     res
+//       .status(204)
+//       .end();
+//   })
+//     .catch(error => {
+//       console.error('Error removing document: ', error);
+//       res
+//         .status(400)
+//         .end();
+//     });
+// });
 
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {

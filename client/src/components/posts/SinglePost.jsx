@@ -28,13 +28,13 @@ const SinglePost = props => {
   }, [id]);
 
   const handleDelete = id => {
-    console.log('handleDelete', id)
-    fetch('/api/posts', {
-      method: 'DELETE',
-      body: {id}
-    })
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    if(window.confirm('Do you really want to delete this post?')) {
+      fetch(`/api/posts/${id}`, {
+        method: 'DELETE',
+      })
+      .then(res => window.location.replace("/"))
+      .catch(err => console.log(err))
+    }
   }
 
   useEffect(() => {

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useParams } from 'react-router';
 
 const SinglePost = props => {
@@ -16,6 +18,10 @@ const SinglePost = props => {
     };
     fetchPost();
   }, [id]);
+
+  const handleDelete = () => {
+    console.log('handleDelete')
+  }
 
   useEffect(() => {
     console.log('SinglePost page: ', post);
@@ -36,6 +42,12 @@ const SinglePost = props => {
           </div>
         )
         : <h1>loading posts...</h1>}
+        <Button
+          onClick={handleDelete}
+          color="secondary" variant="outlined"
+          startIcon={<DeleteIcon />}>
+          Delete SHOWCASE
+        </Button>
     </div>
   );
 };

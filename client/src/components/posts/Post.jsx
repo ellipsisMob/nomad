@@ -18,6 +18,7 @@ const Post = props => {
       <p>
         {body}
         <p><Link key={id} to={`/posts/${id}`}>Full post...</Link></p>
+
       </p>
       <div className="bottomBar">
         <div className="author">

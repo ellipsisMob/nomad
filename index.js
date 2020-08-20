@@ -45,12 +45,12 @@ app.use(bodyParser.json());
 // ===================================================
 // TESTING ROUTE
 // ===================================================
-app.get('/api/addPost', (req, res) => {
-  res
-    .json('Hello world from new Post')
-    .status(200)
-    .end();
-});
+// app.get('/', (req, res) => {
+//   res
+//     .json('Hello world and nodemon')
+//     .status(200)
+//     .end();
+// });
 
 // ===================================================
 // DEVELOPER ROUTES
@@ -135,26 +135,6 @@ app.post('/api/posts', async (req, res) => {
     })
     .catch(error => {
       console.error('Error adding document: ', error);
-      res
-        .status(400)
-        .end();
-    });
-});
-
-// UPDATE ROUTE
-// ID of the post to be updated should be passed in post body.
-app.put('/api/posts', async (req, res) => {
-  const parsedBody = { ...req.body };
-  delete parsedBody.id;
-  db.collection('posts').doc(req.body.id).update(parsedBody)
-    .then(() => {
-      res
-        .json(parsedBody)
-        .status(204)
-        .end();
-    })
-    .catch(error => {
-      console.error('Error updating document: ', error);
       res
         .status(400)
         .end();

@@ -1,9 +1,9 @@
 const express = require('express');
-require('dotenv').config();
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const firebase = require('firebase');
 const path = require('path');
+const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -42,16 +42,19 @@ const getData = async col => {
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  console.log('id', process.env.APIKEY);
-  console.log('auth', process.env.AUTHDOMAIN);
-  console.log('project', process.env.PROJECTID);
-  res
-    .json('Hello world and nodemon')
-    .status(200)
-    .end();
-});
+// ===================================================
+// TESTING ROUTE
+// ===================================================
+// app.get('/', (req, res) => {
+//   res
+//     .json('Hello world and nodemon')
+//     .status(200)
+//     .end();
+// });
 
+// ===================================================
+// DEVELOPER ROUTES
+// ===================================================
 app.get('/api/devs', async (req, res) => {
   const data = await getData('users');
   console.log('coming from the users endoint', data);
@@ -62,28 +65,32 @@ app.get('/api/devs', async (req, res) => {
 });
 
 app.get('/api/devs/:id', async (req, res) => {
-  console.log('Request params id: ', req.params.id)
-  const docRef = db.collection("users").doc(req.params.id);
+  console.log('Request params id: ', req.params.id);
+  const docRef = db.collection('users').doc(req.params.id);
 
-  docRef.get().then(function(doc) {
-      if (doc.exists) {
-          console.log("Document data:", doc.data());
-          res
-          .json(doc.data())
-          .status(200)
-          .end();      
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-          res
-          .status(404)
-          .end();
-      }
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
+  docRef.get().then(doc => {
+    if (doc.exists) {
+      console.log('Document data:', doc.data());
+      res
+        .json(doc.data())
+        .status(200)
+        .end();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
+      res
+        .status(404)
+        .end();
+    }
+  }).catch(error => {
+    console.log('Error getting document:', error);
   });
 });
 
+// ===================================================
+// POST ROUTES
+// ===================================================
+// http://localhost:8000/api/posts
 app.get('/api/posts', async (req, res) => {
   const data = await getData('posts');
   console.log('coming from the posts endpoint', data);
@@ -91,6 +98,68 @@ app.get('/api/posts', async (req, res) => {
     .json(data)
     .status(200)
     .end();
+});
+
+// example request: http://localhost:8000/api/posts/0fk48DJ9jic4OWCvUi22
+app.get('/api/posts/:id', async (req, res) => {
+  const docRef = db.collection('posts').doc(req.params.id);
+  docRef.get().then(doc => {
+    if (doc.exists) {
+      console.log('Document data:', doc.data());
+      res
+        .json(doc.data())
+        .status(200)
+        .end();
+    } else {
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
+      res
+        .status(404)
+        .end();
+    }
+  }).catch(error => {
+    console.log('Error getting document:', error);
+  });
+});
+
+// example request: http://localhost:8000/api/posts/
+// In the body add required properties for post
+app.post('/api/posts', async (req, res) => {
+  db.collection('posts').add(req.body)
+    .then(docRef => {
+      console.log('Document written with ID: ', docRef.id);
+      res
+        .json(req.body)
+        .status(201)
+        .end();
+    })
+    .catch(error => {
+      console.error('Error adding document: ', error);
+      res
+        .status(400)
+        .end();
+    });
+});
+
+// ID OF THE TO BE DELETED POST TO BE PASSED IN REQ BODY.
+// example request: http://localhost:8000/api/posts
+// Example delete body:
+// {
+//   "id":"KKuWJo5MSynJ8Ryln6FT"
+// }
+app.delete('/api/posts', async (req, res) => {
+  db.collection('posts').doc(req.body.id).delete().then(() => {
+    console.log('Document successfully deleted!');
+    res
+      .status(204)
+      .end();
+  })
+    .catch(error => {
+      console.error('Error removing document: ', error);
+      res
+        .status(400)
+        .end();
+    });
 });
 
 // Anything that doesn't match the above, send back index.html

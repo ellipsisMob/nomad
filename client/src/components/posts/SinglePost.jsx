@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 
 const SinglePost = props => {
   const { id } = useParams();
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -13,7 +13,15 @@ const SinglePost = props => {
       setLoading(true);
       fetch(`/api/posts/${id}`)
         .then(res => res.json())
-        .then(data => setPost(data))
+        .then(data => {
+          setPost({
+            id: data.id,
+            title: data.data.title,
+            body: data.data.body,
+            author: data.data.author,
+            // date: data.data.date,
+          })
+        })
         .then(() => setLoading(false));
     };
     fetchPost();
@@ -38,6 +46,8 @@ const SinglePost = props => {
             </h1>
             <p>
               {post.body}
+              {post.date}
+              {post.author}
             </p>
           </div>
         )

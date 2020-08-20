@@ -107,7 +107,10 @@ app.get('/api/posts/:id', async (req, res) => {
     if (doc.exists) {
       console.log('Document data:', doc.data());
       res
-        .json(doc.data())
+        .json({
+          id: doc.id,
+          data:doc.data(),
+        })
         .status(200)
         .end();
     } else {

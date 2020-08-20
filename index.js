@@ -45,12 +45,12 @@ app.use(bodyParser.json());
 // ===================================================
 // TESTING ROUTE
 // ===================================================
-app.get('/api/addPost', (req, res) => {
-  res
-    .json('Hello world from new Post')
-    .status(200)
-    .end();
-});
+// app.get('/', (req, res) => {
+//   res
+//     .json('Hello world and nodemon')
+//     .status(200)
+//     .end();
+// });
 
 // ===================================================
 // DEVELOPER ROUTES
@@ -107,7 +107,10 @@ app.get('/api/posts/:id', async (req, res) => {
     if (doc.exists) {
       console.log('Document data:', doc.data());
       res
-        .json(doc.data())
+        .json({
+          id: doc.id,
+          data:doc.data(),
+        })
         .status(200)
         .end();
     } else {
@@ -141,39 +144,21 @@ app.post('/api/posts', async (req, res) => {
     });
 });
 
-// UPDATE ROUTE
-// ID of the post to be updated should be passed in post body.
-app.put('/api/posts', async (req, res) => {
-  const parsedBody = { ...req.body };
-  delete parsedBody.id;
-  db.collection('posts').doc(req.body.id).update(parsedBody)
-    .then(() => {
-      res
-        .json(parsedBody)
-        .status(204)
-        .end();
-    })
-    .catch(error => {
-      console.error('Error updating document: ', error);
-      res
-        .status(400)
-        .end();
-    });
-});
-
 // ID OF THE TO BE DELETED POST TO BE PASSED IN REQ BODY.
 // example request: http://localhost:8000/api/posts
 // Example delete body:
 // {
 //   "id":"KKuWJo5MSynJ8Ryln6FT"
 // }
-app.delete('/api/posts', async (req, res) => {
-  db.collection('posts').doc(req.body.id).delete().then(() => {
-    console.log('Document successfully deleted!');
-    res
-      .status(204)
-      .end();
-  })
+app.delete('/api/posts/:id', async (req, res) => {
+  console.log(req.params.id);
+  db.collection('posts').doc(req.params.id).delete()
+    .then(() => {
+      console.log('Document successfully deleted!');
+      res
+        .status(204)
+        .end();
+    })
     .catch(error => {
       console.error('Error removing document: ', error);
       res

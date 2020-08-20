@@ -1,7 +1,7 @@
 import React from 'react';
 import Draft from 'draft-js';
 import StyleButton from './StyleButton';
-import 'draft-js/dist/Draft.css';
+import '../../../node_modules/draft-js/dist/Draft.css';
 import './Editor.css';
 
 const { Editor, EditorState, RichUtils, getDefaultKeyBinding } = Draft;

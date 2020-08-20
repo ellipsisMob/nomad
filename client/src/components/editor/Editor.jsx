@@ -4,7 +4,23 @@ import StyleButton from './StyleButton';
 import '../../../node_modules/draft-js/dist/Draft.css';
 import './Editor.css';
 
-const { Editor, EditorState, RichUtils, getDefaultKeyBinding } = Draft;
+const {
+  Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw,
+} = Draft;
+
+const addPost = (post) => {
+  console.log('from post method ', post);
+  fetch('api/posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'Application/JSON'
+    },
+    body: JSON.stringify({post})
+  })
+  .then(res => res.json())
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
+}
 
 class MyEditor extends React.Component {
   constructor(props) {
@@ -12,12 +28,25 @@ class MyEditor extends React.Component {
     this.state = { editorState: EditorState.createEmpty() };
 
     this.focus = () => this.refs.editor.focus();
-    this.onChange = (editorState) => this.setState({editorState});
-
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
     this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
     this.toggleBlockType = this._toggleBlockType.bind(this);
     this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
+  }
+
+  onChange = editorState => {
+    const contentState = editorState.getCurrentContent();
+    console.log('content state', convertToRaw(contentState));
+    this.setState({ editorState });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const contentState = this.state.editorState;
+    const currentState = contentState.getCurrentContent();
+    console.log('to submit ', convertToRaw(currentState));
+    const post = convertToRaw(currentState);
+    addPost(post);
   }
 
   _handleKeyCommand(command, editorState) {
@@ -76,28 +105,33 @@ class MyEditor extends React.Component {
     }
 
     return (
-      <div className="RichEditor-root">
-        <BlockStyleControls
-          editorState={editorState}
-          onToggle={this.toggleBlockType}
-        />
-        <InlineStyleControls
-          editorState={editorState}
-          onToggle={this.toggleInlineStyle}
-        />
-        <div className={className} onClick={this.focus}>
-          <Editor
-            blockStyleFn={getBlockStyle}
-            customStyleMap={styleMap}
-            editorState={editorState}
-            handleKeyCommand={this.handleKeyCommand}
-            keyBindingFn={this.mapKeyToEditorCommand}
-            onChange={this.onChange}
-            placeholder="Add your story..."
-            ref="editor"
-            spellCheck={true}
-          />
-        </div>
+      <div className="text-editor">
+        <form>
+          <div className="RichEditor-root">
+            <BlockStyleControls
+              editorState={editorState}
+              onToggle={this.toggleBlockType}
+            />
+            <InlineStyleControls
+              editorState={editorState}
+              onToggle={this.toggleInlineStyle}
+            />
+            <div className={className} onClick={this.focus}>
+              <Editor
+                blockStyleFn={getBlockStyle}
+                customStyleMap={styleMap}
+                editorState={editorState}
+                handleKeyCommand={this.handleKeyCommand}
+                keyBindingFn={this.mapKeyToEditorCommand}
+                onChange={this.onChange}
+                placeholder="Add your story..."
+                ref="editor"
+                spellCheck={true}
+              />
+            </div>
+          </div>
+          <button type="submit" onClick={this.handleSubmit}>Submit post</button>
+        </form>
       </div>
     );
   }

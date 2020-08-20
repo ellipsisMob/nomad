@@ -45,12 +45,12 @@ app.use(bodyParser.json());
 // ===================================================
 // TESTING ROUTE
 // ===================================================
-// app.get('/', (req, res) => {
-//   res
-//     .json('Hello world and nodemon')
-//     .status(200)
-//     .end();
-// });
+app.get('/api/addPost', (req, res) => {
+  res
+    .json('Hello world from new Post')
+    .status(200)
+    .end();
+});
 
 // ===================================================
 // DEVELOPER ROUTES

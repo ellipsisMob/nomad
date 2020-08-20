@@ -12,6 +12,7 @@ import SinglePost from './components/posts/SinglePost';
 import Profile from './components/developers/Profile';
 import DevsList from './components/developers/DevsList';
 import Footer from './components/footer/Footer';
+import Editor from './components/editor/Editor';
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path="/devs">
             <DevsList />
+          </Route>
+          <Route path="/addPost">
+            <Editor />
           </Route>
           <Route render={() => 'Page not found'} />
         </Switch>

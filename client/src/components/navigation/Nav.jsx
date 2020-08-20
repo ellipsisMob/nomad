@@ -11,6 +11,9 @@ const Nav = () => (
       <li>
         <Link to="/devs">Our Developers</Link>
       </li>
+      <li>
+        <Link to="/addPost">New Post</Link>
+      </li>
     </ul>
   </div>
 );

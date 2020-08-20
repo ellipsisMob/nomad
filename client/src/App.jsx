@@ -13,7 +13,7 @@ import Profile from './components/developers/Profile';
 import DevsList from './components/developers/DevsList';
 import Footer from './components/footer/Footer';
 import Editor from './components/editor/Editor';
-import EventCalendar from './components/calendar/EventCalender';
+import CalenderPage from './pages/CalenderPage';
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
             <Editor />
           </Route>
           <Route path="/meetups">
-            <EventCalendar />
+            <CalenderPage />
           </Route>
           <Route render={() => 'Page not found'} />
         </Switch>

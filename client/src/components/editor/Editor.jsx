@@ -107,6 +107,13 @@ class MyEditor extends React.Component {
     return (
       <div className="text-editor">
         <form>
+          <label htmlFor="author">
+            Written by:
+            <input 
+              name="author"
+              type="text"
+              placeholder="Enter your name" />
+          </label>
           <div className="RichEditor-root">
             <BlockStyleControls
               editorState={editorState}

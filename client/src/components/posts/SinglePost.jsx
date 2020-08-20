@@ -27,8 +27,14 @@ const SinglePost = props => {
     fetchPost();
   }, [id]);
 
-  const handleDelete = () => {
-    console.log('handleDelete')
+  const handleDelete = id => {
+    console.log('handleDelete', id)
+    fetch('/api/posts', {
+      method: 'DELETE',
+      body: {id}
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -53,7 +59,7 @@ const SinglePost = props => {
         )
         : <h1>loading posts...</h1>}
         <Button
-          onClick={handleDelete}
+          onClick={() => handleDelete(post.id)}
           color="secondary" variant="outlined"
           startIcon={<DeleteIcon />}>
           Delete SHOWCASE

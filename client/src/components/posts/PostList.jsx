@@ -32,8 +32,8 @@ const PostList = () => {
             id={post.id}
             title={post.data.title}
             body={post.data.body}
-            author={post.data.author}
-            date={post.data.date} />
+            author={post.data.author} />
+            // date={post.data.date} />
         ))
         : <h1>loading posts...</h1>}
     </div>

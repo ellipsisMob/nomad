@@ -28,7 +28,7 @@ const Post = props => {
           {`by ${author}`}
         </div>
         <div className="timestamp">
-          {`at ${date.seconds}`}
+          {/* {`at ${date.seconds}`} */}
         </div>
       </div>
     </div>

@@ -109,7 +109,7 @@ app.get('/api/posts/:id', async (req, res) => {
       res
         .json({
           id: doc.id,
-          data:doc.data(),
+          data: doc.data(),
         })
         .status(200)
         .end();
@@ -179,9 +179,6 @@ app.get('/api/events', async (req, res) => {
     .status(200)
     .end();
 });
-
-
-app.get('')
 
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {

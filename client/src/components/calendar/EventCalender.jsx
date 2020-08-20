@@ -34,7 +34,6 @@ const EventCalendar = props => {
 
     setEvents(parsedEvents);
     setLoading(false);
-
   }, [props]);
 
   return (

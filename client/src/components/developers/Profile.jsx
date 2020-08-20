@@ -27,14 +27,22 @@ const Profile = props => {
       {!loading
         ? (
           <div>
+            <img src='http://placebeard.it/g/640x480' style={{width:'200px'}}/>
             <h1>
-              name:
               {user.name}
             </h1>
-            <h1>
-              Age:
+            <h3>
               {user.age}
-            </h1>
+            </h3>
+            <h3>
+              {user.email}
+            </h3>
+            <a href={user.github}>
+              {user.github}
+            </a>
+            <p>
+              {user.about}
+            </p>
           </div>
         )
         : <h1>loading users...</h1>}

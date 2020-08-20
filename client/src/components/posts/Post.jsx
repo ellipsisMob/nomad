@@ -17,7 +17,10 @@ const Post = props => {
       <h2>{title}</h2>
       <p>
         {body}
-        <p><Link key={id} to={`/posts/${id}`}>Full post...</Link></p>
+        {/* FIX BREAKS WITH STYLING */}
+        <br />
+        <br />
+        <Link key={id} to={`/posts/${id}`}>Full post...</Link>
 
       </p>
       <div className="bottomBar">

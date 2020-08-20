@@ -29,12 +29,10 @@ const Profile = props => {
           <div>
             <h1>
               name:
-              {' '}
               {user.name}
             </h1>
             <h1>
               Age:
-              {' '}
               {user.age}
             </h1>
           </div>

@@ -167,6 +167,22 @@ app.delete('/api/posts/:id', async (req, res) => {
     });
 });
 
+// ===================================================
+// EVENT ROUTES
+// ===================================================
+
+app.get('/api/events', async (req, res) => {
+  const data = await getData('events');
+  console.log('coming from the users endoint', data);
+  res
+    .json(data)
+    .status(200)
+    .end();
+});
+
+
+app.get('')
+
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));

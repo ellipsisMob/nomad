@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Editor, EditorState, convertFromRaw } from 'draft-js';
-import Post from './Post';
-import CreatePost from './CreatePost';
 import './PostList.css';
 
 const PostList = () => {

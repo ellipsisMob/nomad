@@ -7,13 +7,13 @@ import {
 } from 'react-router-dom';
 import Topbar from './components/navigation/Topbar';
 import Nav from './components/navigation/Nav';
-import PostList from './components/posts/PostList';
 import SinglePost from './components/posts/SinglePost';
 import Profile from './components/developers/Profile';
-import DevsList from './components/developers/DevsList';
 import Footer from './components/footer/Footer';
-import Editor from './components/editor/Editor';
 import CalenderPage from './pages/CalenderPage';
+import HomePage from './pages/HomePage';
+import DevelopersPage from './pages/DevelopersPage';
+import NewPostPage from './pages/NewPostPage';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         </div>
         <Switch>
           <Route exact path="/">
-            <PostList />
+            <HomePage />
           </Route>
           <Route exact path="/posts/:id">
             <SinglePost />
@@ -34,10 +34,10 @@ function App() {
             <Profile />
           </Route>
           <Route path="/devs">
-            <DevsList />
+            <DevelopersPage />
           </Route>
           <Route path="/addPost">
-            <Editor />
+            <NewPostPage />
           </Route>
           <Route path="/meetups">
             <CalenderPage />

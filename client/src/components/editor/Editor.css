@@ -1,3 +1,8 @@
+.text-editor {
+  width: 90%;
+  margin: 10px auto;
+}
+
 .RichEditor-root {
   background: #fff;
   border: 1px solid #ddd;

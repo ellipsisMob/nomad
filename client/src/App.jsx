@@ -13,6 +13,7 @@ import Profile from './components/developers/Profile';
 import DevsList from './components/developers/DevsList';
 import Footer from './components/footer/Footer';
 import Editor from './components/editor/Editor';
+import CalenderPage from './pages/CalenderPage';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path="/addPost">
             <Editor />
+          </Route>
+          <Route path="/meetups">
+            <CalenderPage />
           </Route>
           <Route render={() => 'Page not found'} />
         </Switch>

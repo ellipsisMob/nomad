@@ -109,7 +109,7 @@ app.get('/api/posts/:id', async (req, res) => {
       res
         .json({
           id: doc.id,
-          data:doc.data(),
+          data: doc.data(),
         })
         .status(200)
         .end();
@@ -165,6 +165,19 @@ app.delete('/api/posts/:id', async (req, res) => {
         .status(400)
         .end();
     });
+});
+
+// ===================================================
+// EVENT ROUTES
+// ===================================================
+
+app.get('/api/events', async (req, res) => {
+  const data = await getData('events');
+  console.log('coming from the users endoint', data);
+  res
+    .json(data)
+    .status(200)
+    .end();
 });
 
 // Anything that doesn't match the above, send back index.html

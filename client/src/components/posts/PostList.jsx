@@ -31,7 +31,7 @@ const PostList = () => {
           const postData = raw.data.post;
           const contentState = convertFromRaw(postData);
           const editorState = EditorState.createWithContent(contentState);
-          return <Editor editorState={editorState} readOnly={true} />;
+          return <Editor key={raw.id} editorState={editorState} readOnly={true} />;
         })
         : <h1>Loading ...</h1>}
       {/* <CreatePost />

@@ -1,3 +1,9 @@
-.container {
+.post-container {
     margin: 2%;
+  }
+
+  .post-container .DraftEditor-root {
+    border: 1px solid gray;
+    margin: 5px;
+    padding: 10px;
   }

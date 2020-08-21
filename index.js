@@ -107,7 +107,10 @@ app.get('/api/posts/:id', async (req, res) => {
     if (doc.exists) {
       console.log('Document data:', doc.data());
       res
-        .json(doc.data())
+        .json({
+          id: doc.id,
+          data: doc.data(),
+        })
         .status(200)
         .end();
     } else {
@@ -147,19 +150,34 @@ app.post('/api/posts', async (req, res) => {
 // {
 //   "id":"KKuWJo5MSynJ8Ryln6FT"
 // }
-app.delete('/api/posts', async (req, res) => {
-  db.collection('posts').doc(req.body.id).delete().then(() => {
-    console.log('Document successfully deleted!');
-    res
-      .status(204)
-      .end();
-  })
+app.delete('/api/posts/:id', async (req, res) => {
+  console.log(req.params.id);
+  db.collection('posts').doc(req.params.id).delete()
+    .then(() => {
+      console.log('Document successfully deleted!');
+      res
+        .status(204)
+        .end();
+    })
     .catch(error => {
       console.error('Error removing document: ', error);
       res
         .status(400)
         .end();
     });
+});
+
+// ===================================================
+// EVENT ROUTES
+// ===================================================
+
+app.get('/api/events', async (req, res) => {
+  const data = await getData('events');
+  console.log('coming from the users endoint', data);
+  res
+    .json(data)
+    .status(200)
+    .end();
 });
 
 // Anything that doesn't match the above, send back index.html

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Editor, EditorState, convertFromRaw } from 'draft-js';
-import Post from './Post';
-import CreatePost from './CreatePost';
 import './PostList.css';
+import { Link } from 'react-router-dom';
 
 const PostList = () => {
   const [rawPosts, setRawPosts] = useState([]);
@@ -33,7 +32,14 @@ const PostList = () => {
           const postData = raw.data.post;
           const contentState = convertFromRaw(postData);
           const editorState = EditorState.createWithContent(contentState);
-          return <Editor editorState={editorState} readOnly={true} />;
+          return (
+            <div key={raw.id} className="showPost">
+              <Editor editorState={editorState} readOnly={true} />
+              <div className="fullPost">
+                <Link to={`/posts/${raw.id}`}>Full post ...</Link>
+              </div>
+            </div>
+          );
         })
         : <h1>Loading ...</h1>}
       {/* <CreatePost />

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Editor, EditorState, convertFromRaw } from 'draft-js';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useParams } from 'react-router';
 
 const SinglePost = props => {
   const { id } = useParams();
-  const [post, setPost] = useState({});
+  const [rawPost, setRawPost] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -13,57 +14,36 @@ const SinglePost = props => {
       setLoading(true);
       fetch(`/api/posts/${id}`)
         .then(res => res.json())
-        .then(data => {
-          setPost({
-            id: data.id,
-            title: data.data.title,
-            body: data.data.body,
-            author: data.data.author,
-            // date: data.data.date,
-          })
-        })
+        .then(data => setRawPost([data]))
         .then(() => setLoading(false));
     };
     fetchPost();
   }, [id]);
 
   const handleDelete = id => {
-    if(window.confirm('Do you really want to delete this post?')) {
+    if (window.confirm('Do you really want to delete this post?')) {
       fetch(`/api/posts/${id}`, {
         method: 'DELETE',
       })
-      .then(res => window.location.replace("/"))
-      .catch(err => console.log(err))
+        .then(res => window.location.replace('/'))
+        .catch(err => console.log(err));
     }
-  }
+  };
 
   useEffect(() => {
-    console.log('SinglePost page: ', post);
-  }, [post]);
+    console.log('SinglePost page: ', rawPost);
+  }, [rawPost]);
 
   return (
     <div>
-
       {!loading
-        ? (
-          <div>
-            <h1>
-              {post.title}
-            </h1>
-            <p>
-              {post.body}
-              {post.date}
-              {post.author}
-            </p>
-          </div>
-        )
-        : <h1>loading posts...</h1>}
-        <Button
-          onClick={() => handleDelete(post.id)}
-          color="secondary" variant="outlined"
-          startIcon={<DeleteIcon />}>
-          Delete SHOWCASE
-        </Button>
+        ? rawPost.map(raw => {
+          const postData = raw.data.post;
+          const contentState = convertFromRaw(postData);
+          const editorState = EditorState.createWithContent(contentState);
+          return <Editor key={raw.id} editorState={editorState} readOnly={true} />;
+        })
+        : <h1>Loading ...</h1>}
     </div>
   );
 };

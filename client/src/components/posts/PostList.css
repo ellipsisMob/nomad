@@ -3,7 +3,10 @@
   }
 
   .post-container .DraftEditor-root {
-    border: 1px solid gray;
+  }
+  
+  .showPost {
     margin: 5px;
     padding: 10px;
+    border: 1px solid gray;
   }

@@ -28,6 +28,7 @@ const getCollection = async col => {
   return documents;
 };
 
+// DEV PAGES NEEDS TO BE MODIFIED. OBJECT NOW HAS ID AND DATA IN RESPONSE.
 const getDocument = async (col, id) => {
   const docRef = db.collection(col).doc(id);
   const doc = await docRef.get();
@@ -35,7 +36,10 @@ const getDocument = async (col, id) => {
     console.log('No matching documents.');
     return;
   }
-  return doc.data();
+  return {
+    id: doc.id,
+    data: doc.data(),
+  }
 }
 
 module.exports = {

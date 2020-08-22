@@ -40,9 +40,31 @@ const getDocument = async (col, id) => {
     id: doc.id,
     data: doc.data(),
   }
-}
+};
+
+const createDocument = async (col, req) => {
+  db.collection(col).add(req.body)
+    .then(docRef => {
+      console.log('Document written with ID: ', docRef.id);
+      return true;
+    })
+    .catch(error => {
+      console.error('Error adding document: ', error);
+      return false;
+    });
+};
+
+const deleteDocument = async (col, id) => {
+  try {
+    await db.collection(col).doc(id).delete();
+  } catch(err) {
+    throw new Error('Delete failed', err);
+  }
+};
 
 module.exports = {
-  getCollection: getCollection,
-  getDocument: getDocument,
+  getCollection,
+  getDocument,
+  createDocument,
+  deleteDocument,
 }

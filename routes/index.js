@@ -3,7 +3,7 @@ const developers = require('./developers');
 const posts = require('./posts');
 const events = require('./events');
 
-routes.use('/developers', developers);
+routes.use('/devs', developers);
 routes.use('/posts', posts);
 routes.use('/events', events);
 

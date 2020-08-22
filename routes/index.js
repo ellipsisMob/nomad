@@ -1,12 +1,18 @@
 const routes = require('express').Router();
-const models = require('./models');
 const developers = require('./developers');
+const posts = require('./posts');
+const events = require('./events');
 
-routes.use('/models', models);
 routes.use('/developers', developers);
+routes.use('/posts', posts);
+routes.use('/events', events);
 
 routes.get('/', (req, res) => {
-  res.status(200).json({ message: 'Connected!' });
+  res.status(200).json({
+    developers: '/api/developers',
+    posts: '/api/posts',
+    events: '/api/events',
+  });
 });
 
 module.exports = routes;

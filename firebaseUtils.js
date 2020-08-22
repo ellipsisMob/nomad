@@ -10,7 +10,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const getData = async col => {
+const getCollection = async col => {
   const usersRef = db.collection(col);
   const snapshot = await usersRef.get();
   if (snapshot.empty) {
@@ -28,6 +28,17 @@ const getData = async col => {
   return documents;
 };
 
+const getDocument = async (col, id) => {
+  const docRef = db.collection(col).doc(id);
+  const doc = await docRef.get();
+  if (doc.empty) {
+    console.log('No matching documents.');
+    return;
+  }
+  return doc.data();
+}
+
 module.exports = {
-  getData: getData
+  getCollection: getCollection,
+  getDocument: getDocument,
 }

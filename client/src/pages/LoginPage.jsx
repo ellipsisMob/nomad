@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import DeveloperContext from '../contexts/DeveloperContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-  
+  const { setLoggedInDev } = useContext(DeveloperContext);
   const [ email, setEmail ] = useState('user@hotmail.com');
   const [ password, setPassword ] = useState('mamemo69');
   
@@ -52,8 +53,13 @@ export default function SignIn() {
       })
     })
     .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    .then(res => {
+      console.log(res);
+      setLoggedInDev({
+        token: res.token,
+      })
+    })
+    .catch(err => console.log(err));
 
     setEmail('');
     setPassword('');

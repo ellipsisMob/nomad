@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
+import DeveloperContext from '../../contexts/DeveloperContext';
 
 const Profile = props => {
+  const { loggedInDev } = useContext(DeveloperContext);
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log('Logged in dev: ', loggedInDev);
     const fetchUser = () => {
       setLoading(true);
       fetch(`/api/devs/${id}`)

@@ -1,4 +1,5 @@
 const firebase = require('firebase');
+const admin = require('firebase-admin');
 require('dotenv').config();
 
 const firebaseConfig = {
@@ -8,5 +9,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+admin.initializeApp(firebaseConfig);
 
 module.exports.db = firebase.firestore();

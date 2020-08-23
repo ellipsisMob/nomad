@@ -13,6 +13,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(cors());
 app.use(bodyParser.json());
+
 app.use('/api', routes);
 
 // Anything that doesn't match the above, send back index.html

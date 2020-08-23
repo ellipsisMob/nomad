@@ -1,4 +1,6 @@
 const { db } = require('./firebaseInit');
+const firebase = require('firebase');
+const admin = require('firebase-admin');
 
 const getCollection = async col => {
   const usersRef = db.collection(col);
@@ -52,9 +54,40 @@ const deleteDocument = async (col, id) => {
   }
 };
 
+const FBAuth = (req, res, next) => {
+  let idToken;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+    idToken = req.headers.authorization.split('Bearer ')[1];
+  } else {
+    console.log('No token or wrong token');
+    return res.status(403).json({ error: 'Unauthorized request' });
+  }
+  
+  admin.auth().verifyIdToken(idToken)
+    .then(decodedToken => {
+      console.log('decodedToken: ', decodedToken)
+      req.user = decodedToken;
+      return db.collection('testusers')
+        .where('userId', '==', req.user.uid)
+        .limit(1)
+        .get()
+    })
+    .then(data => {
+      console.log('req.user before adding handle', req.user);
+      req.user.handle = data.docs[0].data().handle;
+      console.log('req.user after adding handle', req.user);
+      return next();
+    })
+    .catch(err => {
+      console.log('FBAuth error while verifying token: ', err);
+      return res.status(403).json(err);
+    })
+}
+
 module.exports = {
   getCollection,
   getDocument,
   createDocument,
   deleteDocument,
+  FBAuth,
 }

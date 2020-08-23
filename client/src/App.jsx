@@ -14,6 +14,8 @@ import CalenderPage from './pages/CalenderPage';
 import HomePage from './pages/HomePage';
 import DevelopersPage from './pages/DevelopersPage';
 import NewPostPage from './pages/NewPostPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 
 function App() {
   return (
@@ -41,6 +43,12 @@ function App() {
           </Route>
           <Route path="/meetups">
             <CalenderPage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/SignUp">
+            <SignUpPage />
           </Route>
           <Route render={() => 'Page not found'} />
         </Switch>

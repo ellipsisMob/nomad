@@ -56,6 +56,7 @@ export default function SignIn() {
     .then(res => {
       console.log(res);
       setLoggedInDev({
+        handle: res.email,
         token: res.token,
       })
     })

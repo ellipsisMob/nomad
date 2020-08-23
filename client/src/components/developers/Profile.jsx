@@ -12,7 +12,13 @@ const Profile = props => {
     console.log('Logged in dev: ', loggedInDev);
     const fetchUser = () => {
       setLoading(true);
-      fetch(`/api/devs/${id}`)
+      fetch(`/api/devs/${id}`
+      // Example for authorization
+      // , {
+      //   headers: {
+      //     Authorization: `Bearer ${loggedInDev.token}`
+      //   }}
+      )
         .then(res => res.json())
         .then(data => setUser(data))
         .then(() => setLoading(false));

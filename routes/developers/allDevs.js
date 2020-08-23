@@ -3,7 +3,8 @@ const { getCollection } = require('../../firebaseUtils');
 module.exports = async (req, res) => {
   try {
     console.log('Trying to get all developers');
-    const data = await getCollection('users');
+    const data = await getCollection('testusers');
+    // const data = await getCollection('users');
     if(data) {
       console.log('Fetched developers succesfully');
       res

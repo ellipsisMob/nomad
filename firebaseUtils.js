@@ -73,9 +73,7 @@ const FBAuth = (req, res, next) => {
         .get()
     })
     .then(data => {
-      console.log('req.user before adding handle', req.user);
       req.user.handle = data.docs[0].data().handle;
-      console.log('req.user after adding handle', req.user);
       return next();
     })
     .catch(err => {

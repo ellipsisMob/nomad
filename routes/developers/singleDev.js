@@ -1,6 +1,7 @@
 const { getDocument } = require('../../firebaseUtils');
 
 module.exports = async (req, res) => {
+  // if (req.user.handle === req.params.id) {
   console.log(`Trying to get developer ${req.params.id}`);
     const data = await getDocument('users', req.params.id);
     if(data) {
@@ -17,4 +18,7 @@ module.exports = async (req, res) => {
         .status(404)
         .end();
     }
+  // } else {
+  //   return res.status(404).json({ message: 'Unauthorized to access this page' })
+  // }
 };

@@ -1,5 +1,4 @@
 const { db } = require('./firebaseInit');
-const firebase = require('firebase');
 
 const getCollection = async col => {
   const usersRef = db.collection(col);
@@ -53,62 +52,9 @@ const deleteDocument = async (col, id) => {
   }
 };
 
-const createDev = (res, newDev) => {
-  let token, userId;  
-  db.collection('testusers').doc(newDev.handle).get()
-    .then(doc => {
-      if(doc.exists) {
-        return res.status(400).json({ handle: 'Handle already taken.'})
-      } else {
-        return firebase
-          .auth()
-          .createUserWithEmailAndPassword(newDev.email, newDev.password);
-      }
-    })
-    .then(res => {
-      userId = res.user.uid;
-      return res.user.getIdToken();
-    })
-    .then(idToken => {
-      token = idToken;
-      let credentials = {
-        handle: newDev.handle,
-        email: newDev.email,
-        createdAt: new Date().toISOString(),
-        userId,
-      }
-      return db.collection('testusers').doc(newDev.handle).set(credentials);
-    })
-    .then(() => res.status(201).json({ token }))
-    .catch(err => {
-      console.log(err);
-      if (err.code === 'auth/email-already-in-use') {
-        res.status(400).json({ email: 'Email is already taken.'})
-      } else {
-        return res.status(500).json({ error: err.code });
-      }
-    });
-}
-
-// const loginDev = (res, credentials) => {
-//   console.log('Logging developer in')
-//   firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-//     .then(data => data.user.getIdToken())
-//     .then(token => res.json({ token }))
-//     .catch(err => {
-//       console.log(err);
-//       if (err.code === 'auth/wrong-password' || err.code === "auth/user-not-found") {
-//         return res.status(403).json({ general: 'Wrong username or password' })
-//       }
-//       return res.status(500).json({ error: err.code })
-//     })
-// }
-
 module.exports = {
   getCollection,
   getDocument,
   createDocument,
   deleteDocument,
-  createDev,
-  // loginDev,
 }

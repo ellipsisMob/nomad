@@ -1,4 +1,5 @@
-const { createDev } = require('../../firebaseUtils');
+const firebase = require('firebase');
+const { db } = require('../../firebaseInit');
 
 module.exports = (req, res) => {
 
@@ -9,6 +10,39 @@ module.exports = (req, res) => {
     handle: req.body.handle,
   }
 
-  createDev(res, newDev);
+  let token, userId;
 
+  db.collection('testusers').doc(newDev.handle).get()
+    .then(doc => {
+      if(doc.exists) {
+        return res.status(400).json({ handle: 'Handle already taken.'})
+      } else {
+        return firebase
+          .auth()
+          .createUserWithEmailAndPassword(newDev.email, newDev.password);
+      }
+    })
+    .then(res => {
+      userId = res.user.uid;
+      return res.user.getIdToken();
+    })
+    .then(idToken => {
+      token = idToken;
+      let credentials = {
+        handle: newDev.handle,
+        email: newDev.email,
+        createdAt: new Date().toISOString(),
+        userId,
+      }
+      return db.collection('testusers').doc(newDev.handle).set(credentials);
+    })
+    .then(() => res.status(201).json({ token }))
+    .catch(err => {
+      console.log(err);
+      if (err.code === 'auth/email-already-in-use') {
+        res.status(400).json({ email: 'Email is already taken.'})
+      } else {
+        return res.status(500).json({ error: err.code });
+      }
+    });
 };

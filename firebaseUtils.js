@@ -1,14 +1,5 @@
+const { db } = require('./firebaseInit');
 const firebase = require('firebase');
-require('dotenv').config();
-
-const firebaseConfig = {
-  apiKey: process.env.APIKEY,
-  authDomain: process.env.AUTHDOMAIN,
-  projectId: process.env.PROJECTID,
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
 
 const getCollection = async col => {
   const usersRef = db.collection(col);
@@ -63,9 +54,7 @@ const deleteDocument = async (col, id) => {
 };
 
 const createDev = (res, newDev) => {
-
   let token, userId;  
-
   db.collection('testusers').doc(newDev.handle).get()
     .then(doc => {
       if(doc.exists) {
@@ -101,10 +90,25 @@ const createDev = (res, newDev) => {
     });
 }
 
+// const loginDev = (res, credentials) => {
+//   console.log('Logging developer in')
+//   firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+//     .then(data => data.user.getIdToken())
+//     .then(token => res.json({ token }))
+//     .catch(err => {
+//       console.log(err);
+//       if (err.code === 'auth/wrong-password' || err.code === "auth/user-not-found") {
+//         return res.status(403).json({ general: 'Wrong username or password' })
+//       }
+//       return res.status(500).json({ error: err.code })
+//     })
+// }
+
 module.exports = {
   getCollection,
   getDocument,
   createDocument,
   deleteDocument,
   createDev,
+  // loginDev,
 }

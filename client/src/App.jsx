@@ -20,7 +20,7 @@ import './App.css';
 
 function App() {
 
-  const [loggedInDev, setLoggedInDev] = useState({});
+  const [loggedInDev, setLoggedInDev] = useState({loggedIn: false});
 
   return (
     <div className="App">

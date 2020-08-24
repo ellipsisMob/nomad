@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,6 +39,7 @@ export default function SignUp() {
   // const [ lname, setLname ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
+  let history = useHistory();
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -57,7 +59,10 @@ export default function SignUp() {
       })
     })
     .then(res => res.json())
-    .then(res => console.log(res))
+    .then(res => {
+      console.log('coming from the signup response', res);
+      history.push('/')
+    })
     .catch(err => console.log(err))
   }
 

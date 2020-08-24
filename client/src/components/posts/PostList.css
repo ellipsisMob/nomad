@@ -1,12 +1,17 @@
 .post-container {
     margin: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .post-container .DraftEditor-root {
-  }
-  
   .showPost {
     margin: 5px;
     padding: 10px;
     border: 1px solid gray;
+    max-width: 900px;
   }
+
+.headerImg {
+  width: 100%
+}

@@ -1,11 +1,15 @@
 .post-container {
     margin: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .showPost {
     margin: 5px;
     padding: 10px;
     border: 1px solid gray;
+    max-width: 900px;
   }
 
 .headerImg {

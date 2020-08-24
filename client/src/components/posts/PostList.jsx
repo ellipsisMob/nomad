@@ -3,7 +3,6 @@ import { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js';
 import './PostList.css';
 import { Link } from 'react-router-dom';
 
-
 const PostList = () => {
   const [rawPosts, setRawPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -69,15 +68,17 @@ const PostList = () => {
           const editorState = EditorState.createWithContent(contentState);
           const newEditorState = truncate(editorState);
           return (
-            <div key={raw.id} className="showPost">
-              <div className="headerImg">
-                <img src="https://picsum.photos/1200/300?grayscale&random=1" alt="headerImg" className="headerImg" />
+            <Link to={`/posts/${raw.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={raw.id}>
+              <div className="showPost">
+                <div className="headerImg">
+                  <img src="https://picsum.photos/1200/300?grayscale&random=1" alt="headerImg" className="headerImg" />
+                </div>
+                <Editor editorState={newEditorState} readOnly={true} />
+                {/* <div className="fullPost">
+                  <Link to={`/posts/${raw.id}`}>Full post ...</Link>
+                </div> */}
               </div>
-              <Editor editorState={newEditorState} readOnly={true} />
-              <div className="fullPost">
-                <Link to={`/posts/${raw.id}`}>Full post ...</Link>
-              </div>
-            </div>
+            </Link>
           );
         })
         : <h1>Loading ...</h1>}

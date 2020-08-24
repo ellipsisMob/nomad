@@ -6,6 +6,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DeveloperContext from '../../contexts/DeveloperContext';
 import Button from '@material-ui/core/Button';
+import md5 from 'md5';
 
 const Topbar = () => {
   const { loggedInDev, setLoggedInDev } = useContext(DeveloperContext);
@@ -29,7 +30,7 @@ const Topbar = () => {
         <div className="top-profile">
         {loggedInDev.loggedIn
         ? <div>
-            <span><strong>{loggedInDev.handle} | </strong></span>
+            <span><strong><Link to={`/devs/${md5(loggedInDev.handle)}`}>{loggedInDev.handle}</Link> | </strong></span>
             {/* <AccountCircleIcon /> */}
             <Button onClick={logoutHandler}>Logout</Button>
           </div>

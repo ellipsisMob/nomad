@@ -127,8 +127,7 @@ export default function SignIn() {
           />
           {wrongCreds 
           ? <h1>Wrong username or password</h1>
-          : null
-          }
+          : null}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

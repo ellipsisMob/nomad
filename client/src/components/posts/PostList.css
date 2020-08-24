@@ -12,6 +12,20 @@
     max-width: 900px;
   }
 
+  .postPreview:hover {
+    color: var(--darkgrey);
+  }
+
+  .postBar {
+    display: flex;
+    flex-direction: row;
+    color: var(--darkgrey);
+    margin-top: 5px;
+  }
+  .author:hover {
+    font-weight: bold;
+  }
+
 .headerImg {
   width: 100%
 }

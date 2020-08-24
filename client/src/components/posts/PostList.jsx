@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './PostList.css';
 import { Link } from 'react-router-dom';
 
@@ -64,6 +65,7 @@ const PostList = () => {
       {!loading
         ? rawPosts.map(raw => {
           const postData = raw.data.post;
+          const { author } = raw.data.post;
           const contentState = convertFromRaw(postData);
           const editorState = EditorState.createWithContent(contentState);
           const newEditorState = truncate(editorState);
@@ -77,6 +79,11 @@ const PostList = () => {
                 {/* <div className="fullPost">
                   <Link to={`/posts/${raw.id}`}>Full post ...</Link>
                 </div> */}
+                <div className="postBar">
+                  <AccountCircleIcon fontSize="large" />
+                  {author}
+                  date
+                </div>
               </div>
             </Link>
           );

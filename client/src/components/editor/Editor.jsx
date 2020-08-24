@@ -25,7 +25,11 @@ const addPost = (post) => {
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
+    this.state = { 
+      editorState: EditorState.createEmpty(),
+      author: ''
+    };
+
 
     this.focus = () => this.refs.editor.focus();
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
@@ -35,9 +39,16 @@ class MyEditor extends React.Component {
   }
 
   onChange = editorState => {
+    // console.log('log author from state:', this.state.author);
     const contentState = editorState.getCurrentContent();
     console.log('content state', convertToRaw(contentState));
     this.setState({ editorState });
+  }
+
+  authorChange = e => {
+    this.setState({ [e.target.name]: e.target.value});
+    // console.log('log author from state:', this.state.author);
+    // this.setState({ author });
   }
 
   handleSubmit = event => {
@@ -45,7 +56,9 @@ class MyEditor extends React.Component {
     const contentState = this.state.editorState;
     const currentState = contentState.getCurrentContent();
     console.log('to submit ', convertToRaw(currentState));
-    const post = convertToRaw(currentState);
+    let post = convertToRaw(currentState);
+    post.author = this.state.author;
+    console.log('post', post);
     addPost(post);
   }
 
@@ -104,6 +117,7 @@ class MyEditor extends React.Component {
       }
     }
 
+    const { author } = this.state;
     return (
       <div className="text-editor">
         <form>
@@ -112,7 +126,9 @@ class MyEditor extends React.Component {
             <input 
               name="author"
               type="text"
-              placeholder="Enter your name" />
+              placeholder="Enter your name"
+              value={author}
+              onChange={this.authorChange} />
           </label>
           <div className="RichEditor-root">
             <BlockStyleControls

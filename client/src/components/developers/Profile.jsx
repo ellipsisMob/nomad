@@ -1,12 +1,33 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
 import DeveloperContext from '../../contexts/DeveloperContext';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Profile = props => {
   const { loggedInDev } = useContext(DeveloperContext);
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const handleDelete = () => {
+    if (window.confirm('Do you really want to delete this post?')) {
+      fetch(`/api/devs/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({id}),
+      })
+        .then(res => window.location.replace('/'))
+        .catch(err => console.log(err));
+    }
+  };
+
+  const handleEdit = () => {
+    console.log('Edit button clicked');
+  }
 
   useEffect(() => {
     console.log('Logged in dev: ', loggedInDev);
@@ -52,6 +73,16 @@ const Profile = props => {
             <p>
               {user.data.about}
             </p>
+            <Button 
+              startIcon={<DeleteIcon />}
+              color="secondary"
+              onClick={handleDelete}>
+              Delete
+            </Button>
+            <Button
+              startIcon={<EditIcon />}
+              color="primary"
+              onClick={handleEdit}>Edit</Button>
           </div>
         )
         : <h1>loading users...</h1>}

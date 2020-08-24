@@ -23,12 +23,12 @@ const Nav = () => {
         <li>
           <Link to="/meetups">Meetups</Link>
         </li>
-        {loggedInDev.loggedIn
+        {/* {loggedInDev.loggedIn
         ? null
         : <li>
             <Link to="/login">Sign In</Link>
           </li>
-        }
+        } */}
        
       </ul>
     </div>

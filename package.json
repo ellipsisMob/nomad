@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "firebase": "^7.18.0",
     "firebase-admin": "^9.1.1",
+    "md5": "^2.3.0",
     "react-router-dom": "^5.2.0",
     "uniqid": "^5.2.0"
   }

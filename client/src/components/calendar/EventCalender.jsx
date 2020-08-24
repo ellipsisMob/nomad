@@ -11,7 +11,7 @@ const EventCalendar = props => {
 
   useEffect(() => {
     const parsedEvents = props.events.map(event => {
-      const dateAndTime = moment(event.data.start).format();
+      const dateAndTime = moment(event.data.date).format();
 
       return {
         'title': event.data.title,

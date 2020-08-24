@@ -17,6 +17,12 @@ const Nav = () => (
       <li>
         <Link to="/meetups">Meetups</Link>
       </li>
+      <li>
+        <Link to="/login">Sign In</Link>
+      </li>
+      <li>
+        <Link to="/signup">Sign Up</Link>
+      </li>
     </ul>
   </div>
 );

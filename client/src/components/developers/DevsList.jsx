@@ -27,7 +27,8 @@ const UserList = () => {
       <h1>Our Developers:  </h1>
       {!loading
         ? users.map(user => (
-          <h3 key={user.id}><Link to={`/devs/${user.id}`}>{user.data.name}</Link></h3>
+          <h3 key={user.id}><Link to={`/devs/${user.id}`}>{user.data.handle}</Link></h3>
+          // <h3 key={user.id}><Link to={`/devs/${user.id}`}>{user.data.name}</Link></h3>
         ))
         : <h1>loading users...</h1>}
     </div>

@@ -3,7 +3,8 @@ const { getDocument } = require('../../firebaseUtils');
 module.exports = async (req, res) => {
   // if (req.user.handle === req.params.id) {
   console.log(`Trying to get developer ${req.params.id}`);
-    const data = await getDocument('users', req.params.id);
+    const data = await getDocument('testusers', req.params.id);
+    // const data = await getDocument('users', req.params.id);
     if(data) {
       console.log('Fetched developers succesfully');
       console.log(data)

@@ -10,7 +10,7 @@ module.exports = (req, res) => {
 
   firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
     .then(data => data.user.getIdToken())
-    .then(token => res.json({ token: token, email: credentials.email }))
+    .then(token => res.json({ token: token, email: credentials.email, loggedIn: true }))
     .catch(err => {
       console.log(err);
       if (err.code === 'auth/wrong-password' || err.code === "auth/user-not-found") {

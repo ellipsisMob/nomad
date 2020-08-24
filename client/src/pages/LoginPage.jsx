@@ -61,9 +61,11 @@ export default function SignIn() {
       setLoggedInDev({
         handle: res.email,
         token: res.token,
-        loggedIn: true,
+        loggedIn: res.loggedIn,
       })
-      history.push('/')
+      if(res.loggedIn === true) {
+        history.push('/');
+      }
     })
     .catch(err => console.log(err));
 

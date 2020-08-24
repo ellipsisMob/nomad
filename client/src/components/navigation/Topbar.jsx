@@ -29,7 +29,7 @@ const Topbar = () => {
         <div className="top-profile">
         {loggedInDev.loggedIn
         ? <div>
-            <span><strong>{loggedInDev.handle}!</strong></span>
+            <span><strong>{loggedInDev.handle} | </strong></span>
             {/* <AccountCircleIcon /> */}
             <Button onClick={logoutHandler}>Logout</Button>
           </div>

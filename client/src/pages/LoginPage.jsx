@@ -38,8 +38,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const { setLoggedInDev, loggedInDev } = useContext(DeveloperContext);
-  const [ email, setEmail ] = useState('user@hotmail.com');
-  const [ password, setPassword ] = useState('mamemo69');
+  const [ email, setEmail ] = useState('marciscool@gmail.com');
+  const [ password, setPassword ] = useState('haha123');
+  const [ wrongCreds, setWrongCreds] = useState(false)
   let history = useHistory();
   
   const handleLogin = (e) => {
@@ -65,6 +66,9 @@ export default function SignIn() {
       })
       if(res.loggedIn === true) {
         history.push('/');
+      } else { 
+        setWrongCreds(true);
+        setLoggedInDev({loggedIn: false});
       }
     })
     .catch(err => console.log(err));
@@ -121,6 +125,10 @@ export default function SignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {wrongCreds 
+          ? <h1>Wrong username or password</h1>
+          : null
+          }
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

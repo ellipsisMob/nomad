@@ -1,5 +1,5 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import DeveloperContext from './contexts/DeveloperContext';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,37 +14,51 @@ import CalenderPage from './pages/CalenderPage';
 import HomePage from './pages/HomePage';
 import DevelopersPage from './pages/DevelopersPage';
 import NewPostPage from './pages/NewPostPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+import './App.css';
 
 function App() {
+
+  const [loggedInDev, setLoggedInDev] = useState({loggedIn: false});
+
   return (
     <div className="App">
       <Router>
-        <div className="bars">
-          <Topbar />
-          <Nav />
-        </div>
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route exact path="/posts/:id">
-            <SinglePost />
-          </Route>
-          <Route path="/devs/:id">
-            <Profile />
-          </Route>
-          <Route path="/devs">
-            <DevelopersPage />
-          </Route>
-          <Route path="/addPost">
-            <NewPostPage />
-          </Route>
-          <Route path="/meetups">
-            <CalenderPage />
-          </Route>
-          <Route render={() => 'Page not found'} />
-        </Switch>
-        <Footer />
+        <DeveloperContext.Provider value={{ loggedInDev, setLoggedInDev }}>
+          <div className="bars">
+            <Topbar />
+            <Nav />
+          </div>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/posts/:id">
+              <SinglePost />
+            </Route>
+            <Route path="/devs/:id">
+              <Profile />
+            </Route>
+            <Route path="/devs">
+              <DevelopersPage />
+            </Route>
+            <Route path="/addPost">
+              <NewPostPage />
+            </Route>
+            <Route path="/meetups">
+              <CalenderPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/SignUp">
+              <SignUpPage />
+            </Route>
+            <Route render={() => 'Page not found'} />
+          </Switch>
+          <Footer />
+        </DeveloperContext.Provider>
       </Router>
     </div>
   );

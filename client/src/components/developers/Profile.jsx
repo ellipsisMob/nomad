@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
+import DeveloperContext from '../../contexts/DeveloperContext';
 
 const Profile = props => {
+  const { loggedInDev } = useContext(DeveloperContext);
   const { id } = useParams();
   const [user, setUser] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('Logged in dev: ', loggedInDev);
     const fetchUser = () => {
       setLoading(true);
-      fetch(`/api/devs/${id}`)
+      fetch(`/api/devs/${id}`
+      // Example for authorization
+      , {
+        headers: {
+          Authorization: `Bearer ${loggedInDev.token}`
+        }}
+      )
         .then(res => res.json())
         .then(data => setUser(data))
         .then(() => setLoading(false));
@@ -29,19 +38,19 @@ const Profile = props => {
           <div>
             <img src='http://placebeard.it/g/640x480' style={{width:'200px'}}/>
             <h1>
-              {user.name}
+              {user.data.name}
             </h1>
             <h3>
-              {user.age}
+              {user.data.age}
             </h3>
             <h3>
-              {user.email}
+              {user.data.email}
             </h3>
-            <a href={user.github}>
-              {user.github}
+            <a href={user.data.github}>
+              {user.data.github}
             </a>
             <p>
-              {user.about}
+              {user.data.about}
             </p>
           </div>
         )

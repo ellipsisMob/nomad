@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import MaterialUiLink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import DeveloperContext from '../contexts/DeveloperContext';
+import { Link, useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,9 +37,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-  const { setLoggedInDev } = useContext(DeveloperContext);
+  const { setLoggedInDev, loggedInDev } = useContext(DeveloperContext);
   const [ email, setEmail ] = useState('user@hotmail.com');
   const [ password, setPassword ] = useState('mamemo69');
+  let history = useHistory();
   
   const handleLogin = (e) => {
     e.preventDefault();
@@ -58,7 +61,11 @@ export default function SignIn() {
       setLoggedInDev({
         handle: res.email,
         token: res.token,
+        loggedIn: res.loggedIn,
       })
+      if(res.loggedIn === true) {
+        history.push('/');
+      }
     })
     .catch(err => console.log(err));
 
@@ -68,6 +75,7 @@ export default function SignIn() {
 
   useEffect(() => {
     console.log(email);
+    console.log('From login page',loggedInDev);
   }, [email]);
 
   useEffect(() => {
@@ -129,14 +137,14 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              {/* <Link href="#" variant="body2">
+              {/* <MaterialUiLink href="#" variant="body2">
                 Forgot password?
-              </Link> */}
+              </MaterialUiLink> */}
             </Grid>
             <Grid item>
-              {/* <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link> */}
+              <Link to="/signup" variant="body2">
+                <MaterialUiLink>{"Don't have an account? Sign Up"}</MaterialUiLink>
+              </Link>
             </Grid>
           </Grid>
         </form>
@@ -145,4 +153,4 @@ export default function SignIn() {
       </Box> */}
     </Container>
   );
-}
+} 

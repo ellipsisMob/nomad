@@ -64,20 +64,22 @@ const PostList = () => {
   }, [rawPosts]);
 
   return (
-    <div className="frontPagePost">
+    <>
       {!loading
         ? rawPosts.map(raw => {
           const { id } = raw;
           const editorState = EditorState.createWithContent(convertFromRaw(raw.data.post));
           const truncatedPost = truncate(editorState);
           return (
-            <Link to={`/posts/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Post rawPost={raw} toRender={truncatedPost} />
-            </Link>
+            <div className="frontPagePost">
+              <Link to={`/posts/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Post rawPost={raw} toRender={truncatedPost} />
+              </Link>
+            </div>
           );
         })
         : <h1>Loading ...</h1>}
-    </div>
+    </>
   );
 };
 

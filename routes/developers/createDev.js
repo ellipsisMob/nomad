@@ -1,6 +1,6 @@
 const firebase = require('firebase');
 const { db } = require('../../firebaseInit');
-const uniqid = require('uniqid');
+const md5 = require('md5');
 
 module.exports = (req, res) => {
 
@@ -34,9 +34,9 @@ module.exports = (req, res) => {
         createdAt: new Date().toISOString(),
         userId,
       }
-      return db.collection('testusers').doc().set(credentials);
+      return db.collection('testusers').doc(md5(credentials.email)).set(credentials);
     })
-    .then(() => res.status(201).json({ token }))  
+    .then(() => res.status(201).json({ token }))
     .catch(err => {
       console.log(err);
       if (err.code === 'auth/email-already-in-use') {

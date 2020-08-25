@@ -2,8 +2,14 @@ const { db } = require('./firebaseInit');
 const firebase = require('firebase');
 const admin = require('firebase-admin');
 
-const getCollection = async col => {
-  const usersRef = db.collection(col);
+const getCollection = async (col, sort) => {
+  let usersRef;
+  if (sort) {
+    usersRef = db.collection(col).orderBy('post.createdAt', 'desc');
+  } else {
+    usersRef = db.collection(col);
+  }
+
   const snapshot = await usersRef.get();
   if (snapshot.empty) {
     console.log('No matching documents.');
@@ -54,6 +60,19 @@ const deleteDocument = async (col, id) => {
   }
 };
 
+const editDocument = async (col, id, data) => {
+  console.log('Edit document in firebaseUtils');
+  const dataCopy = {...data};
+  delete dataCopy.id;
+  console.log(dataCopy)
+  
+  try {
+    await db.collection(col).doc(id).update(dataCopy);
+  } catch(err) {
+    throw new Error('Delete failed', err);
+  }
+};
+
 const FBAuth = (req, res, next) => {
   let idToken;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
@@ -87,5 +106,6 @@ module.exports = {
   getDocument,
   createDocument,
   deleteDocument,
+  editDocument,
   FBAuth,
 }

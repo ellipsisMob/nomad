@@ -27,7 +27,9 @@ class MyEditor extends React.Component {
     super(props);
     this.state = { 
       editorState: EditorState.createEmpty(),
-      author: ''
+      author: '',
+      headerImg: 'https://picsum.photos/1000/300?grayscale&random=2',
+      title: '',
     };
 
 
@@ -51,6 +53,14 @@ class MyEditor extends React.Component {
     // this.setState({ author });
   }
 
+  headerImgChange = e => {
+    this.setState({ [e.target.name]: e.target.value});
+  }
+
+  titleChange = e => {
+    this.setState({ [e.target.name]: e.target.value});
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const contentState = this.state.editorState;
@@ -58,6 +68,9 @@ class MyEditor extends React.Component {
     console.log('to submit ', convertToRaw(currentState));
     let post = convertToRaw(currentState);
     post.author = this.state.author;
+    post.createdAt = new Date().toISOString();
+    post.headerImg = this.state.headerImg;
+    post.title = this.state.title;
     console.log('post', post);
     addPost(post);
   }
@@ -118,17 +131,37 @@ class MyEditor extends React.Component {
     }
 
     const { author } = this.state;
+    const { headerImg } = this.state;
+    const { title } = this.state;
     return (
       <div className="text-editor">
         <form>
           <label htmlFor="author">
-            Written by:
+            Author:
             <input 
               name="author"
               type="text"
               placeholder="Enter your name"
               value={author}
               onChange={this.authorChange} />
+          </label>
+          <label htmlFor="headerImg">
+            <br></br>Cover Image:
+            <input 
+              name="headerImg"
+              type="text"
+              placeholder="Link a cover image"
+              value={headerImg}
+              onChange={this.headerImgChange} />
+          </label>
+          <label htmlFor="title">
+            <br></br>Post Title:
+            <input 
+              name="title"
+              type="text"
+              placeholder="Post title (shown as H1)"
+              value={title}
+              onChange={this.titleChange} />
           </label>
           <div className="RichEditor-root">
             <BlockStyleControls

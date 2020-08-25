@@ -87,16 +87,14 @@ const Profile = props => {
               onClick={handleDelete}>
               Delete
             </Button>
-          <DevEditModal
-            name={user.data.name}
-            id={user.id}
-            setUpdateDev={setUpdateDev}
-          />
+            <DevEditModal
+              name={user.data.name}
+              id={user.id}
+              setUpdateDev={setUpdateDev}
+            />
           </div>
         )
         : <h1>loading users...</h1>}
-
-
     </div>
   );
 };

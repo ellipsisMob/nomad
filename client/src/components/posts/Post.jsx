@@ -5,6 +5,7 @@ import {
 import { Editor } from 'draft-js';
 import moment from 'moment';
 
+// pass Post component two props: 'rawPost' and 'toRender={editorState}'
 const Post = props => {
   const showDate = d => moment(d).utc().format('DD MMM');
   const {
@@ -26,12 +27,10 @@ const Post = props => {
       <div className="headerImg">
         <img src={headerImg} alt="headerImg" className="headerImg" />
       </div>
-      <Link to={`/posts/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <div className="postPreview">
-          <h2>{title}</h2>
-          <Editor editorState={toRender} readOnly />
-        </div>
-      </Link>
+      <div className="postPreview">
+        <h2>{title}</h2>
+        <Editor editorState={toRender} readOnly />
+      </div>
       <div className="postBar">
         By&nbsp;
         <Link to="/devs/cyBTQH78K0IR2eq1k405" style={{ textDecoration: 'none', color: 'inherit' }}>

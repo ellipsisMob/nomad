@@ -5,8 +5,8 @@ import {
   ContentState,
 } from 'draft-js';
 import './PostList.css';
-import Post from './Post';
 import { Link } from 'react-router-dom';
+import Post from './Post';
 
 // show 200 character preview of posts
 // courtesy of inrvingv8 https://github.com/facebook/draft-js/issues/742#issuecomment-388127982
@@ -64,15 +64,20 @@ const PostList = () => {
   }, [rawPosts]);
 
   return (
-    <>
+    <div className="frontPagePost">
       {!loading
         ? rawPosts.map(raw => {
+          const { id } = raw;
           const editorState = EditorState.createWithContent(convertFromRaw(raw.data.post));
           const truncatedPost = truncate(editorState);
-          return (<Post rawPost={raw} toRender={truncatedPost} />);
+          return (
+            <Link to={`/posts/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Post rawPost={raw} toRender={truncatedPost} />
+            </Link>
+          );
         })
         : <h1>Loading ...</h1>}
-    </>
+    </div>
   );
 };
 

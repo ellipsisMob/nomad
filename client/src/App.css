@@ -6,12 +6,6 @@
   --red: #E74C3C;
 }
 
-/* body {
-  font-family: 'Roboto', 'Helvetica', 'Arial', 'sans-serif';
-  background: var(--offwhite);
-  margin:0;
-} */
-
 body {
   color: rgba(0, 0, 0, 0.87);
   font-size: 0.875rem;
@@ -21,8 +15,24 @@ body {
   letter-spacing: 0.01071em;
   background: var(--offwhite);
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.bars {
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-nav {
   margin: 2%;
+}
+
+.content {
+  margin: 2%;
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
 }

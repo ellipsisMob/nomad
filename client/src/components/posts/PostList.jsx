@@ -94,7 +94,7 @@ const PostList = () => {
                 </Link>
                 &nbsp;
                 at&nbsp;
-                {createdAt}
+                {/* {createdAt} */}
               </div>
             </div>
           );

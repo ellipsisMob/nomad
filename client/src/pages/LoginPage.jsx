@@ -14,7 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import DeveloperContext from '../contexts/DeveloperContext';
 import { Link, useHistory } from 'react-router-dom';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,14 +39,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-  const { setLoggedInDev, loggedInDev } = useContext(DeveloperContext);
+  const { setLoggedInDev, loggedInDev, signedUp, setSignedUp } = useContext(DeveloperContext);
   const [ email, setEmail ] = useState('marciscool@gmail.com');
   const [ password, setPassword ] = useState('haha123');
-  const [ wrongCreds, setWrongCreds] = useState(false)
+  const [ wrongCreds, setWrongCreds] = useState(false);
+  const [ loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   let history = useHistory();
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     fetch('api/devs/login', {
       method: 'POST',
@@ -68,6 +81,7 @@ export default function SignIn() {
         history.push('/');
       } else { 
         setWrongCreds(true);
+        setSignedUp(false);
         setLoggedInDev({loggedIn: false});
       }
     })
@@ -83,13 +97,34 @@ export default function SignIn() {
   }, [email]);
 
   useEffect(() => {
-    console.log(password);
-  }, [password]);
+    console.log(email);
+    console.log('From login page',loggedInDev);
+  }, [email]);
+
+  useEffect(() => {
+    console.log("signed up", signedUp);
+    if(signedUp) {
+      setOpen(true);
+    }
+    setSignedUp(false);
+  },[]);
   
   const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
+
+      {setOpen
+        ? <div className={classes.root}>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                Signed up succesfully! Please login using your credentials.
+              </Alert>
+            </Snackbar>
+          </div>
+        : null
+      }
+
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -98,63 +133,67 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {wrongCreds 
-          ? <h1>Wrong username or password</h1>
-          : null}
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleLogin}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              {/* <MaterialUiLink href="#" variant="body2">
-                Forgot password?
-              </MaterialUiLink> */}
-            </Grid>
-            <Grid item>
-              <Link to="/signup" variant="body2">
-                <MaterialUiLink>{"Don't have an account? Sign Up"}</MaterialUiLink>
-              </Link>
-            </Grid>
+
+        {loading
+        ? <CircularProgress />
+        : <form className={classes.form} noValidate>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          autoFocus
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {wrongCreds 
+        ? <h1>Wrong username or password</h1>
+        : null}
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleLogin}
+        >
+          Sign In
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            {/* <MaterialUiLink href="#" variant="body2">
+              Forgot password?
+            </MaterialUiLink> */}
           </Grid>
-        </form>
+          <Grid item>
+            <Link to="/signup" variant="body2">
+              <MaterialUiLink>{"Don't have an account? Sign Up"}</MaterialUiLink>
+            </Link>
+          </Grid>
+        </Grid>
+      </form>
+        }
       </div>
       {/* <Box mt={8}>
       </Box> */}

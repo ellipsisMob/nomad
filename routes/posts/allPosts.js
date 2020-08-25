@@ -3,8 +3,8 @@ const { getCollection } = require('../../firebaseUtils');
 module.exports = async (req, res) => {
   try {
     console.log('Trying to get all posts');
-    const data = await getCollection('posts');
-    if(data) {
+    const data = await getCollection('posts', true);
+    if (data) {
       console.log('Fetched posts succesfully');
       res
         .json(data)
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
         .status(404)
         .end();
     }
-  } catch(err) {    
+  } catch (err) {
     console.log('Error getting users collection:', err);
   }
 };

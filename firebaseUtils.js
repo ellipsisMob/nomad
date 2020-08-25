@@ -41,14 +41,15 @@ const getDocument = async (col, id) => {
 };
 
 const createDocument = async (col, req) => {
+  console.log('Create document', req.body.post.author);
   db.collection(col).add(req.body)
     .then(docRef => {
       console.log('Document written with ID: ', docRef.id);
-      return true;
+      return docRef;
     })
     .catch(error => {
       console.error('Error adding document: ', error);
-      return false;
+      throw new Error({message: error});
     });
 };
 
@@ -92,7 +93,9 @@ const FBAuth = (req, res, next) => {
         .get()
     })
     .then(data => {
+      // console.log('from fbauth ', data);
       req.user.handle = data.docs[0].data().handle;
+      req.user.name = data.docs[0].data().name;
       return next();
     })
     .catch(err => {

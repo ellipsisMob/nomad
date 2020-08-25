@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import DevEditModal from './DevEditModal';
 import DeveloperContext from '../../contexts/DeveloperContext';
 
 const Profile = props => {
@@ -10,6 +11,7 @@ const Profile = props => {
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [updateDev, setUpdateDev] = useState(false);
 
   const handleDelete = () => {
     if (window.confirm('Do you really want to delete this post?')) {
@@ -25,27 +27,33 @@ const Profile = props => {
     }
   };
 
-  const handleEdit = () => {
-    console.log('Edit button clicked');
-  }
+  const fetchUser = () => {
+    setLoading(true);
+    fetch(`/api/devs/${id}`, {
+      headers: {
+        Authorization: `Bearer ${loggedInDev.token}`
+      }}
+    )
+      .then(res => res.json())
+      .then(data => setUser(data))
+      .then(() => setLoading(false));
+  };
 
   useEffect(() => {
     console.log('Logged in dev: ', loggedInDev);
-    const fetchUser = () => {
-      setLoading(true);
-      fetch(`/api/devs/${id}`
-      // Example for authorization
-      , {
-        headers: {
-          Authorization: `Bearer ${loggedInDev.token}`
-        }}
-      )
-        .then(res => res.json())
-        .then(data => setUser(data))
-        .then(() => setLoading(false));
-    };
+    // const fetchUser = () => {
+    //   setLoading(true);
+    //   fetch(`/api/devs/${id}`, {
+    //     headers: {
+    //       Authorization: `Bearer ${loggedInDev.token}`
+    //     }}
+    //   )
+    //     .then(res => res.json())
+    //     .then(data => setUser(data))
+    //     .then(() => setLoading(false));
+    // };
     fetchUser();
-  }, [id]);
+  }, [id, updateDev]);
 
   useEffect(() => {
     console.log('Profile page: ', user);
@@ -79,13 +87,16 @@ const Profile = props => {
               onClick={handleDelete}>
               Delete
             </Button>
-            <Button
-              startIcon={<EditIcon />}
-              color="primary"
-              onClick={handleEdit}>Edit</Button>
+          <DevEditModal
+            name={user.data.name}
+            id={user.id}
+            setUpdateDev={setUpdateDev}
+          />
           </div>
         )
         : <h1>loading users...</h1>}
+
+
     </div>
   );
 };

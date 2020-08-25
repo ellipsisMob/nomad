@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Link,
-} from 'react-router-dom';
+import DevIntro from './DevIntro';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -26,10 +24,11 @@ const UserList = () => {
     <div className="container">
       <h1>Our Developers:  </h1>
       {!loading
-        ? users.map(user => (
-          <h3 key={user.id}><Link to={`/devs/${user.id}`}>{user.data.handle}</Link></h3>
-          // <h3 key={user.id}><Link to={`/devs/${user.id}`}>{user.data.name}</Link></h3>
-        ))
+        ? users.map(user => {
+          if(user.data.name) {
+            return <DevIntro key={user.id} id={user.id} data={user.data}/>
+          }
+        })
         : <h1>loading users...</h1>}
     </div>
   );

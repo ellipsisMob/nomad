@@ -19,3 +19,8 @@
   color: black;
   font-size: 2em;
 }
+
+.signInLink {
+  text-decoration: none;
+  color: black;
+}

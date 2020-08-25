@@ -60,6 +60,19 @@ const deleteDocument = async (col, id) => {
   }
 };
 
+const editDocument = async (col, id, data) => {
+  console.log('Edit document in firebaseUtils');
+  const dataCopy = {...data};
+  delete dataCopy.id;
+  console.log(dataCopy)
+  
+  try {
+    await db.collection(col).doc(id).update(dataCopy);
+  } catch(err) {
+    throw new Error('Delete failed', err);
+  }
+};
+
 const FBAuth = (req, res, next) => {
   let idToken;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
@@ -93,5 +106,6 @@ module.exports = {
   getDocument,
   createDocument,
   deleteDocument,
+  editDocument,
   FBAuth,
 }

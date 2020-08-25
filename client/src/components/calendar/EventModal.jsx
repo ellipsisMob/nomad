@@ -24,6 +24,12 @@ const AddEvent = props => {
   }
 
   useEffect(() => {
+    const newDate = new Date();
+    const initialTime = moment(newDate).format();
+    setDate(initialTime);
+  }, []);
+
+  useEffect(() => {
     const parsedTime = moment(date).format();
     console.log('Coming from the useEffect', parsedTime);
   },[date, duration, title]);

@@ -2,8 +2,14 @@ const { db } = require('./firebaseInit');
 const firebase = require('firebase');
 const admin = require('firebase-admin');
 
-const getCollection = async col => {
-  const usersRef = db.collection(col);
+const getCollection = async (col, sort) => {
+  let usersRef;
+  if (sort) {
+    usersRef = db.collection(col).orderBy('post.createdAt', 'desc');
+  } else {
+    usersRef = db.collection(col);
+  }
+
   const snapshot = await usersRef.get();
   if (snapshot.empty) {
     console.log('No matching documents.');

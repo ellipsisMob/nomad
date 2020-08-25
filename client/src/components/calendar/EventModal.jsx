@@ -6,22 +6,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-// import events from '../../../../routes/events';
+import moment from 'moment';
 
 const AddEvent = props => {
-  // const { date, duration, title } = props;
   
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(''); 
-  const [duration, setDuration] = useState('');
+  const [duration, setDuration] = useState();
   const [title, setTitle] = useState('');
-
-  // const [event, setEvent] = useState({
-  //   date: '',
-  //   duration: '',
-  //   title: '',
-  // });
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,17 +22,10 @@ const AddEvent = props => {
   const handleClose = () => {
     setOpen(false);
   }
-  
-  // const handleInputChange = (e) => {
-  //   console.log('coming from the handleinput', event);
-  //   setEvent({
-  //     ...event,
-  //     [e.target.date]: e.target.value,
-  //   })
-  // }
 
   useEffect(() => {
-    console.log('Coming from the useEffect', date, duration, title)
+    const parsedTime = moment(date).format();
+    console.log('Coming from the useEffect', parsedTime);
   },[date, duration, title]);
 
   const handleAddEvent = (e) => {
@@ -52,7 +37,7 @@ const AddEvent = props => {
       },
       body: JSON.stringify({
         "date": date, 
-        "duration": duration,
+        "duration": Math.floor(duration),
         "title": title,
       })
     })
@@ -68,10 +53,10 @@ const AddEvent = props => {
   return (
     <div>
       <Button age="primary" onClick={handleClickOpen}>
-        Add Date
+        New Meetup
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add date</DialogTitle>
+        <DialogTitle id="form-dialog-title">New Meetup</DialogTitle>
         <DialogContent>
 
           <TextField
@@ -80,7 +65,6 @@ const AddEvent = props => {
             type="datetime-local"
             defaultValue="2020-08-25T10:30"
             onChange={e => setDate(e.target.value)}
-            // className={classes.textField}
             InputLabelProps={{
             shrink: true,
             }}
@@ -88,7 +72,8 @@ const AddEvent = props => {
           <TextField
             margin="dense"
             name='duration'
-            label="duration"
+            label="Duration (minutes)"
+            type="number"
             value={duration}
             onChange={e => setDuration(e.target.value)}
             fullWidth
@@ -96,35 +81,11 @@ const AddEvent = props => {
           <TextField
             margin="dense"
             name='title'
-            label="title"
+            label="Title"
             value={title}
             onChange={e => setTitle(e.target.value)}
             fullWidth
           />
-          {/* <TextField
-            margin="dense"
-            name='fuel'
-            label="fuel"
-            value={dev.fuel}
-            onChange={e => handleInputChange(e)}
-            fullWidth
-          /> */}
-          {/* <TextField
-            margin="dense"
-            name='year'
-            label="year"
-            value={dev.year}
-            onChange={e => handleInputChange(e)}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            name='price'
-            label="price"
-            value={dev.price}
-            onChange={e => handleInputChange(e)}
-            fullWidth
-          /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} age="primary">

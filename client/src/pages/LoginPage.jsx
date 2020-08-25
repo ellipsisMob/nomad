@@ -106,9 +106,7 @@ export default function SignIn() {
     if(signedUp) {
       setOpen(true);
     }
-    setTimeout(() => {
-      setSignedUp(false);
-    }, 7000)
+    setSignedUp(false);
   },[]);
   
   const classes = useStyles();
@@ -116,7 +114,7 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
 
-      {signedUp
+      {setOpen
         ? <div className={classes.root}>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="success">

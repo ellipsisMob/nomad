@@ -1,10 +1,25 @@
 .devIntro {
   margin: 20px;
   padding: 10px;
-  border: 1px solid black;
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  width: 80%;
+}
+
+.devInfo h2 {
+  margin: 5px 0 15px 0;
+}
+
+.devInfo p {
+  margin: 0 0 5px 0;
 }
 
 .devPicture {
-  width: 200px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
 }

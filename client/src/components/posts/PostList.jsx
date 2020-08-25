@@ -3,6 +3,7 @@ import { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './PostList.css';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const PostList = () => {
   const [rawPosts, setRawPosts] = useState([]);

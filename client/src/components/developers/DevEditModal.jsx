@@ -5,11 +5,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import EditIcon from '@material-ui/icons/Edit';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const EditDev = props => {
   const { name, id, setUpdateDev } = props;
-  
   const [open, setOpen] = useState(false);
   const [dev, setdev] = useState({
     name: '',
@@ -28,38 +28,38 @@ const EditDev = props => {
     setOpen(false);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setdev({
       ...dev,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const updatedev = () => {
     fetch(`/api/devs/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         id,
-        name: dev.name
-      })
+        name: dev.name,
+      }),
     })
-    .then(() => setUpdateDev(true))
-    
+      .then(() => setUpdateDev(true));
     handleClose();
-  }
+  };
 
   useEffect(() => {
-    console.log(dev.name)
+    console.log(dev.name);
   }, [dev]);
 
   return (
-    <div>
-      <Button age="primary" onClick={handleClickOpen}>
+    <>
+      <EditIcon onClick={handleClickOpen} />
+      {/* <Button age="primary" onClick={handleClickOpen}>
         Edit
-      </Button>
+      </Button> */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit dev</DialogTitle>
         <DialogContent>
@@ -122,8 +122,8 @@ const EditDev = props => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
-  )
-}
+    </>
+  );
+};
 
 export default EditDev;

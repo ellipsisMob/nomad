@@ -12,7 +12,7 @@ const DevIntro = props => {
       <img className="devPicture" src='http://placebeard.it/g/640x480' alt={`Profile mugshot of ${data.name}`} />
       {/* <h1>{data.identifier}</h1> */}
       <p>{data.name}</p>
-      <p>{data.about}</p>
+      <p>{data.title}</p>
       <Link to={`/devs/${id}`}>Full profile...</Link>
     </div>
   );

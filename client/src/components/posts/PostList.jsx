@@ -9,11 +9,46 @@ import './PostList.css';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
+// show 200 character preview of posts
+// courtesy of inrvingv8 https://github.com/facebook/draft-js/issues/742#issuecomment-388127982
+const truncate = (editorState, charCount = 200) => {
+  const contentState = editorState.getCurrentContent();
+  const blocks = contentState.getBlocksAsArray();
+
+  let index = 0;
+  let currentLength = 0;
+  let isTruncated = false;
+  const truncatedBlocks = [];
+
+  while (!isTruncated && blocks[index]) {
+    const block = blocks[index];
+    const length = block.getLength();
+    if (currentLength + length > charCount) {
+      isTruncated = true;
+      const truncatedText = block
+        .getText()
+        .slice(0, charCount - currentLength);
+      const state = ContentState.createFromText(`${truncatedText}...`);
+      truncatedBlocks.push(state.getFirstBlock());
+    } else {
+      truncatedBlocks.push(block);
+    }
+    currentLength += length + 1;
+    index++;
+  }
+
+  if (isTruncated) {
+    const state = ContentState.createFromBlockArray(truncatedBlocks);
+    return EditorState.createWithContent(state);
+  }
+
+  return editorState;
+};
+
 const PostList = () => {
   const [rawPosts, setRawPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // useEffect to fetch new style posts
   useEffect(() => {
     const fetchPosts = () => {
       setLoading(true);
@@ -28,42 +63,6 @@ const PostList = () => {
   useEffect(() => {
     console.log('from useEffect hook', rawPosts);
   }, [rawPosts]);
-
-  // const editorState = EditorState.createWithContent(newPosts);
-
-  const truncate = (editorState, charCount = 200) => {
-    const contentState = editorState.getCurrentContent();
-    const blocks = contentState.getBlocksAsArray();
-
-    let index = 0;
-    let currentLength = 0;
-    let isTruncated = false;
-    const truncatedBlocks = [];
-
-    while (!isTruncated && blocks[index]) {
-      const block = blocks[index];
-      const length = block.getLength();
-      if (currentLength + length > charCount) {
-        isTruncated = true;
-        const truncatedText = block
-          .getText()
-          .slice(0, charCount - currentLength);
-        const state = ContentState.createFromText(`${truncatedText}...`);
-        truncatedBlocks.push(state.getFirstBlock());
-      } else {
-        truncatedBlocks.push(block);
-      }
-      currentLength += length + 1;
-      index++;
-    }
-
-    if (isTruncated) {
-      const state = ContentState.createFromBlockArray(truncatedBlocks);
-      return EditorState.createWithContent(state);
-    }
-
-    return editorState;
-  };
 
   const showDate = d => moment(d).utc().format('DD MMM');
 
@@ -82,7 +81,7 @@ const PostList = () => {
           const editorState = EditorState.createWithContent(contentState);
           const newEditorState = truncate(editorState);
           return (
-            <div className="showPost" key={raw.id}>
+            <div className="post" key={raw.id}>
               <div className="headerImg">
                 <img src={headerImg} alt="headerImg" className="headerImg" />
               </div>
@@ -93,7 +92,6 @@ const PostList = () => {
                 </div>
               </Link>
               <div className="postBar">
-                {/* <AccountCircleIcon fontSize="large" /> */}
                 By&nbsp;
                 <Link to="/devs/cyBTQH78K0IR2eq1k405" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div className="author">

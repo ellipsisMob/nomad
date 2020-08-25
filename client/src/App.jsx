@@ -25,7 +25,12 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <DeveloperContext.Provider value={{ loggedInDev, setLoggedInDev, signedUp, setSignedUp }}>
+        <DeveloperContext.Provider value={{
+          loggedInDev,
+          setLoggedInDev,
+          signedUp,
+          setSignedUp,
+        }}>
           <nav className="main-nav">
             <Topbar />
             <Nav />

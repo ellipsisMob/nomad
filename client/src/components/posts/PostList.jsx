@@ -60,6 +60,8 @@ const PostList = () => {
     return editorState;
   };
 
+  const showDate = d => d;
+
   return (
     <div className="post-container">
       {!loading
@@ -94,24 +96,12 @@ const PostList = () => {
                 </Link>
                 &nbsp;
                 at&nbsp;
-                {createdAt}
+                {showDate(createdAt)}
               </div>
             </div>
           );
         })
         : <h1>Loading ...</h1>}
-      {/* <CreatePost />
-      {!loading
-        ? posts.map(post => (
-          <Post
-            key={post.id}
-            id={post.id}
-            title={post.data.title}
-            body={post.data.body}
-            author={post.data.author} />
-            // date={post.data.date} />
-        ))
-        : <h1>loading posts...</h1>} */}
     </div>
   );
 };

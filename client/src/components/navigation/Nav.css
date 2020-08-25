@@ -1,7 +1,7 @@
 .navbar, ul {
   display: flex;
   flex-direction: row;
-  margin: 0 auto;
+  margin: 5px auto;
   padding: 0;
 }
 
@@ -11,6 +11,6 @@
 }
 
 .navbar a {
-  color: gray;
+  color: var(--darkgrey);
   text-decoration: none;
 }

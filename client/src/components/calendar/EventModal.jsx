@@ -12,7 +12,7 @@ const AddEvent = props => {
   
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(''); 
-  const [duration, setDuration] = useState();
+  const [duration, setDuration] = useState('');
   const [title, setTitle] = useState('');
 
   const handleClickOpen = () => {

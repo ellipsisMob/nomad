@@ -9,8 +9,8 @@ const DevIntro = props => {
 
   return (
     <div className='devIntro'>
-      <img src='http://placebeard.it/g/640x480' style={{width:'200px'}}/>
-      <h1>{data.identifier}</h1>
+      <img className="devPicture" src='http://placebeard.it/g/640x480' alt={`Profile mugshot of ${data.name}`} />
+      {/* <h1>{data.identifier}</h1> */}
       <p>{data.name}</p>
       <p>{data.about}</p>
       <Link to={`/devs/${id}`}>Full profile...</Link>

@@ -67,7 +67,7 @@ const PostList = () => {
   const showDate = d => moment(d).utc().format('DD MMM');
 
   return (
-    <div className="post-container">
+    <>
       {!loading
         ? rawPosts.map(raw => {
           const { post } = raw.data;
@@ -105,7 +105,7 @@ const PostList = () => {
           );
         })
         : <h1>Loading ...</h1>}
-    </div>
+    </>
   );
 };
 

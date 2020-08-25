@@ -1,9 +1,6 @@
-.post-container {
-    margin: 2%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+.postPreview:hover {
+  color: var(--darkgrey);
+}
 
   .post {
     margin: 5px;
@@ -12,19 +9,15 @@
     max-width: 900px;
   }
 
-  .postPreview:hover {
-    color: var(--darkgrey);
-  }
-
-  .postBar {
-    display: flex;
-    flex-direction: row;
-    color: var(--darkgrey);
-    margin-top: 5px;
-  }
-  .author:hover {
-    font-weight: bold;
-  }
+.postBar {
+  display: flex;
+  flex-direction: row;
+  color: var(--darkgrey);
+  margin-top: 5px;
+}
+.author:hover {
+  font-weight: bold;
+}
 
 .headerImg {
   width: 100%

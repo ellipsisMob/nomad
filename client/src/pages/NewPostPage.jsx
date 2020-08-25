@@ -4,11 +4,11 @@ import DeveloperContext from '../contexts/DeveloperContext'
 
 const NewPostPage = () => {
 
-  const { token } = useContext(DeveloperContext);
+  const { loggedInDev } = useContext(DeveloperContext);
 
   return (
     <div>
-      <Editor />
+      <Editor token={loggedInDev.token} />
     </div>
   );
 };

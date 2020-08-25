@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {
+  Editor,
+  EditorState,
+  convertFromRaw,
+  ContentState,
+} from 'draft-js';
 import './PostList.css';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -61,18 +65,20 @@ const PostList = () => {
     return editorState;
   };
 
-  const showDate = d => d;
+  const showDate = d => moment(d).utc().format('DD MMM');
 
   return (
     <div className="post-container">
       {!loading
         ? rawPosts.map(raw => {
-          const postData = raw.data.post;
-          const { author } = raw.data.post;
-          const { headerImg } = raw.data.post;
-          const { createdAt } = raw.data.post;
-          const { title } = raw.data.post;
-          const contentState = convertFromRaw(postData);
+          const { post } = raw.data;
+          const {
+            author,
+            headerImg,
+            createdAt,
+            title,
+          } = post;
+          const contentState = convertFromRaw(post);
           const editorState = EditorState.createWithContent(contentState);
           const newEditorState = truncate(editorState);
           return (
@@ -83,10 +89,9 @@ const PostList = () => {
               <Link to={`/posts/${raw.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="postPreview">
                   <h2>{title}</h2>
-                  <Editor editorState={newEditorState} readOnly={true} />
+                  <Editor editorState={newEditorState} readOnly />
                 </div>
               </Link>
-
               <div className="postBar">
                 {/* <AccountCircleIcon fontSize="large" /> */}
                 By&nbsp;

@@ -54,7 +54,7 @@ export default function SignIn() {
 
     setOpen(false);
   };
-  
+
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -67,7 +67,7 @@ export default function SignIn() {
       body: JSON.stringify({
         "email": email,
         "password": password
-      })
+      }),
     })
     .then(res => res.json())
     .then(res => {
@@ -108,7 +108,7 @@ export default function SignIn() {
     }
     setSignedUp(false);
   },[]);
-  
+
   const classes = useStyles();
 
   return (
@@ -199,4 +199,4 @@ export default function SignIn() {
       </Box> */}
     </Container>
   );
-} 
+}

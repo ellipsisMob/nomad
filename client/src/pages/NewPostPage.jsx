@@ -6,11 +6,8 @@ const NewPostPage = () => {
 
   const { loggedInDev } = useContext(DeveloperContext);
 
-  return (
-    <div>
-      <Editor token={loggedInDev.token} />
-    </div>
-  );
+  return <Editor token={loggedInDev.token} />;
+
 };
 
 export default NewPostPage;

@@ -21,16 +21,15 @@ const UserList = () => {
   }, [users]);
 
   return (
-    <div className="container">
-      <h1>Our Developers:  </h1>
+    <>
       {!loading
         ? users.map(user => {
-          if(user.data.name) {
+          if (user.data.name) {
             return <DevIntro key={user.id} id={user.id} data={user.data}/>
           }
         })
         : <h1>loading users...</h1>}
-    </div>
+    </>
   );
 };
 

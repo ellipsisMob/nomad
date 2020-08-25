@@ -6,10 +6,6 @@
   --red: #E74C3C;
 }
 
-/* html, body {
-  height: 100%;
-} */
-
 body {
   color: rgba(0, 0, 0, 0.87);
   font-size: 0.875rem;
@@ -29,11 +25,14 @@ body {
   height: 100vh;
 }
 
-.bars {
+.main-nav {
   margin: 2%;
 }
 
 .content {
+  margin: 2%;
   display: flex;
   flex: 1 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
 }

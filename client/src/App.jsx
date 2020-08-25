@@ -26,10 +26,10 @@ function App() {
     <div className="App">
       <Router>
         <DeveloperContext.Provider value={{ loggedInDev, setLoggedInDev, signedUp, setSignedUp }}>
-          <div className="bars">
+          <nav className="main-nav">
             <Topbar />
             <Nav />
-          </div>
+          </nav>
           <div className="content">
             <Switch>
               <Route exact path="/">

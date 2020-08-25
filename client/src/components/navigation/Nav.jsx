@@ -6,8 +6,8 @@ import DeveloperContext from '../../contexts/DeveloperContext';
 const Nav = () => {
   const { loggedInDev } = useContext(DeveloperContext);
   useEffect(() => {
-    console.log('coming from the nav component',loggedInDev);
-  },[loggedInDev]) 
+    console.log('coming from the nav component', loggedInDev);
+  }, [loggedInDev]);
   return (
     <div className="navbar">
       <ul>
@@ -29,10 +29,9 @@ const Nav = () => {
             <Link to="/login">Sign In</Link>
           </li>
         } */}
-       
       </ul>
     </div>
-  )
+  );
 };
 
 export default Nav;

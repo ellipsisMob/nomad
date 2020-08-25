@@ -30,33 +30,35 @@ function App() {
             <Topbar />
             <Nav />
           </div>
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/posts/:id">
-              <SinglePost />
-            </Route>
-            <Route path="/devs/:id">
-              <Profile />
-            </Route>
-            <Route path="/devs">
-              <DevelopersPage />
-            </Route>
-            <Route path="/addPost">
-              <NewPostPage />
-            </Route>
-            <Route path="/meetups">
-              <CalenderPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/SignUp">
-              <SignUpPage />
-            </Route>
-            <Route render={() => 'Page not found'} />
-          </Switch>
+          <div className="content">
+            <Switch>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route exact path="/posts/:id">
+                <SinglePost />
+              </Route>
+              <Route path="/devs/:id">
+                <Profile />
+              </Route>
+              <Route path="/devs">
+                <DevelopersPage />
+              </Route>
+              <Route path="/addPost">
+                <NewPostPage />
+              </Route>
+              <Route path="/meetups">
+                <CalenderPage />
+              </Route>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/SignUp">
+                <SignUpPage />
+              </Route>
+              <Route render={() => 'Page not found'} />
+            </Switch>
+          </div>
           <Footer />
         </DeveloperContext.Provider>
       </Router>

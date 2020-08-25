@@ -100,8 +100,7 @@ const PostList = () => {
                     {author}
                   </div>
                 </Link>
-                &nbsp;
-                at&nbsp;
+                ,&nbsp;
                 {showDate(createdAt)}
               </div>
             </div>

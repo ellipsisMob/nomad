@@ -1,8 +1,13 @@
-const developers = require('express').Router();
+const events = require('express').Router();
 // const single = require('./singleEvent');
 const all = require('./allEvents');
+const createEvent = require('./createEvent');
+// const { app } = require('firebase');
+
+
 
 // developers.get('/:id', single);
-developers.get('/', all);
+events.get('/', all);
+events.post('/', createEvent);
 
-module.exports = developers;
+module.exports = events;

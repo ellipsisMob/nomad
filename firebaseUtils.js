@@ -92,6 +92,7 @@ const FBAuth = (req, res, next) => {
         .get()
     })
     .then(data => {
+      console.log('from fbauth ', data);
       req.user.handle = data.docs[0].data().handle;
       return next();
     })

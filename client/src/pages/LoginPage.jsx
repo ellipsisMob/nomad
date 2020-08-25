@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import DeveloperContext from '../contexts/DeveloperContext';
 import { Link, useHistory } from 'react-router-dom';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,11 +40,13 @@ export default function SignIn() {
   const { setLoggedInDev, loggedInDev } = useContext(DeveloperContext);
   const [ email, setEmail ] = useState('marciscool@gmail.com');
   const [ password, setPassword ] = useState('haha123');
-  const [ wrongCreds, setWrongCreds] = useState(false)
+  const [ wrongCreds, setWrongCreds] = useState(false);
+  const [ loading, setLoading] = useState(false);
   let history = useHistory();
   
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     fetch('api/devs/login', {
       method: 'POST',
@@ -98,63 +100,67 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {wrongCreds 
-          ? <h1>Wrong username or password</h1>
-          : null}
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleLogin}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              {/* <MaterialUiLink href="#" variant="body2">
-                Forgot password?
-              </MaterialUiLink> */}
-            </Grid>
-            <Grid item>
-              <Link to="/signup" variant="body2">
-                <MaterialUiLink>{"Don't have an account? Sign Up"}</MaterialUiLink>
-              </Link>
-            </Grid>
+
+        {loading
+        ? <CircularProgress />
+        : <form className={classes.form} noValidate>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          autoFocus
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {wrongCreds 
+        ? <h1>Wrong username or password</h1>
+        : null}
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleLogin}
+        >
+          Sign In
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            {/* <MaterialUiLink href="#" variant="body2">
+              Forgot password?
+            </MaterialUiLink> */}
           </Grid>
-        </form>
+          <Grid item>
+            <Link to="/signup" variant="body2">
+              <MaterialUiLink>{"Don't have an account? Sign Up"}</MaterialUiLink>
+            </Link>
+          </Grid>
+        </Grid>
+      </form>
+        }
       </div>
       {/* <Box mt={8}>
       </Box> */}

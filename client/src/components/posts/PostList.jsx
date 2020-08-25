@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Editor,
   EditorState,
   convertFromRaw,
   ContentState,
 } from 'draft-js';
 import './PostList.css';
+import Post from './Post';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 
 // show 200 character preview of posts
 // courtesy of inrvingv8 https://github.com/facebook/draft-js/issues/742#issuecomment-388127982
@@ -64,45 +63,13 @@ const PostList = () => {
     console.log('from useEffect hook', rawPosts);
   }, [rawPosts]);
 
-  const showDate = d => moment(d).utc().format('DD MMM');
-
   return (
     <>
       {!loading
         ? rawPosts.map(raw => {
-          const { post } = raw.data;
-          const {
-            author,
-            headerImg,
-            createdAt,
-            title,
-          } = post;
-          const contentState = convertFromRaw(post);
-          const editorState = EditorState.createWithContent(contentState);
-          const newEditorState = truncate(editorState);
-          return (
-            <div className="post" key={raw.id}>
-              <div className="headerImg">
-                <img src={headerImg} alt="headerImg" className="headerImg" />
-              </div>
-              <Link to={`/posts/${raw.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div className="postPreview">
-                  <h2>{title}</h2>
-                  <Editor editorState={newEditorState} readOnly />
-                </div>
-              </Link>
-              <div className="postBar">
-                By&nbsp;
-                <Link to="/devs/cyBTQH78K0IR2eq1k405" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div className="author">
-                    {author}
-                  </div>
-                </Link>
-                ,&nbsp;
-                {showDate(createdAt)}
-              </div>
-            </div>
-          );
+          const editorState = EditorState.createWithContent(convertFromRaw(raw.data.post));
+          const truncatedPost = truncate(editorState);
+          return (<Post rawPost={raw} toRender={truncatedPost} />);
         })
         : <h1>Loading ...</h1>}
     </>

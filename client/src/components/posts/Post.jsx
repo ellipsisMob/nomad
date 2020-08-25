@@ -1,38 +1,49 @@
-// import React from 'react';
-// import {
-//   Link,
-// } from 'react-router-dom';
-// import './Post.css';
+import React from 'react';
+import {
+  Link,
+} from 'react-router-dom';
+import { Editor } from 'draft-js';
+import moment from 'moment';
 
-// const Post = props => {
-//   const {
-//     id,
-//     title,
-//     body,
-//     author,
-//     date,
-//   } = props;
-//   return (
-//     <div className="post">
-//       <h2>{title}</h2>
-//       <p>
-//         {body}
-//         {/* FIX BREAKS WITH STYLING */}
-//         <br />
-//         <br />
-//         <Link key={id} to={`/posts/${id}`}>Full post...</Link>
+const Post = props => {
+  const showDate = d => moment(d).utc().format('DD MMM');
+  const {
+    rawPost,
+    toRender,
+  } = props;
+  const { id } = rawPost;
 
-//       </p>
-//       <div className="bottomBar">
-//         <div className="author">
-//           {`by ${author}`}
-//         </div>
-//         <div className="timestamp">
-//           {/* {`at ${date.seconds}`} */}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+  const postData = rawPost.data.post;
+  const {
+    author,
+    headerImg,
+    createdAt,
+    title,
+  } = postData;
 
-// export default Post;
+  return (
+    <div className="post" key={id}>
+      <div className="headerImg">
+        <img src={headerImg} alt="headerImg" className="headerImg" />
+      </div>
+      <Link to={`/posts/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <div className="postPreview">
+          <h2>{title}</h2>
+          <Editor editorState={toRender} readOnly />
+        </div>
+      </Link>
+      <div className="postBar">
+        By&nbsp;
+        <Link to="/devs/cyBTQH78K0IR2eq1k405" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div className="author">
+            {author}
+          </div>
+        </Link>
+        ,&nbsp;
+        {showDate(createdAt)}
+      </div>
+    </div>
+  );
+};
+
+export default Post;

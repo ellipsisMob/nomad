@@ -13,7 +13,7 @@ const addPost = (post) => {
   fetch('api/posts', {
     method: 'POST',
     headers: {
-      'Content-Type': 'Application/JSON'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({post})
   })

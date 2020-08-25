@@ -11,11 +11,11 @@ const Nav = () => {
   return (
     <div className="navbar">
       <ul>
-        <li>
+        {/* <li>
           <Link to="/">Home</Link>
-        </li>
+        </li> */}
         <li>
-          <Link to="/devs">Our Developers</Link>
+          <Link to="/devs">Developers</Link>
         </li>
         <li>
           <Link to="/addPost">New Post</Link>

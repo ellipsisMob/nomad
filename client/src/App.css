@@ -1,15 +1,26 @@
 :root {
-  --offwhite: #ECF0F1;
+  --offwhite: #fafafa;
   --darkgrey: #7F8C8D; 
   --lightblue: #2980B9;
   --darkblue: #2C3E50;
   --red: #E74C3C;
 }
 
-body {
-  font-family: 'Roboto', 'Arial', 'sans-serif';
+/* body {
+  font-family: 'Roboto', 'Helvetica', 'Arial', 'sans-serif';
   background: var(--offwhite);
   margin:0;
+} */
+
+body {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  background: var(--offwhite);
+  margin: 0;
 }
 
 .bars {

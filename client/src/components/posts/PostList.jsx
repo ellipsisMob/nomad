@@ -82,7 +82,7 @@ const PostList = () => {
               </div>
               <Link to={`/posts/${raw.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="postPreview">
-                  <h1>{title}</h1>
+                  <h2>{title}</h2>
                   <Editor editorState={newEditorState} readOnly={true} />
                 </div>
               </Link>

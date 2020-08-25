@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import DeveloperContext from './contexts/DeveloperContext';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
+import DeveloperContext from './contexts/DeveloperContext';
 import Topbar from './components/navigation/Topbar';
 import Nav from './components/navigation/Nav';
 import SinglePost from './components/posts/SinglePost';
@@ -19,8 +19,7 @@ import SignUpPage from './pages/SignUpPage';
 import './App.css';
 
 function App() {
-
-  const [loggedInDev, setLoggedInDev] = useState({loggedIn: false});
+  const [loggedInDev, setLoggedInDev] = useState({ loggedIn: false });
   const [signedUp, setSignedUp] = useState(false);
 
   return (

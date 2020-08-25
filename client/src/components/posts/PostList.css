@@ -1,13 +1,12 @@
-.postPreview:hover {
-  color: var(--darkgrey);
+.post {
+  margin: 5px;
+  padding: 10px;
+  max-width: 900px;
 }
 
-  .post {
-    margin: 5px;
-    padding: 10px;
-    /* border: 1px solid var(--darkgrey); */
-    max-width: 900px;
-  }
+.frontPagePost:hover {
+  color: var(--darkgrey);
+}
 
 .postBar {
   display: flex;

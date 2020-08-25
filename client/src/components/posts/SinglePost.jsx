@@ -3,6 +3,7 @@ import { Editor, EditorState, convertFromRaw } from 'draft-js';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useParams } from 'react-router';
+import Post from './Post';
 
 const SinglePost = props => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ const SinglePost = props => {
           const postData = raw.data.post;
           const contentState = convertFromRaw(postData);
           const editorState = EditorState.createWithContent(contentState);
-          return <Editor key={raw.id} editorState={editorState} readOnly={true} />;
+          return <Post rawPost={raw} toRender={editorState} />;
         })
         : <h1>Loading ...</h1>}
     </div>

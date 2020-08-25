@@ -14,11 +14,7 @@ const CalendarPage = () => {
     fetchEvents();
   }, []);
 
-  return (
-    <div>
-      <EventsCalender events={events} />
-    </div>
-  );
+  return (<EventsCalender events={events} />);
 };
 
 export default CalendarPage;

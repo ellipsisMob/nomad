@@ -92,8 +92,7 @@ const PostList = () => {
                     {author}
                   </div>
                 </Link>
-                &nbsp;
-                at&nbsp;
+                ,&nbsp;
                 {/* {createdAt} */}
               </div>
             </div>

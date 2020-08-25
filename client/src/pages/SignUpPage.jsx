@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import DeveloperContext from '../contexts/DeveloperContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   // const [ fname, setFname ] = useState('');
   // const [ lname, setLname ] = useState('');
+  const { signedUp, setSignedUp } = useContext(DeveloperContext);
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [loading, setLoading] = useState(false);
@@ -65,10 +67,15 @@ export default function SignUp() {
     .then(res => res.json())
     .then(res => {
       console.log('coming from the signup response', res);
-      history.push('/')
+      setSignedUp(true);
+      history.push('/login')
     })
     .catch(err => console.log(err))
   }
+
+  useEffect(() => {
+    console.log("signed up", signedUp);
+  }, []);
 
   useEffect(() => {
     // console.log(fname);
@@ -81,6 +88,7 @@ export default function SignUp() {
 
   return (
     <Container component="main" maxWidth="xs">
+
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

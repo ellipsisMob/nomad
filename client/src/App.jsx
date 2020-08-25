@@ -21,11 +21,12 @@ import './App.css';
 function App() {
 
   const [loggedInDev, setLoggedInDev] = useState({loggedIn: false});
+  const [signedUp, setSignedUp] = useState(false);
 
   return (
     <div className="App">
       <Router>
-        <DeveloperContext.Provider value={{ loggedInDev, setLoggedInDev }}>
+        <DeveloperContext.Provider value={{ loggedInDev, setLoggedInDev, signedUp, setSignedUp }}>
           <div className="bars">
             <Topbar />
             <Nav />

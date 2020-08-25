@@ -15,6 +15,8 @@ import Container from '@material-ui/core/Container';
 import DeveloperContext from '../contexts/DeveloperContext';
 import { Link, useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,12 +39,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-  const { setLoggedInDev, loggedInDev } = useContext(DeveloperContext);
+  const { setLoggedInDev, loggedInDev, signedUp, setSignedUp } = useContext(DeveloperContext);
   const [ email, setEmail ] = useState('marciscool@gmail.com');
   const [ password, setPassword ] = useState('haha123');
   const [ wrongCreds, setWrongCreds] = useState(false);
   const [ loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   let history = useHistory();
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   
   const handleLogin = (e) => {
     e.preventDefault();
@@ -70,6 +81,7 @@ export default function SignIn() {
         history.push('/');
       } else { 
         setWrongCreds(true);
+        setSignedUp(false);
         setLoggedInDev({loggedIn: false});
       }
     })
@@ -85,13 +97,36 @@ export default function SignIn() {
   }, [email]);
 
   useEffect(() => {
-    console.log(password);
-  }, [password]);
+    console.log(email);
+    console.log('From login page',loggedInDev);
+  }, [email]);
+
+  useEffect(() => {
+    console.log("signed up", signedUp);
+    if(signedUp) {
+      setOpen(true);
+    }
+    setTimeout(() => {
+      setSignedUp(false);
+    }, 7000)
+  },[]);
   
   const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
+
+      {signedUp
+        ? <div className={classes.root}>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                Signed up succesfully! Please login using your credentials.
+              </Alert>
+            </Snackbar>
+          </div>
+        : null
+      }
+
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

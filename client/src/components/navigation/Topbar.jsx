@@ -34,7 +34,7 @@ const Topbar = () => {
             {/* <AccountCircleIcon /> */}
             <Button onClick={logoutHandler}>Logout</Button>
           </div>
-        : <Button><Link to="/login">Sign In</Link></Button>
+        : <Button><Link className={'signInLink'} to="/login">Sign In</Link></Button>
         }
         </div>
       </div>

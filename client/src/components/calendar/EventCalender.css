@@ -1,0 +1,40 @@
+.eventCalender {
+  height: 500px;
+  margin: 10px 0;
+}
+
+.rbc-toolbar {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.rbc-toolbar-label {
+  order: 0;
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+.rbc-btn-group:first-of-type {
+  order: 1;
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+.rbc-btn-group:last-of-type {
+  order: 2;
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+.rbc-toolbar-label {
+  color: var(--lightblue);
+}
+
+.rbc-month-view {
+  width: 90%;
+  margin: 0 auto;
+}
+.rbc-time-view {
+  width: 90%;
+  margin: 0 auto;
+}

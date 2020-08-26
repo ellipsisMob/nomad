@@ -7,9 +7,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import moment from 'moment';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    backgroundColor: '#2980B9',
+    color: 'white',
+    textTransform: 'capitalize',
+    fontWeight: '400',
+    margin: '0 0 15px 0',
+    padding: '5px 15px',
+  },
+}));
 
 const AddEvent = props => {
-  
+
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(moment().format()); 
   const [duration, setDuration] = useState('');
@@ -21,7 +33,7 @@ const AddEvent = props => {
 
   const handleClose = () => {
     setOpen(false);
-  }
+  };
 
   const handleAddEvent = () => {
     console.log('coming from addevent', date, duration, title)
@@ -45,18 +57,19 @@ const AddEvent = props => {
       handleClose();
       // history.push('/events')
     })
-    .catch(err => console.log(err))
-  }
+    .catch(err => console.log(err));
+  };
+
+  const classes = useStyles();
 
   return (
-    <div>
-      <Button age="primary" onClick={handleClickOpen}>
+    <>
+      <Button age="primary" className={classes.button} onClick={handleClickOpen}>
         New Meetup
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">New Meetup</DialogTitle>
         <DialogContent>
-
           <TextField
             id="datetime-local"
             label="Date"
@@ -64,7 +77,7 @@ const AddEvent = props => {
             defaultValue="2020-08-25T10:30"
             onChange={e => setDate(e.target.value)}
             InputLabelProps={{
-            shrink: true,
+              shrink: true,
             }}
           />
           <TextField
@@ -94,8 +107,8 @@ const AddEvent = props => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
-  )
-}
+    </>
+  );
+};
 
 export default AddEvent;

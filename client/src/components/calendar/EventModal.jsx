@@ -12,7 +12,7 @@ const AddEvent = props => {
   
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(''); 
-  const [duration, setDuration] = useState();
+  const [duration, setDuration] = useState('');
   const [title, setTitle] = useState('');
 
   const handleClickOpen = () => {
@@ -24,11 +24,17 @@ const AddEvent = props => {
   }
 
   useEffect(() => {
+    const newDate = new Date();
+    const initialTime = moment(newDate).format();
+    setDate(initialTime);
+  }, []);
+
+  useEffect(() => {
     const parsedTime = moment(date).format();
     console.log('Coming from the useEffect', parsedTime);
   },[date, duration, title]);
 
-  const handleAddEvent = (e) => {
+  const handleAddEvent = () => {
     console.log('coming from addevent', date, duration, title)
     fetch('api/events', {
       method: 'POST',
@@ -44,6 +50,10 @@ const AddEvent = props => {
     .then(res => res.json())
     .then(res => {
       console.log('coming from the event page', res);
+      props.setEventAdded(props.eventAdded + 1);
+      setDate('');
+      setDuration('');
+      setTitle('');
       handleClose();
       // history.push('/events')
     })

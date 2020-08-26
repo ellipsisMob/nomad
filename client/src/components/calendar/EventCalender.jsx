@@ -50,9 +50,7 @@ const EventCalendar = props => {
           style={{ height: 570, margin: 20 }}
         />
       }
-        <EventModal
-          
-        />
+        <EventModal eventAdded={props.eventAdded} setEventAdded={props.setEventAdded} />
     </div>
   )
 }

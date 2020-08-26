@@ -20,6 +20,7 @@ const Post = props => {
     headerImg,
     createdAt,
     title,
+    authorId,
   } = postData;
 
   return (
@@ -33,7 +34,7 @@ const Post = props => {
       </div>
       <div className="postBar">
         By&nbsp;
-        <Link to="/devs/cyBTQH78K0IR2eq1k405" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Link to={`/devs/${authorId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="author">
             {author}
           </div>

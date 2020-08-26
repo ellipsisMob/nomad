@@ -1,25 +1,38 @@
 .text-editor {
   width: 90%;
   margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 .editor {
   background: #fff;
   border: 1px solid #ddd;
-  /* font-family: 'Georgia', serif; */
   font-size: 14px;
-  padding: 0px 15px 15px 15px;
+  padding: 0px 15px 5px 15px;
+}
+
+.headerImg {
+  border-top: 1px solid #ddd;
+}
+
+.headerImg input {
+  padding: 0;
+  margin: 10px 0 0 0;
+  width: 100%;
+  border: 0;
+  color: grey;
+  outline: none;
 }
 
 .title input {
   padding: 0;
   margin: 10px 0;
-  /* background: red; */
   width: 100%;
   border: 0;
   font-size: 300%;
   outline: none;
-  /* font-family: 'Georgia', serif; */
 }
 
 .RichEditor-editor {

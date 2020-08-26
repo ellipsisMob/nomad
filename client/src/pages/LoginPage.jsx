@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import DeveloperContext from '../contexts/DeveloperContext';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -144,7 +145,8 @@ export default function SignIn() {
           ? <CircularProgress />
           : (
             <form className={classes.form} noValidate>
-              <TextField
+          <ValidatorForm>
+            <TextValidator
                 variant="outlined"
                 margin="normal"
                 required
@@ -155,6 +157,8 @@ export default function SignIn() {
                 autoComplete="email"
                 autoFocus
                 value={email}
+                validators={['required', 'isEmail']}
+                errorMessages={['this field is required', 'email is not valid']}
                 onChange={e => setEmail(e.target.value)} />
               <TextField
                 variant="outlined"
@@ -168,6 +172,7 @@ export default function SignIn() {
                 autoComplete="current-password"
                 value={password}
                 onChange={e => setPassword(e.target.value)} />
+              </ValidatorForm>
               {wrongCreds
                 ? <h1>Wrong username or password</h1>
                 : null}

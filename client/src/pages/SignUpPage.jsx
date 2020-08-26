@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DeveloperContext from '../contexts/DeveloperContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -100,8 +101,8 @@ export default function SignUp() {
         {loading
         ? <CircularProgress />
         : <form className={classes.form} noValidate>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+        {/* <Grid container spacing={2}> */}
+          {/* <Grid item xs={12} sm={6}> */}
             {/* <TextField
               autoComplete="fname"
               name="firstName"
@@ -125,20 +126,25 @@ export default function SignUp() {
               autoComplete="lname"
               onChange={(e) => setLname(e.target.value)}
             /> */}
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
+          {/* </Grid> */}
+          <ValidatorForm>
+          {/* <Grid item xs={12}> */}
+            <TextValidator
               variant="outlined"
+              margin="normal"
               required
               fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
+              value={email}
+              validators={['required', 'isEmail']}
+              errorMessages={['this field is required', 'email is not valid']}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </Grid>
-          <Grid item xs={12}>
+          {/* </Grid> */}
+          {/* <Grid item xs={12}> */}
             <TextField
               variant="outlined"
               required
@@ -150,14 +156,15 @@ export default function SignUp() {
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
-          </Grid>
+          {/* </Grid> */}
+            </ValidatorForm>
           {/* <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}
               label="I want to receive inspiration, marketing promotions and updates via email."
             />
           </Grid> */}
-        </Grid>
+        {/* </Grid> */}
         <Button
           type="submit"
           fullWidth
@@ -168,13 +175,13 @@ export default function SignUp() {
         >
           Sign Up
         </Button>
-        <Grid container justify="flex-end">
+        {/* <Grid container justify="flex-end">
           <Grid item>
             {/* <Link href="#" variant="body2">
               Already have an account? Sign in
             </Link> */}
-          </Grid>
-        </Grid>
+          {/* </Grid> */}
+        {/* // </Grid> */}
       </form>
         }
         {/*  */}

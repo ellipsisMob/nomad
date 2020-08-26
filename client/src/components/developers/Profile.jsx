@@ -8,13 +8,16 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import DevEditModal from './DevEditModal';
 import DeveloperContext from '../../contexts/DeveloperContext';
 import './Profile.css';
+import md5 from 'md5';
+import { SelectionState } from 'draft-js';
 
 const Profile = props => {
   const { loggedInDev } = useContext(DeveloperContext);
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [updateDev, setUpdateDev] = useState(false);
+  const [updateDev, setUpdateDev] = useState(0);
+  const [ personalProfile, setPersonalProfile ] = useState(false);
 
   const handleDelete = () => {
     if (window.confirm('Do you really want to delete this user?')) {
@@ -39,7 +42,9 @@ const Profile = props => {
     })
       .then(res => res.json())
       .then(data => setUser(data))
-      .then(() => setLoading(false));
+      .then(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -51,13 +56,21 @@ const Profile = props => {
     console.log('Profile page: ', user);
   }, [user]);
 
+  useEffect(() => {
+    if(loggedInDev.loggedIn) {
+      if (md5(loggedInDev.handle) === id) {
+        setPersonalProfile(true);
+      }
+    }
+  }, []);
+
   return (
     <>
       {!loading
         ? (
           <div className="devProfile">
             <div className="devHeader">
-              <img className="profilePicture" src="http://placebeard.it/g/640x480" alt={`${user.data.name}`} />
+              <img className="profilePicture" src={user.data.profilePic} alt={`${user.data.name}`} />
               <div className="devTitle">
                 <h2>
                   {user.data.name}
@@ -93,16 +106,38 @@ const Profile = props => {
                 <p>About a random subject, written letters</p>
               </div>
             </div>
-            <div className="devControls">
+
+            {personalProfile
+            ? <div className="devControls">
+                <DevEditModal
+                  id={user.id}
+                  name={user.data.name}
+                  github={user.data.github}
+                  linkedin={user.data.linkedin}
+                  about={user.data.about}
+                  setUpdateDev={setUpdateDev}
+                  updateDev={updateDev}
+                  profilePic={user.data.profilePic}
+                  />
+
+                <Button
+                  startIcon={<DeleteIcon />}
+                  color="secondary"
+                  onClick={handleDelete} />
+              </div>
+            : null}
+
+            {/* <div className="devControls">
               <DevEditModal
                 name={user.data.name}
                 id={user.id}
+                profilePic={user.data.profilePic}
                 setUpdateDev={setUpdateDev} />
               <Button
                 startIcon={<DeleteIcon />}
                 color="secondary"
                 onClick={handleDelete} />
-            </div>
+            </div> */}
           </div>
         )
         : <h1>loading users...</h1>}

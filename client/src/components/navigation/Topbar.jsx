@@ -1,14 +1,19 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Topbar.css';
-import SearchIcon from '@material-ui/icons/Search';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import DeveloperContext from '../../contexts/DeveloperContext';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import md5 from 'md5';
+import DeveloperContext from '../../contexts/DeveloperContext';
 
-const Topbar = () => {
+const styles = {
+  root: {
+    fontSize: '12px',
+    textTransform: 'capitalize',
+  },
+};
+
+const Topbar = ({ classes }) => {
   const { loggedInDev, setLoggedInDev } = useContext(DeveloperContext);
 
   const logoutHandler = () => {
@@ -23,17 +28,25 @@ const Topbar = () => {
       <div className="top-nav">
         <div className="top-profile">
           {loggedInDev.loggedIn
-          ? <div>
-            <span><strong><Link to={`/devs/${md5(loggedInDev.handle)}`}>{loggedInDev.handle}</Link> | </strong></span>
-            {/* <AccountCircleIcon /> */}
-            <Button onClick={logoutHandler}>Logout</Button>
-          </div>
-          : <Button><Link className={'signInLink'} to="/login">Sign In</Link></Button>
-          }
+            ? (
+              <div>
+                <span>
+                  <strong>
+                    <Link to={`/devs/${md5(loggedInDev.handle)}`}>{loggedInDev.handle}</Link>
+                    |
+                  </strong>
+                </span>
+                {/* <AccountCircleIcon /> */}
+                <Button className={classes.root} onClick={logoutHandler}>
+                  Sign Out
+                </Button>
+              </div>
+            )
+            : <Button className={classes.root}><Link className="signInLink" to="/login">Sign In</Link></Button>}
         </div>
       </div>
     </div>
   );
 };
 
-export default Topbar;
+export default withStyles(styles)(Topbar);

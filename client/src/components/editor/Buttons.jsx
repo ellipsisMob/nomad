@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
-
+import MyEditor from './Editor'
 // https://material-ui.com/components/buttons/
 const useStyles = makeStyles(theme => ({
   button: {
@@ -12,11 +12,12 @@ const useStyles = makeStyles(theme => ({
 
 const SubmitButton = props => {
   const classes = useStyles();
-
-  const { onClickFn } = props;
+  // const isEnabled = 
+  const { onClickFn, disabled } = props;
 
   return (
     <Button
+      disabled={disabled}
       variant="contained"
       color="primary"
       onClick={onClickFn}

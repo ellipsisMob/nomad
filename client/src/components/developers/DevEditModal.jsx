@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const EditDev = props => {
-  const { id, name, github, linkedin, about, updateDev, setUpdateDev } = props;
+  const { id, name, github, linkedin, about, updateDev, setUpdateDev, profilePic } = props;
   const [open, setOpen] = useState(false);
   const [dev, setdev] = useState({
     name,
@@ -17,6 +17,7 @@ const EditDev = props => {
     linkedin,
     name,
     about,
+    profilePic
   });
 
   const handleClickOpen = () => {
@@ -46,6 +47,8 @@ const EditDev = props => {
         github: dev.github,
         linkedin: dev.linkedin,
         about: dev.about,
+        profilePic: dev.profilePic,
+
       }),
     })
       .then(() => setUpdateDev(updateDev + 1))
@@ -53,7 +56,7 @@ const EditDev = props => {
   };
 
   useEffect(() => {
-    console.log(dev.name);
+    console.log('useEff', dev);
   }, [dev]);
 
   return (
@@ -71,6 +74,14 @@ const EditDev = props => {
             name='name'
             label="Name"
             value={dev.name}
+            onChange={e => handleInputChange(e)}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            name="profilePic"
+            label="profilePic"
+            value={dev.profilePic}
             onChange={e => handleInputChange(e)}
             fullWidth
           />

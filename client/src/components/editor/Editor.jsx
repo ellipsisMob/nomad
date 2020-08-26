@@ -122,7 +122,6 @@ class MyEditor extends React.Component {
 
   render() {
     const {editorState} = this.state;
-
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';
@@ -132,10 +131,13 @@ class MyEditor extends React.Component {
         className += ' RichEditor-hidePlaceholder';
       }
     }
+    const pattern = new RegExp(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i);
 
+    const inputField = convertToRaw(contentState).blocks[0].text
     const { author } = this.state;
     const { headerImg } = this.state;
     const { title } = this.state;
+    const isEnabled = title.length > 0 && inputField.length > 0 && pattern.test(headerImg);
     return (
       <div className="text-editor">
         <form>
@@ -185,7 +187,7 @@ class MyEditor extends React.Component {
           </div>
           </div>
         </form>
-        <SubmitButton onClickFn={this.handleSubmit} />
+        <SubmitButton onClickFn={this.handleSubmit} disabled={!isEnabled}/>
       </div>
     );
   }

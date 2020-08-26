@@ -1,6 +1,7 @@
 import React from 'react';
 import Draft from 'draft-js';
 import StyleButton from './StyleButton';
+import SubmitButton from './Buttons';
 import '../../../node_modules/draft-js/dist/Draft.css';
 import './Editor.css';
 
@@ -183,8 +184,8 @@ class MyEditor extends React.Component {
             </label>
           </div>
           </div>
-          <button type="submit" onClick={this.handleSubmit}>Submit post</button>
         </form>
+        <SubmitButton onClickFn={this.handleSubmit} />
       </div>
     );
   }

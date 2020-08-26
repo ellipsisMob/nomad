@@ -1,6 +1,9 @@
 .text-editor {
   width: 90%;
   margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 .editor {

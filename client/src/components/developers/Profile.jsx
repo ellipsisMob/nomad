@@ -110,6 +110,7 @@ const Profile = props => {
                 <DevEditModal
                   name={user.data.name}
                   id={user.id}
+                  profilePic={user.data.profilePic}
                   setUpdateDev={setUpdateDev} />
                 <Button
                   startIcon={<DeleteIcon />}

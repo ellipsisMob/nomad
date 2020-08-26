@@ -138,15 +138,6 @@ class MyEditor extends React.Component {
     return (
       <div className="text-editor">
         <form>
-          {/* <label htmlFor="author">
-            Author:
-            <input 
-              name="author"
-              type="text"
-              placeholder="Enter your name"
-              value={author}
-              onChange={this.authorChange} />
-          </label> */}
           <div className="editor">
             <div className="title">
               <label htmlFor="title">
@@ -181,16 +172,17 @@ class MyEditor extends React.Component {
               />
             </div>
           </div>
+          <div className="headerImg">
+            <label htmlFor="headerImg">
+              <input 
+                name="headerImg"
+                type="text"
+                placeholder="Add link to a cover image"
+                value={headerImg}
+                onChange={this.headerImgChange} />
+            </label>
           </div>
-          <label htmlFor="headerImg">
-            <br></br>Cover Image:
-            <input 
-              name="headerImg"
-              type="text"
-              placeholder="Link a cover image"
-              value={headerImg}
-              onChange={this.headerImgChange} />
-          </label>
+          </div>
           <button type="submit" onClick={this.handleSubmit}>Submit post</button>
         </form>
       </div>

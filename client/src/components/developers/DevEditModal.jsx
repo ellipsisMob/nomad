@@ -72,14 +72,14 @@ const EditDev = props => {
             onChange={e => handleInputChange(e)}
             fullWidth
           />
-          {/* <TextField
+          <TextField
             margin="dense"
             name='age'
             label="age"
             value={dev.age}
             onChange={e => handleInputChange(e)}
             fullWidth
-          /> */}
+          />
           {/* <TextField
             margin="dense"
             name='email'

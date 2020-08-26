@@ -8,12 +8,14 @@ const {
   Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw,
 } = Draft;
 
-const addPost = (post) => {
+const addPost = (post, token) => {
   console.log('from post method ', post);
+  console.log('from addpost token ', token);
   fetch('api/posts', {
     method: 'POST',
     headers: {
-      'Content-Type': 'Application/JSON'
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({post})
   })
@@ -72,7 +74,7 @@ class MyEditor extends React.Component {
     post.headerImg = this.state.headerImg;
     post.title = this.state.title;
     console.log('post', post);
-    addPost(post);
+    addPost(post, this.props.token);
   }
 
   _handleKeyCommand(command, editorState) {
@@ -136,7 +138,7 @@ class MyEditor extends React.Component {
     return (
       <div className="text-editor">
         <form>
-          <label htmlFor="author">
+          {/* <label htmlFor="author">
             Author:
             <input 
               name="author"
@@ -144,25 +146,18 @@ class MyEditor extends React.Component {
               placeholder="Enter your name"
               value={author}
               onChange={this.authorChange} />
-          </label>
-          <label htmlFor="headerImg">
-            <br></br>Cover Image:
-            <input 
-              name="headerImg"
-              type="text"
-              placeholder="Link a cover image"
-              value={headerImg}
-              onChange={this.headerImgChange} />
-          </label>
-          <label htmlFor="title">
-            <br></br>Post Title:
-            <input 
-              name="title"
-              type="text"
-              placeholder="Post title (shown as H1)"
-              value={title}
-              onChange={this.titleChange} />
-          </label>
+          </label> */}
+          <div className="editor">
+            <div className="title">
+              <label htmlFor="title">
+                <input 
+                  name="title"
+                  type="text"
+                  placeholder="Title.."
+                  value={title}
+                  onChange={this.titleChange} />
+              </label>
+            </div>
           <div className="RichEditor-root">
             <BlockStyleControls
               editorState={editorState}
@@ -186,6 +181,16 @@ class MyEditor extends React.Component {
               />
             </div>
           </div>
+          </div>
+          <label htmlFor="headerImg">
+            <br></br>Cover Image:
+            <input 
+              name="headerImg"
+              type="text"
+              placeholder="Link a cover image"
+              value={headerImg}
+              onChange={this.headerImgChange} />
+          </label>
           <button type="submit" onClick={this.handleSubmit}>Submit post</button>
         </form>
       </div>
@@ -211,7 +216,7 @@ class MyEditor extends React.Component {
   }
 
   const BLOCK_TYPES = [
-  {label: 'H1', style: 'header-one'},
+  // {label: 'H1', style: 'header-one'},
   {label: 'H2', style: 'header-two'},
   {label: 'H3', style: 'header-three'},
   {label: 'H4', style: 'header-four'},

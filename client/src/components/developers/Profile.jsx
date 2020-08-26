@@ -8,6 +8,8 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import DevEditModal from './DevEditModal';
 import DeveloperContext from '../../contexts/DeveloperContext';
 import './Profile.css';
+import md5 from 'md5';
+import { SelectionState } from 'draft-js';
 
 const Profile = props => {
   const { loggedInDev } = useContext(DeveloperContext);
@@ -15,6 +17,7 @@ const Profile = props => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updateDev, setUpdateDev] = useState(false);
+  const [ personalProfile, setPersonalProfile ] = useState(false);
 
   const handleDelete = () => {
     if (window.confirm('Do you really want to delete this user?')) {
@@ -50,6 +53,14 @@ const Profile = props => {
   useEffect(() => {
     console.log('Profile page: ', user);
   }, [user]);
+
+  useEffect(() => {
+    if(loggedInDev.loggedIn) {
+      if (md5(loggedInDev.handle) === id) {
+        setPersonalProfile(true);
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -93,7 +104,21 @@ const Profile = props => {
                 <p>About a random subject, written letters</p>
               </div>
             </div>
-            <div className="devControls">
+
+            {personalProfile
+            ? <div className="devControls">
+                <DevEditModal
+                  name={user.data.name}
+                  id={user.id}
+                  setUpdateDev={setUpdateDev} />
+                <Button
+                  startIcon={<DeleteIcon />}
+                  color="secondary"
+                  onClick={handleDelete} />
+              </div>
+            : null}
+
+            {/* <div className="devControls">
               <DevEditModal
                 name={user.data.name}
                 id={user.id}
@@ -103,7 +128,7 @@ const Profile = props => {
                 startIcon={<DeleteIcon />}
                 color="secondary"
                 onClick={handleDelete} />
-            </div>
+            </div> */}
           </div>
         )
         : <h1>loading users...</h1>}

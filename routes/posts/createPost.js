@@ -8,10 +8,14 @@ module.exports = (req, res) => {
   // }
 
   console.log('From createPost route USERNAME: ', req.user.name);
-
+  console.log('From createPost route USE: ', req.user.authorId);
   if (req.user.name) {
     req.body.post.author = req.user.name;
+  } else {
+    req.body.post.author = 'Anonymous';
   }
+
+  req.body.post.authorId = req.user.authorId;
 
   createDocument('posts', req)
     .then(() => {

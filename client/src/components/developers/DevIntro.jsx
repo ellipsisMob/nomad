@@ -6,7 +6,7 @@ import './DevIntro.css';
 
 const DevIntro = props => {
   const { id, data } = props;
-
+  console.log(data);
   return (
     <div className="devIntro">
       <div className="devInfo">
@@ -15,7 +15,7 @@ const DevIntro = props => {
         <Link to={`/devs/${id}`}>Full profile...</Link>
       </div>
       <div className="devPicture">
-        <img className="devPicture" src="http://placebeard.it/g/640x480" alt={`Profile mugshot of ${data.name}`} />
+        <img className="devPicture" src={data.profilePic} alt={`Profile mugshot of ${data.name}`} />
       </div>
     </div>
   );

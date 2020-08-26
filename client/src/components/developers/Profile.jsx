@@ -57,7 +57,7 @@ const Profile = props => {
         ? (
           <div className="devProfile">
             <div className="devHeader">
-              <img className="profilePicture" src="http://placebeard.it/g/640x480" alt={`${user.data.name}`} />
+              <img className="profilePicture" src={user.data.profilePic} alt={`${user.data.name}`} />
               <div className="devTitle">
                 <h2>
                   {user.data.name}
@@ -97,6 +97,7 @@ const Profile = props => {
               <DevEditModal
                 name={user.data.name}
                 id={user.id}
+                profilePic={user.data.profilePic}
                 setUpdateDev={setUpdateDev} />
               <Button
                 startIcon={<DeleteIcon />}

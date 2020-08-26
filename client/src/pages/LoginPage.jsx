@@ -18,7 +18,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: 'fuchsia',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -36,14 +36,19 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  signup: {
+    color: 'orange',
+  },
 }));
 
 export default function SignIn() {
-  const { setLoggedInDev, loggedInDev, signedUp, setSignedUp } = useContext(DeveloperContext);
-  const [ email, setEmail ] = useState('marciscool@gmail.com');
-  const [ password, setPassword ] = useState('haha123');
-  const [ wrongCreds, setWrongCreds] = useState(false);
-  const [ loading, setLoading] = useState(false);
+  const {
+    setLoggedInDev, loggedInDev, signedUp, setSignedUp,
+  } = useContext(DeveloperContext);
+  const [email, setEmail] = useState('marciscool@gmail.com');
+  const [password, setPassword] = useState('haha123');
+  const [wrongCreds, setWrongCreds] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   let history = useHistory();
 
@@ -55,37 +60,37 @@ export default function SignIn() {
     setOpen(false);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = e => {
     e.preventDefault();
     setLoading(true);
 
     fetch('api/devs/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
         "email": email,
         "password": password
       }),
     })
-    .then(res => res.json())
-    .then(res => {
-      console.log(res);
-      setLoggedInDev({
-        handle: res.email,
-        token: res.token,
-        loggedIn: res.loggedIn,
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        setLoggedInDev({
+          handle: res.email,
+          token: res.token,
+          loggedIn: res.loggedIn,
+        });
+        if (res.loggedIn === true) {
+          history.push('/');
+        } else {
+          setWrongCreds(true);
+          setSignedUp(false);
+          setLoggedInDev({ loggedIn: false });
+        }
       })
-      if(res.loggedIn === true) {
-        history.push('/');
-      } else { 
-        setWrongCreds(true);
-        setSignedUp(false);
-        setLoggedInDev({loggedIn: false});
-      }
-    })
-    .catch(err => console.log(err));
+      .catch(err => console.log(err));
 
     setEmail('');
     setPassword('');
@@ -93,17 +98,17 @@ export default function SignIn() {
 
   useEffect(() => {
     console.log(email);
-    console.log('From login page',loggedInDev);
+    console.log('From login page', loggedInDev);
   }, [email]);
 
   useEffect(() => {
     console.log(email);
-    console.log('From login page',loggedInDev);
+    console.log('From login page', loggedInDev);
   }, [email]);
 
   useEffect(() => {
-    console.log("signed up", signedUp);
-    if(signedUp) {
+    console.log('Signed Up', signedUp);
+    if (signedUp) {
       setOpen(true);
     }
     setSignedUp(false);
@@ -115,15 +120,16 @@ export default function SignIn() {
     <Container component="main" maxWidth="xs">
 
       {setOpen
-        ? <div className={classes.root}>
+        ? (
+          <div className={classes.root}>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="success">
                 Signed up succesfully! Please login using your credentials.
               </Alert>
             </Snackbar>
           </div>
-        : null
-      }
+        )
+        : null }
 
       <CssBaseline />
       <div className={classes.paper}>
@@ -135,68 +141,54 @@ export default function SignIn() {
         </Typography>
 
         {loading
-        ? <CircularProgress />
-        : <form className={classes.form} noValidate>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {wrongCreds 
-        ? <h1>Wrong username or password</h1>
-        : null}
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={handleLogin}
-        >
-          Sign In
-        </Button>
-        <Grid container>
-          <Grid item xs>
-            {/* <MaterialUiLink href="#" variant="body2">
-              Forgot password?
-            </MaterialUiLink> */}
-          </Grid>
-          <Grid item>
-            <Link to="/signup" variant="body2">
-              <MaterialUiLink>{"Don't have an account? Sign Up"}</MaterialUiLink>
-            </Link>
-          </Grid>
-        </Grid>
-      </form>
-        }
+          ? <CircularProgress />
+          : (
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={email}
+                onChange={e => setEmail(e.target.value)} />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)} />
+              {wrongCreds
+                ? <h1>Wrong username or password</h1>
+                : null}
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me" />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={handleLogin}>
+                Sign In
+              </Button>
+              <Link to="/signup" variant="body2">
+                <MaterialUiLink className={classes.signup}>Don&apos;t have an account? Sign Up</MaterialUiLink>
+              </Link>
+            </form>
+          )}
       </div>
-      {/* <Box mt={8}>
-      </Box> */}
     </Container>
   );
 }

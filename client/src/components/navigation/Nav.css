@@ -6,11 +6,15 @@
 }
 
 .navbar li {
-  margin: 0 10px;
+  margin: 0 10px 5px;
   list-style: none;
 }
 
 .navbar a {
   color: var(--darkgrey);
   text-decoration: none;
+}
+
+.navbar ul {
+  border-bottom: 1px solid #f1f1f1;
 }

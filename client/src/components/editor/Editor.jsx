@@ -1,6 +1,7 @@
 import React from 'react';
 import Draft from 'draft-js';
 import StyleButton from './StyleButton';
+import SubmitButton from './Buttons';
 import '../../../node_modules/draft-js/dist/Draft.css';
 import './Editor.css';
 
@@ -138,15 +139,6 @@ class MyEditor extends React.Component {
     return (
       <div className="text-editor">
         <form>
-          {/* <label htmlFor="author">
-            Author:
-            <input 
-              name="author"
-              type="text"
-              placeholder="Enter your name"
-              value={author}
-              onChange={this.authorChange} />
-          </label> */}
           <div className="editor">
             <div className="title">
               <label htmlFor="title">
@@ -181,18 +173,19 @@ class MyEditor extends React.Component {
               />
             </div>
           </div>
+          <div className="headerImg">
+            <label htmlFor="headerImg">
+              <input 
+                name="headerImg"
+                type="text"
+                placeholder="Add link to a cover image"
+                value={headerImg}
+                onChange={this.headerImgChange} />
+            </label>
           </div>
-          <label htmlFor="headerImg">
-            <br></br>Cover Image:
-            <input 
-              name="headerImg"
-              type="text"
-              placeholder="Link a cover image"
-              value={headerImg}
-              onChange={this.headerImgChange} />
-          </label>
-          <button type="submit" onClick={this.handleSubmit}>Submit post</button>
+          </div>
         </form>
+        <SubmitButton onClickFn={this.handleSubmit} />
       </div>
     );
   }

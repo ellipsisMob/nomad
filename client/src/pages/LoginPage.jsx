@@ -17,6 +17,7 @@ import { Link, useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -137,32 +138,35 @@ export default function SignIn() {
         {loading
         ? <CircularProgress />
         : <form className={classes.form} noValidate>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <ValidatorForm>
+            <TextValidator
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              validators={['required', 'isEmail']}
+              errorMessages={['this field is required', 'email is not valid']}
+              onChange={(e) => setEmail(e.target.value)} />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+        </ValidatorForm>
         {wrongCreds 
         ? <h1>Wrong username or password</h1>
         : null}

@@ -25,7 +25,7 @@ const UserList = () => {
       {!loading
         ? users.map(user => {
           if (user.data.name) {
-            return <DevIntro key={user.id} id={user.id} data={user.data}/>
+            return <DevIntro key={user.id} id={user.id} data={user.data} />;
           }
         })
         : <h1>loading users...</h1>}

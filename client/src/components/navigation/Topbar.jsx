@@ -12,8 +12,8 @@ const Topbar = () => {
   const { loggedInDev, setLoggedInDev } = useContext(DeveloperContext);
 
   const logoutHandler = () => {
-    setLoggedInDev({loggedIn: false});
-  }
+    setLoggedInDev({ loggedIn: false });
+  };
 
   return (
     <div className="topbar">
@@ -21,25 +21,19 @@ const Topbar = () => {
         <Link to="/" className="logo">Nomad</Link>
       </div>
       <div className="top-nav">
-        <div className="top-search">
-          {/* <SearchIcon /> */}
-        </div>
-        <div className="top-alarm">
-          {/* <NotificationsIcon /> */}
-        </div>
         <div className="top-profile">
-        {loggedInDev.loggedIn
-        ? <div>
+          {loggedInDev.loggedIn
+          ? <div>
             <span><strong><Link to={`/devs/${md5(loggedInDev.handle)}`}>{loggedInDev.handle}</Link> | </strong></span>
             {/* <AccountCircleIcon /> */}
             <Button onClick={logoutHandler}>Logout</Button>
           </div>
-        : <Button><Link className={'signInLink'} to="/login">Sign In</Link></Button>
-        }
+          : <Button><Link className={'signInLink'} to="/login">Sign In</Link></Button>
+          }
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Topbar;

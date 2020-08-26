@@ -2,34 +2,44 @@ import React from 'react';
 import {
   Link,
 } from 'react-router-dom';
-import './Post.css';
+import { Editor } from 'draft-js';
+import moment from 'moment';
 
+// pass Post component two props: 'rawPost' and 'toRender={editorState}'
 const Post = props => {
+  const showDate = d => moment(d).utc().format('DD MMM');
   const {
-    id,
-    title,
-    body,
-    author,
-    date,
+    rawPost,
+    toRender,
   } = props;
-  return (
-    <div className="post">
-      <h2>{title}</h2>
-      <p>
-        {body}
-        {/* FIX BREAKS WITH STYLING */}
-        <br />
-        <br />
-        <Link key={id} to={`/posts/${id}`}>Full post...</Link>
+  const { id } = rawPost;
 
-      </p>
-      <div className="bottomBar">
-        <div className="author">
-          {`by ${author}`}
-        </div>
-        <div className="timestamp">
-          {/* {`at ${date.seconds}`} */}
-        </div>
+  const postData = rawPost.data.post;
+  const {
+    author,
+    headerImg,
+    createdAt,
+    title,
+  } = postData;
+
+  return (
+    <div className="post" key={id}>
+      <div className="headerImg">
+        <img src={headerImg} alt="headerImg" className="headerImg" />
+      </div>
+      <div className="postPreview">
+        <h2>{title}</h2>
+        <Editor editorState={toRender} readOnly />
+      </div>
+      <div className="postBar">
+        By&nbsp;
+        <Link to="/devs/cyBTQH78K0IR2eq1k405" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div className="author">
+            {author}
+          </div>
+        </Link>
+        ,&nbsp;
+        {showDate(createdAt)}
       </div>
     </div>
   );

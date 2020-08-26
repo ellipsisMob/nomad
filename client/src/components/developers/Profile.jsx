@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import DeveloperContext from '../../contexts/DeveloperContext';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import DevEditModal from './DevEditModal';
+import DeveloperContext from '../../contexts/DeveloperContext';
 
 const Profile = props => {
   const { loggedInDev } = useContext(DeveloperContext);
@@ -18,7 +18,7 @@ const Profile = props => {
       fetch(`/api/devs/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-type': 'application/json'
+          'Content-type': 'application/json',
         },
         body: JSON.stringify({id}),
       })

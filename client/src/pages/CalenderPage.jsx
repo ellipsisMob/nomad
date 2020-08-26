@@ -17,11 +17,7 @@ const CalendarPage = () => {
     fetchEvents();
   }, [eventAdded]);
 
-  return (
-    <div>
-      <EventsCalender events={events} eventAdded={eventAdded} setEventAdded={setEventAdded} />
-    </div>
-  );
+  return <EventsCalender events={events} eventAdded={eventAdded} setEventAdded={setEventAdded} />;
 };
 
 export default CalendarPage;

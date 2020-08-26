@@ -8,12 +8,14 @@ const {
   Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw,
 } = Draft;
 
-const addPost = (post) => {
+const addPost = (post, token) => {
   console.log('from post method ', post);
+  console.log('from addpost token ', token);
   fetch('api/posts', {
     method: 'POST',
     headers: {
-      'Content-Type': 'Application/JSON'
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({post})
   })
@@ -72,7 +74,7 @@ class MyEditor extends React.Component {
     post.headerImg = this.state.headerImg;
     post.title = this.state.title;
     console.log('post', post);
-    addPost(post);
+    addPost(post, this.props.token);
   }
 
   _handleKeyCommand(command, editorState) {

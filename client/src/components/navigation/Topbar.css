@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 10px 0;
 }
 
 .top-nav {
@@ -12,6 +13,7 @@
 
 .top-logo {
   font-family: 'Caveat', cursive;
+  margin: 0 12px;
 }
 
 .top-logo a {

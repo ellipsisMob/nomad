@@ -1,12 +1,6 @@
 import React from 'react';
 import PostList from '../components/posts/PostList';
 
-const Home = () => {
-  return (
-    <div>
-      <PostList />
-    </div>
-  );
-};
+const Home = () => (<PostList />);
 
 export default Home;

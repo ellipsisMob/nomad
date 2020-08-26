@@ -11,7 +11,7 @@ import moment from 'moment';
 const AddEvent = props => {
   
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(''); 
+  const [date, setDate] = useState(moment().format()); 
   const [duration, setDuration] = useState('');
   const [title, setTitle] = useState('');
 
@@ -22,12 +22,6 @@ const AddEvent = props => {
   const handleClose = () => {
     setOpen(false);
   }
-
-  useEffect(() => {
-    const newDate = new Date();
-    const initialTime = moment(newDate).format();
-    setDate(initialTime);
-  }, []);
 
   const handleAddEvent = () => {
     console.log('coming from addevent', date, duration, title)
@@ -46,7 +40,6 @@ const AddEvent = props => {
     .then(res => {
       console.log('coming from the event page', res);
       props.setEventAdded(props.eventAdded + 1);
-      setDate('');
       setDuration('');
       setTitle('');
       handleClose();

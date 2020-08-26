@@ -11,24 +11,27 @@ const Nav = () => {
   return (
     <div className="navbar">
       <ul>
-        {/* <li>
-          <Link to="/">Home</Link>
-        </li> */}
         <li>
           <Link to="/devs">Developers</Link>
         </li>
-        <li>
-          <Link to="/addPost">New Post</Link>
-        </li>
-        <li>
-          <Link to="/meetups">Meetups</Link>
-        </li>
-        {/* {loggedInDev.loggedIn
+        {loggedInDev.loggedIn
+        ? <li>
+            <Link to="/meetups">Meetups</Link>
+          </li>
+        : null
+        }
+        {loggedInDev.loggedIn
+        ? <li>
+            <Link to="/addPost">New Post</Link>
+          </li>
+        : null
+        }
+        {loggedInDev.loggedIn
         ? null
         : <li>
-            <Link to="/login">Sign In</Link>
+            <Link to="/">Stories</Link>
           </li>
-        } */}
+        }
       </ul>
     </div>
   );

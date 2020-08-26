@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: 'fuchsia',
+    backgroundColor: '#E74C3C',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -35,9 +35,11 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: '#2980B9',
   },
   signup: {
-    color: 'orange',
+    color: '#7F8C8D',
+    textDecoration: 'none',
   },
 }));
 
@@ -183,7 +185,7 @@ export default function SignIn() {
                 onClick={handleLogin}>
                 Sign In
               </Button>
-              <Link to="/signup" variant="body2">
+              <Link className={classes.signup} to="/signup" variant="body2">
                 <MaterialUiLink className={classes.signup}>Don&apos;t have an account? Sign Up</MaterialUiLink>
               </Link>
             </form>

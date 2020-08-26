@@ -16,6 +16,7 @@ import DevelopersPage from './pages/DevelopersPage';
 import NewPostPage from './pages/NewPostPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import SubmitButton from './components/editor/Buttons';
 import './App.css';
 
 function App() {

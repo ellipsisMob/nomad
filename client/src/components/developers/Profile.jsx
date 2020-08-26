@@ -16,7 +16,7 @@ const Profile = props => {
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [updateDev, setUpdateDev] = useState(false);
+  const [updateDev, setUpdateDev] = useState(0);
   const [ personalProfile, setPersonalProfile ] = useState(false);
 
   const handleDelete = () => {
@@ -42,7 +42,9 @@ const Profile = props => {
     })
       .then(res => res.json())
       .then(data => setUser(data))
-      .then(() => setLoading(false));
+      .then(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -108,9 +110,14 @@ const Profile = props => {
             {personalProfile
             ? <div className="devControls">
                 <DevEditModal
-                  name={user.data.name}
                   id={user.id}
-                  setUpdateDev={setUpdateDev} />
+                  name={user.data.name}
+                  github={user.data.github}
+                  linkedin={user.data.linkedin}
+                  about={user.data.about}
+                  setUpdateDev={setUpdateDev}
+                  updateDev={updateDev}
+                  />
                 <Button
                   startIcon={<DeleteIcon />}
                   color="secondary"

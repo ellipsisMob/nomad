@@ -9,18 +9,17 @@ import EditIcon from '@material-ui/icons/Edit';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const EditDev = props => {
-  const { name, id, setUpdateDev } = props;
+  const { id, name, github, linkedin, about, updateDev, setUpdateDev } = props;
   const [open, setOpen] = useState(false);
   const [dev, setdev] = useState({
-    name: '',
-    // email: '', age: '',
+    name,
+    github,
+    linkedin,
+    name,
+    about,
   });
 
   const handleClickOpen = () => {
-    setdev({
-      name: name,
-      // age: age,
-    });
     setOpen(true);
   };
 
@@ -44,10 +43,13 @@ const EditDev = props => {
       body: JSON.stringify({
         id,
         name: dev.name,
+        github: dev.github,
+        linkedin: dev.linkedin,
+        about: dev.about,
       }),
     })
-      .then(() => setUpdateDev(true));
-    handleClose();
+      .then(() => setUpdateDev(updateDev + 1))
+      .then(() => handleClose())
   };
 
   useEffect(() => {
@@ -67,51 +69,37 @@ const EditDev = props => {
           <TextField
             margin="dense"
             name='name'
-            label="name"
+            label="Name"
             value={dev.name}
             onChange={e => handleInputChange(e)}
             fullWidth
           />
           <TextField
             margin="dense"
-            name='age'
-            label="age"
-            value={dev.age}
-            onChange={e => handleInputChange(e)}
-            fullWidth
-          />
-          {/* <TextField
-            margin="dense"
-            name='email'
-            label="email"
-            value={dev.email}
-            onChange={e => handleInputChange(e)}
-            fullWidth
-          /> */}
-          {/* <TextField
-            margin="dense"
-            name='fuel'
-            label="fuel"
-            value={dev.fuel}
-            onChange={e => handleInputChange(e)}
-            fullWidth
-          /> */}
-          {/* <TextField
-            margin="dense"
-            name='year'
-            label="year"
-            value={dev.year}
+            name='github'
+            label="Github (https:// required at beginning)"
+            value={dev.github}
+            placeholder='https://github.com/profilename'
             onChange={e => handleInputChange(e)}
             fullWidth
           />
           <TextField
             margin="dense"
-            name='price'
-            label="price"
-            value={dev.price}
+            name='linkedin'
+            label="Linkedin (https:// required at beginning)"
+            placeholder="https://www.linkedin.com/in/example-profile-b2350b153/"
+            value={dev.linkedin}
             onChange={e => handleInputChange(e)}
             fullWidth
-          /> */}
+          />
+          <TextField
+            margin="dense"
+            name='about'
+            label="About"
+            value={dev.about}
+            onChange={e => handleInputChange(e)}
+            fullWidth
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} age="primary">

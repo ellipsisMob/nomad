@@ -29,11 +29,6 @@ const AddEvent = props => {
     setDate(initialTime);
   }, []);
 
-  useEffect(() => {
-    const parsedTime = moment(date).format();
-    console.log('Coming from the useEffect', parsedTime);
-  },[date, duration, title]);
-
   const handleAddEvent = () => {
     console.log('coming from addevent', date, duration, title)
     fetch('api/events', {

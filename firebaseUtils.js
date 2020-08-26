@@ -41,7 +41,7 @@ const getDocument = async (col, id) => {
 };
 
 const createDocument = async (col, req) => {
-  console.log('Create document', req.body.post.author);
+  // console.log('Create document', req.body.post.author);
   db.collection(col).add(req.body)
     .then(docRef => {
       console.log('Document written with ID: ', docRef.id);

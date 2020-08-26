@@ -51,6 +51,10 @@ export default function SignIn() {
   const [wrongCreds, setWrongCreds] = useState(false);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+                  
+  const isEnabled = pattern.test(email) && password.length > 0;
   let history = useHistory();
 
   const handleClose = (event, reason) => {
@@ -180,6 +184,7 @@ export default function SignIn() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me" />
               <Button
+                disabled={!isEnabled}
                 type="submit"
                 fullWidth
                 variant="contained"

@@ -1,6 +1,7 @@
 const { db } = require('./firebaseInit');
 const firebase = require('firebase');
 const admin = require('firebase-admin');
+const md5 = require('md5');
 
 const getCollection = async (col, sort) => {
   let usersRef;
@@ -96,6 +97,7 @@ const FBAuth = (req, res, next) => {
       // console.log('from fbauth ', data);
       req.user.handle = data.docs[0].data().handle;
       req.user.name = data.docs[0].data().name;
+      req.user.authorId = md5(data.docs[0].data().email);
       return next();
     })
     .catch(err => {

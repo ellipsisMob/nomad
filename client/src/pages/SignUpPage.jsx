@@ -13,7 +13,8 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DeveloperContext from '../contexts/DeveloperContext';
 import '../components/password/PasswordStrengthMeter';
 import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -47,6 +48,14 @@ export default function SignUp() {
   const isEnabled = pattern.test(email) && password.length > 0;
 
   const history = useHistory();
+
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setEmailTaken(false);
+  };
 
   const handleSignUp = e => {
     e.preventDefault();
@@ -139,7 +148,15 @@ export default function SignUp() {
         </Button>
       </form>}
       {emailTaken
-      ? <h3>Sorry, the email you submitted is already taken.</h3>
+      ? (
+        <div className={classes.root}>
+          <Snackbar open={emailTaken} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error">
+              The email you submitted has already been taken.
+            </Alert>
+          </Snackbar>
+        </div>
+      )
       : null}
       </div>
     </Container>

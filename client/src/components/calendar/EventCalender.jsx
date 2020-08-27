@@ -44,14 +44,16 @@ const EventCalendar = props => {
       {loading
         ? <h1>Loading...</h1>
         : (
-          <Calendar
-            className="eventCalender"
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end" />
+          <div className="calenderContainer">
+            <Calendar
+              className="eventCalender"
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end" />
+            <EventModal eventAdded={eventAdded} setEventAdded={setEventAdded} />
+          </div>
         )}
-      <EventModal eventAdded={eventAdded} setEventAdded={setEventAdded} />
     </>
   );
 };

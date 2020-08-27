@@ -9,6 +9,7 @@ import DevEditModal from './DevEditModal';
 import DeveloperContext from '../../contexts/DeveloperContext';
 import './Profile.css';
 import md5 from 'md5';
+import { Link } from 'react-router-dom';
 import { SelectionState } from 'draft-js';
 
 const Profile = props => {
@@ -18,6 +19,7 @@ const Profile = props => {
   const [loading, setLoading] = useState(true);
   const [updateDev, setUpdateDev] = useState(0);
   const [ personalProfile, setPersonalProfile ] = useState(false);
+  const [postsByUser, setPostsByUser] = useState(false);
 
   const handleDelete = () => {
     if (window.confirm('Do you really want to delete this user?')) {
@@ -47,6 +49,17 @@ const Profile = props => {
       });
   };
 
+  const fetchPosts = () => {
+    fetch(`/api/posts/`)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        const userPosts = res.filter(post => post.data.post.authorId === id);
+        console.log('users posts', userPosts);
+        setPostsByUser(userPosts);
+      })
+  }
+
   useEffect(() => {
     console.log('Logged in dev: ', loggedInDev);
     fetchUser();
@@ -62,6 +75,7 @@ const Profile = props => {
         setPersonalProfile(true);
       }
     }
+    fetchPosts();
   }, []);
 
   return (
@@ -99,11 +113,16 @@ const Profile = props => {
               </p>
               <div className="devPosts">
                 <h3>
-                  Posts from
-                  &nbsp;{user.data.name}
+                  &nbsp;{user.data.name} posts:
+                  {postsByUser
+                  ? postsByUser.map(post => {
+                    return <p key={post.id} ><Link to={`/posts/${post.id}`}>{post.data.post.title}</Link></p>
+                  })
+                  : <h1>Loading...</h1>
+                }
                 </h3>
-                <h4>Something here</h4>
-                <p>About a random subject, written letters</p>
+                <h4>Job title</h4>
+                <p>{user.data.title}</p>
               </div>
             </div>
 
@@ -118,6 +137,7 @@ const Profile = props => {
                   setUpdateDev={setUpdateDev}
                   updateDev={updateDev}
                   profilePic={user.data.profilePic}
+                  title={user.data.title}
                   />
 
                 <Button
@@ -140,7 +160,7 @@ const Profile = props => {
             </div> */}
           </div>
         )
-        : <h1>loading users...</h1>}
+        : <h1>loading...</h1>}
     </>
   );
 };

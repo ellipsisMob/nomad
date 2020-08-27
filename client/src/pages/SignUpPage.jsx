@@ -78,10 +78,6 @@ export default function SignUp() {
       .catch(err => console.log('fake pass', err));
   };
 
-  // useEffect(() => {
-  //   console.log('signed up', signedUp);
-  // });
-
   useEffect(() => {
     console.log(email);
     console.log(password);

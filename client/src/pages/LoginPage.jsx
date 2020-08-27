@@ -14,8 +14,8 @@ import { Link, useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import DeveloperContext from '../contexts/DeveloperContext';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import DeveloperContext from '../contexts/DeveloperContext';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -53,7 +53,7 @@ export default function SignIn() {
   const [open, setOpen] = useState(false);
 
   const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-                  
+
   const isEnabled = pattern.test(email) && password.length > 0;
   let history = useHistory();
 
@@ -75,8 +75,8 @@ export default function SignIn() {
         'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
-        "email": email,
-        "password": password
+        email,
+        password,
       }),
     })
       .then(res => res.json())
@@ -100,11 +100,6 @@ export default function SignIn() {
     setEmail('');
     setPassword('');
   };
-
-  useEffect(() => {
-    console.log(email);
-    console.log('From login page', loggedInDev);
-  }, [email]);
 
   useEffect(() => {
     console.log(email);

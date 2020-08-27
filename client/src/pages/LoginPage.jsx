@@ -46,8 +46,8 @@ export default function SignIn() {
   const {
     setLoggedInDev, signedUp, setSignedUp,
   } = useContext(DeveloperContext);
-  const [email, setEmail] = useState('marciscool@gmail.com');
-  const [password, setPassword] = useState('haha123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [wrongCreds, setWrongCreds] = useState(false);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);

@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   const {
-    setLoggedInDev, loggedInDev, signedUp, setSignedUp,
+    setLoggedInDev, signedUp, setSignedUp,
   } = useContext(DeveloperContext);
   const [email, setEmail] = useState('marciscool@gmail.com');
   const [password, setPassword] = useState('haha123');
@@ -61,7 +61,6 @@ export default function SignIn() {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
@@ -105,15 +104,15 @@ export default function SignIn() {
     setPassword('');
   };
 
-  useEffect(() => {
-    console.log(email);
-    console.log('From login page', loggedInDev);
-  }, [email]);
+  // useEffect(() => {
+  //   console.log(email);
+  //   console.log('From login page', loggedInDev);
+  // }, [email]);
 
-  useEffect(() => {
-    console.log(email);
-    console.log('From login page', loggedInDev);
-  }, [email]);
+  // useEffect(() => {
+  //   console.log(email);
+  //   console.log('From login page', loggedInDev);
+  // }, [email]);
 
   useEffect(() => {
     console.log('Signed Up', signedUp);
@@ -121,7 +120,7 @@ export default function SignIn() {
       setOpen(true);
     }
     setSignedUp(false);
-  }, []);
+  }, [signedUp, setSignedUp]);
 
   const classes = useStyles();
 

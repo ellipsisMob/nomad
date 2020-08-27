@@ -47,7 +47,7 @@
   background-color: var(--lightblue);
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 600px) {
   .devSnippet {
     width: 60%;
   }
@@ -62,7 +62,11 @@
   }
 
   .devIntro {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
   }
+}
+
+@media only screen and (min-width: 400px) {
+
 }

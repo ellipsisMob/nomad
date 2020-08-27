@@ -71,7 +71,7 @@ const PostList = () => {
           const editorState = EditorState.createWithContent(convertFromRaw(raw.data.post));
           const truncatedPost = truncate(editorState);
           return (
-            <div className="frontPagePost">
+            <div key={id} className="frontPagePost">
               <Link to={`/posts/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Post rawPost={raw} toRender={truncatedPost} />
               </Link>

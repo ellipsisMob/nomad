@@ -14,8 +14,8 @@ import { Link, useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import DeveloperContext from '../contexts/DeveloperContext';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import DeveloperContext from '../contexts/DeveloperContext';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   const {
-    setLoggedInDev, loggedInDev, signedUp, setSignedUp,
+    setLoggedInDev, signedUp, setSignedUp,
   } = useContext(DeveloperContext);
   const [email, setEmail] = useState('marciscool@gmail.com');
   const [password, setPassword] = useState('haha123');
@@ -53,16 +53,16 @@ export default function SignIn() {
   const [open, setOpen] = useState(false);
 
   const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-                  
+
   const isEnabled = pattern.test(email) && password.length > 0;
-  let history = useHistory();
+  const history = useHistory();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
+    setWrongCreds(false);
   };
 
   const handleLogin = e => {
@@ -75,24 +75,28 @@ export default function SignIn() {
         'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
-        "email": email,
-        "password": password
+        email,
+        password,
       }),
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
-        setLoggedInDev({
-          handle: res.email,
-          token: res.token,
-          loggedIn: res.loggedIn,
-        });
-        if (res.loggedIn === true) {
-          history.push('/');
-        } else {
+        if (res.general === 'Wrong username or password') {
           setWrongCreds(true);
-          setSignedUp(false);
-          setLoggedInDev({ loggedIn: false });
+          setLoading(false);
+        } else {
+          setLoggedInDev({
+            handle: res.email,
+            token: res.token,
+            loggedIn: res.loggedIn,
+          });
+          if (res.loggedIn === true) {
+            history.push('/');
+          } else {
+            setWrongCreds(true);
+            setSignedUp(false);
+            setLoggedInDev({ loggedIn: false });
+          }
         }
       })
       .catch(err => console.log(err));
@@ -102,22 +106,11 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    console.log(email);
-    console.log('From login page', loggedInDev);
-  }, [email]);
-
-  useEffect(() => {
-    console.log(email);
-    console.log('From login page', loggedInDev);
-  }, [email]);
-
-  useEffect(() => {
-    console.log('Signed Up', signedUp);
     if (signedUp) {
       setOpen(true);
     }
     setSignedUp(false);
-  },[]);
+  }, [signedUp, setSignedUp]);
 
   const classes = useStyles();
 
@@ -149,36 +142,44 @@ export default function SignIn() {
           ? <CircularProgress />
           : (
             <form className={classes.form} noValidate>
-          <ValidatorForm>
-            <TextValidator
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                value={email}
-                validators={['required', 'isEmail']}
-                errorMessages={['this field is required', 'email is not valid']}
-                onChange={e => setEmail(e.target.value)} />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={e => setPassword(e.target.value)} />
+              <ValidatorForm>
+                <TextValidator
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  validators={['required', 'isEmail']}
+                  errorMessages={['this field is required', 'email is not valid']}
+                  onChange={e => setEmail(e.target.value)} />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)} />
               </ValidatorForm>
               {wrongCreds
-                ? <h1>Wrong username or password</h1>
+                ?         (
+                  <div className={classes.root}>
+                    <Snackbar open={wrongCreds} autoHideDuration={6000} onClose={handleClose}>
+                      <Alert onClose={handleClose} severity="error">
+                        Wrong email or password
+                      </Alert>
+                    </Snackbar>
+                  </div>
+                )
                 : null}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -194,7 +195,9 @@ export default function SignIn() {
                 Sign In
               </Button>
               <Link className={classes.signup} to="/signup" variant="body2">
-                <MaterialUiLink className={classes.signup}>Don&apos;t have an account? Sign Up</MaterialUiLink>
+                <MaterialUiLink className={classes.signup}>
+                  Don&apos;t have an account? Sign Up
+                </MaterialUiLink>
               </Link>
             </form>
           )}

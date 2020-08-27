@@ -10,7 +10,7 @@ const {
   Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw,
 } = Draft;
 
-const addPost = (post, token) => {
+const addPost = (post, token, props) => {
   console.log('from post method ', post);
   console.log('from addpost token ', token);
   fetch('api/posts', {
@@ -22,9 +22,11 @@ const addPost = (post, token) => {
     body: JSON.stringify({post})
   })
   .then(res => res.json())
-  .then(res => console.log(res))
+  .then(() => props.history.push('/'))
   .catch(err => console.log(err))
 }
+
+const randomInteger = Math.floor(Math.random() * Math.floor(1000));
 
 class MyEditor extends React.Component {
   constructor(props) {
@@ -32,7 +34,7 @@ class MyEditor extends React.Component {
     this.state = { 
       editorState: EditorState.createEmpty(),
       author: '',
-      headerImg: 'https://picsum.photos/1000/300?grayscale&random=2',
+      headerImg: `https://picsum.photos/1000/300?random=${randomInteger}`,
       title: '',
     };
 
@@ -65,10 +67,6 @@ class MyEditor extends React.Component {
     this.setState({ [e.target.name]: e.target.value});
   }
 
-  redirect = () => {
-    this.props.history.push('/');
-  }
-
   handleSubmit = event => {
     event.preventDefault();
     const contentState = this.state.editorState;
@@ -80,8 +78,7 @@ class MyEditor extends React.Component {
     post.headerImg = this.state.headerImg;
     post.title = this.state.title;
     console.log('post', post);
-    addPost(post, this.props.token);
-    this.redirect();
+    addPost(post, this.props.token, this.props);
   }
 
   _handleKeyCommand(command, editorState) {

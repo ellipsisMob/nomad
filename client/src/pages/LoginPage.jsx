@@ -62,6 +62,7 @@ export default function SignIn() {
       return;
     }
     setOpen(false);
+    setWrongCreds(false);
   };
 
   const handleLogin = e => {
@@ -111,6 +112,10 @@ export default function SignIn() {
     }
     setSignedUp(false);
   }, [signedUp, setSignedUp]);
+
+  useEffect(() => {
+    console.log('WRONG CREDS', wrongCreds);
+  }, [wrongCreds]);
 
   const classes = useStyles();
 
@@ -171,7 +176,16 @@ export default function SignIn() {
                   onChange={e => setPassword(e.target.value)} />
               </ValidatorForm>
               {wrongCreds
-                ? <h1>Wrong username or password</h1>
+                ?         (
+                  <div className={classes.root}>
+                    <Snackbar open={wrongCreds} autoHideDuration={6000} onClose={handleClose}>
+                      <Alert onClose={handleClose} severity="error">
+                        Wrong email or password
+                      </Alert>
+                    </Snackbar>
+                  </div>
+                )
+                // <h1>Wrong username or password</h1>
                 : null}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

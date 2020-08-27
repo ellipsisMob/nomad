@@ -104,16 +104,6 @@ export default function SignIn() {
     setPassword('');
   };
 
-  // useEffect(() => {
-  //   console.log(email);
-  //   console.log('From login page', loggedInDev);
-  // }, [email]);
-
-  // useEffect(() => {
-  //   console.log(email);
-  //   console.log('From login page', loggedInDev);
-  // }, [email]);
-
   useEffect(() => {
     console.log('Signed Up', signedUp);
     if (signedUp) {

@@ -11,6 +11,9 @@ import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DeveloperContext from '../contexts/DeveloperContext';
+import '../components/password/PasswordStrengthMeter';
+import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter';
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -98,49 +101,50 @@ export default function SignUp() {
           Sign up
         </Typography>
         {loading
-          ? <CircularProgress />
-          : (
-            <form className={classes.form} noValidate>
-              <ValidatorForm>
-                <TextValidator
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                  validators={['required', 'isEmail']}
-                  errorMessages={['this field is required', 'email is not valid']}
-                  onChange={e => setEmail(e.target.value)} />
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={e => setPassword(e.target.value)} />
-              </ValidatorForm>
-              <Button
-                disabled={!isEnabled}
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={handleSignUp}>
-                Sign Up
-              </Button>
-            </form>
-          )}
-        {emailTaken
-        ? <h3>Sorry, the email you submitted is already taken.</h3>
-        : null}
+        ? <CircularProgress />
+        : <form className={classes.form} noValidate>
+          <ValidatorForm>
+            <TextValidator
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              value={email}
+              validators={['required', 'isEmail']}
+              errorMessages={['this field is required', 'email is not valid']}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            </ValidatorForm>
+            <PasswordStrengthMeter password={password} />
+        <Button
+          disabled={!isEnabled}
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleSignUp}>
+          Sign Up
+        </Button>
+      </form>}
+      {emailTaken
+      ? <h3>Sorry, the email you submitted is already taken.</h3>
+      : null}
       </div>
     </Container>
   );

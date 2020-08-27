@@ -13,7 +13,7 @@ const CalendarPage = () => {
   };
 
   useEffect(() => {
-    console.log('EVENT ADDED', eventAdded)
+    console.log('EVENT ADDED', eventAdded);
     fetchEvents();
   }, [eventAdded]);
 

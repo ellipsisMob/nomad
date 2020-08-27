@@ -3,11 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +15,7 @@ import '../components/password/PasswordStrengthMeter';
 import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -29,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#E74C3C',
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -41,53 +36,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-  // const [ fname, setFname ] = useState('');
-  // const [ lname, setLname ] = useState('');
   const { signedUp, setSignedUp } = useContext(DeveloperContext);
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
   const isEnabled = pattern.test(email) && password.length > 0;
 
-  let history = useHistory();
+  const history = useHistory();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = e => {
     e.preventDefault();
     setLoading(true);
-
     fetch('api/devs', {
       method: 'POST',
       headers: {
-        'Content-Type': 'Application/JSON'
+        'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
-        // "firstname": fname,
-        // "lastname": lname,
-        "email": email,
-        "password": password,
-        "confirmPassword": password,
-        "handle": email
+        email,
+        password,
+        confirmPassword: password,
+        handle: email,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log('coming from the signup response', res);
+        setSignedUp(true);
+        history.push('/login');
       })
-    })
-    .then(res => res.json())
-    .then(res => {
-      console.log('coming from the signup response', res);
-      setSignedUp(true);
-      history.push('/login')
-    })
-    .catch(err => console.log(err))
-  }
+      .catch(err => console.log('fake pass', err));
+  };
+
+  // useEffect(() => {
+  //   console.log('signed up', signedUp);
+  // });
 
   useEffect(() => {
-    console.log("signed up", signedUp);
-  }, []);
-
-  useEffect(() => {
-    // console.log(fname);
-    // console.log(lname);
     console.log(email);
     console.log(password);
   }, [email, password]);
@@ -108,34 +96,7 @@ export default function SignUp() {
         {loading
         ? <CircularProgress />
         : <form className={classes.form} noValidate>
-        {/* <Grid container spacing={2}> */}
-          {/* <Grid item xs={12} sm={6}> */}
-            {/* <TextField
-              autoComplete="fname"
-              name="firstName"
-              variant="outlined"
-              required
-              fullWidth
-              id="firstName"
-              label="First Name"
-              autoFocus
-              onChange={(e) => setFname(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="lastName"
-              label="Last Name"
-              name="lastName"
-              autoComplete="lname"
-              onChange={(e) => setLname(e.target.value)}
-            /> */}
-          {/* </Grid> */}
           <ValidatorForm>
-          {/* <Grid item xs={12}> */}
             <TextValidator
               variant="outlined"
               margin="normal"
@@ -150,8 +111,6 @@ export default function SignUp() {
               errorMessages={['this field is required', 'email is not valid']}
               onChange={(e) => setEmail(e.target.value)}
             />
-          {/* </Grid> */}
-          {/* <Grid item xs={12}> */}
             <TextField
               variant="outlined"
               required
@@ -163,16 +122,8 @@ export default function SignUp() {
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
-          {/* </Grid> */}
             </ValidatorForm>
             <PasswordStrengthMeter password={password} />
-          {/* <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive inspiration, marketing promotions and updates via email."
-            />
-          </Grid> */}
-        {/* </Grid> */}
         <Button
           disabled={!isEnabled}
           type="submit"
@@ -180,20 +131,11 @@ export default function SignUp() {
           variant="contained"
           color="primary"
           className={classes.submit}
-          onClick={handleSignUp}
-        >
+          onClick={handleSignUp}>
           Sign Up
         </Button>
-        {/* <Grid container justify="flex-end">
-          <Grid item>
-            {/* <Link href="#" variant="body2">
-              Already have an account? Sign in
-            </Link> */}
-          {/* </Grid> */}
-        {/* // </Grid> */}
       </form>
         }
-        {/*  */}
       </div>
     </Container>
   );

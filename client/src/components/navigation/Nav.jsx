@@ -15,23 +15,26 @@ const Nav = () => {
           <Link to="/devs">Developers</Link>
         </li>
         {loggedInDev.loggedIn
-        ? <li>
-            <Link to="/meetups">Meetups</Link>
-          </li>
-        : null
-        }
+          ? (
+            <li>
+              <Link to="/meetups">Meetups</Link>
+            </li>
+          )
+          : null }
         {loggedInDev.loggedIn
-        ? <li>
-            <Link to="/addPost">New Post</Link>
-          </li>
-        : null
-        }
+          ? (
+            <li>
+              <Link to="/addPost">New Post</Link>
+            </li>
+          )
+          : null }
         {loggedInDev.loggedIn
-        ? null
-        : <li>
-            <Link to="/">Stories</Link>
-          </li>
-        }
+          ? null
+          : (
+            <li>
+              <Link to="/">Stories</Link>
+            </li>
+          )}
       </ul>
     </div>
   );

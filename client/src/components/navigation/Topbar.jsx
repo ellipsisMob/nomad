@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Topbar.css';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -15,9 +15,11 @@ const styles = {
 
 const Topbar = ({ classes }) => {
   const { loggedInDev, setLoggedInDev } = useContext(DeveloperContext);
+  const history = useHistory();
 
   const logoutHandler = () => {
     setLoggedInDev({ loggedIn: false });
+    history.push('/');
   };
 
   return (
@@ -29,18 +31,15 @@ const Topbar = ({ classes }) => {
         <div className="top-profile">
           {loggedInDev.loggedIn
             ? (
-              <div>
-                <span>
-                  <strong>
-                    <Link to={`/devs/${md5(loggedInDev.handle)}`}>{loggedInDev.handle}</Link>
-                    |
-                  </strong>
-                </span>
-                {/* <AccountCircleIcon /> */}
+              <>
+                <Link to={`/devs/${md5(loggedInDev.handle)}`}>
+                  <Button className={classes.root}>My profile</Button>
+                </Link>
+                |
                 <Button className={classes.root} onClick={logoutHandler}>
                   Sign Out
                 </Button>
-              </div>
+              </>
             )
             : <Button className={classes.root}><Link className="signInLink" to="/login">Sign In</Link></Button>}
         </div>

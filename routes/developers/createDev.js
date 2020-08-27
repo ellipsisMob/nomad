@@ -9,9 +9,11 @@ module.exports = (req, res) => {
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
     handle: req.body.handle,
-  }
+    profilePic: 'http://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Free-Download.png',
+  };
 
-  let token, userId;
+  let token;
+  let userId;
 
   db.collection('testusers').doc(newDev.handle).get()
     .then(doc => {
@@ -32,6 +34,7 @@ module.exports = (req, res) => {
       let credentials = {
         email: newDev.email,
         createdAt: new Date().toISOString(),
+        profilePic: newDev.profilePic,
         userId,
       }
       return db.collection('testusers').doc(md5(credentials.email)).set(credentials);

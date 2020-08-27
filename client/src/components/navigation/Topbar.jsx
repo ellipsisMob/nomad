@@ -10,6 +10,7 @@ const styles = {
   root: {
     fontSize: '12px',
     textTransform: 'capitalize',
+    textDecoration: 'none',
   },
 };
 

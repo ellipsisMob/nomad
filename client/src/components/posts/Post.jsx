@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import { Editor } from 'draft-js';
 import moment from 'moment';
+import './Post.css';
 
 // pass Post component two props: 'rawPost' and 'toRender={editorState}'
 const Post = props => {

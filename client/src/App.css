@@ -37,3 +37,10 @@ body {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+@media only screen and (min-width: 500px) {
+  .content {
+    width: 60%;
+    margin: 0 auto;
+  }
+}

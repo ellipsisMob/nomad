@@ -4,6 +4,7 @@ import StyleButton from './StyleButton';
 import SubmitButton from './Buttons';
 import '../../../node_modules/draft-js/dist/Draft.css';
 import './Editor.css';
+import { withRouter, useHistory } from 'react-router-dom';
 
 const {
   Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw,
@@ -64,6 +65,10 @@ class MyEditor extends React.Component {
     this.setState({ [e.target.name]: e.target.value});
   }
 
+  redirect = () => {
+    this.props.history.push('/');
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const contentState = this.state.editorState;
@@ -76,6 +81,7 @@ class MyEditor extends React.Component {
     post.title = this.state.title;
     console.log('post', post);
     addPost(post, this.props.token);
+    this.redirect();
   }
 
   _handleKeyCommand(command, editorState) {
@@ -271,4 +277,4 @@ class MyEditor extends React.Component {
   );
 };
 
-export default MyEditor;
+export default withRouter (MyEditor);

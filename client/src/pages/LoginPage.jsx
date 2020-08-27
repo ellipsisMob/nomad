@@ -75,8 +75,8 @@ export default function SignIn() {
         'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
-        "email": email,
-        "password": password
+        email,
+        password,
       }),
     })
       .then(res => res.json())
@@ -100,11 +100,6 @@ export default function SignIn() {
     setEmail('');
     setPassword('');
   };
-
-  useEffect(() => {
-    console.log(email);
-    console.log('From login page', loggedInDev);
-  }, [email]);
 
   useEffect(() => {
     console.log(email);

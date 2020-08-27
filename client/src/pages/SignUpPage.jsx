@@ -10,11 +10,11 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import DeveloperContext from '../contexts/DeveloperContext';
 import '../components/password/PasswordStrengthMeter';
 import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SignUp() {
-  const { signedUp, setSignedUp } = useContext(DeveloperContext);
+  const { setSignedUp } = useContext(DeveloperContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,6 @@ export default function SignUp() {
   const isEnabled = pattern.test(email) && password.length > 0;
 
   const history = useHistory();
-
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

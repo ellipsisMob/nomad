@@ -171,7 +171,7 @@ export default function SignIn() {
                   onChange={e => setPassword(e.target.value)} />
               </ValidatorForm>
               {wrongCreds
-                ?         (
+                ? (
                   <div className={classes.root}>
                     <Snackbar open={wrongCreds} autoHideDuration={6000} onClose={handleClose}>
                       <Alert onClose={handleClose} severity="error">

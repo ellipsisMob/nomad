@@ -106,16 +106,11 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    console.log('Signed Up', signedUp);
     if (signedUp) {
       setOpen(true);
     }
     setSignedUp(false);
   }, [signedUp, setSignedUp]);
-
-  useEffect(() => {
-    console.log('WRONG CREDS', wrongCreds);
-  }, [wrongCreds]);
 
   const classes = useStyles();
 
@@ -185,7 +180,6 @@ export default function SignIn() {
                     </Snackbar>
                   </div>
                 )
-                // <h1>Wrong username or password</h1>
                 : null}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   const {
-    setLoggedInDev, loggedInDev, signedUp, setSignedUp,
+    setLoggedInDev, signedUp, setSignedUp,
   } = useContext(DeveloperContext);
   const [email, setEmail] = useState('marciscool@gmail.com');
   const [password, setPassword] = useState('haha123');
@@ -55,13 +55,12 @@ export default function SignIn() {
   const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
   const isEnabled = pattern.test(email) && password.length > 0;
-  let history = useHistory();
+  const history = useHistory();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
@@ -81,18 +80,22 @@ export default function SignIn() {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
-        setLoggedInDev({
-          handle: res.email,
-          token: res.token,
-          loggedIn: res.loggedIn,
-        });
-        if (res.loggedIn === true) {
-          history.push('/');
-        } else {
+        if (res.general === 'Wrong username or password') {
           setWrongCreds(true);
-          setSignedUp(false);
-          setLoggedInDev({ loggedIn: false });
+          setLoading(false);
+        } else {
+          setLoggedInDev({
+            handle: res.email,
+            token: res.token,
+            loggedIn: res.loggedIn,
+          });
+          if (res.loggedIn === true) {
+            history.push('/');
+          } else {
+            setWrongCreds(true);
+            setSignedUp(false);
+            setLoggedInDev({ loggedIn: false });
+          }
         }
       })
       .catch(err => console.log(err));
@@ -102,17 +105,12 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    console.log(email);
-    console.log('From login page', loggedInDev);
-  }, [email]);
-
-  useEffect(() => {
     console.log('Signed Up', signedUp);
     if (signedUp) {
       setOpen(true);
     }
     setSignedUp(false);
-  },[]);
+  }, [signedUp, setSignedUp]);
 
   const classes = useStyles();
 
@@ -189,7 +187,9 @@ export default function SignIn() {
                 Sign In
               </Button>
               <Link className={classes.signup} to="/signup" variant="body2">
-                <MaterialUiLink className={classes.signup}>Don&apos;t have an account? Sign Up</MaterialUiLink>
+                <MaterialUiLink className={classes.signup}>
+                  Don&apos;t have an account? Sign Up
+                </MaterialUiLink>
               </Link>
             </form>
           )}

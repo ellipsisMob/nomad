@@ -40,6 +40,7 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [emailTaken, setEmailTaken] = useState(false);
 
   const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
@@ -50,6 +51,7 @@ export default function SignUp() {
   const handleSignUp = e => {
     e.preventDefault();
     setLoading(true);
+    setEmailTaken(false);
     fetch('api/devs', {
       method: 'POST',
       headers: {
@@ -64,9 +66,14 @@ export default function SignUp() {
     })
       .then(res => res.json())
       .then(res => {
-        console.log('coming from the signup response', res);
-        setSignedUp(true);
-        history.push('/login');
+        if (res.email === 'Email is already taken.') {
+          setEmailTaken(true);
+          setLoading(false);
+        } else {
+          console.log('coming from the signup response', res);
+          setSignedUp(true);
+          history.push('/login');
+        }
       })
       .catch(err => console.log('fake pass', err));
   };
@@ -134,8 +141,10 @@ export default function SignUp() {
           onClick={handleSignUp}>
           Sign Up
         </Button>
-      </form>
-        }
+      </form>}
+      {emailTaken
+      ? <h3>Sorry, the email you submitted is already taken.</h3>
+      : null}
       </div>
     </Container>
   );

@@ -1,15 +1,27 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams} from 'react-router';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import EmailIcon from '@material-ui/icons/Email';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import { makeStyles } from '@material-ui/core/styles';
 import DevEditModal from './DevEditModal';
 import DeveloperContext from '../../contexts/DeveloperContext';
 import './Profile.css';
 import md5 from 'md5';
+import { Link } from 'react-router-dom';
 import { SelectionState } from 'draft-js';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    fontSize: '14px',
+    textTransform: 'capitalize',
+    textDecoration: 'none',
+    display: 'block',
+  },
+}));
 
 const Profile = props => {
   const { loggedInDev } = useContext(DeveloperContext);
@@ -18,6 +30,7 @@ const Profile = props => {
   const [loading, setLoading] = useState(true);
   const [updateDev, setUpdateDev] = useState(0);
   const [ personalProfile, setPersonalProfile ] = useState(false);
+  const [postsByUser, setPostsByUser] = useState(false);
 
   const handleDelete = () => {
     if (window.confirm('Do you really want to delete this user?')) {
@@ -33,6 +46,8 @@ const Profile = props => {
     }
   };
 
+  const history = useHistory();
+
   const fetchUser = () => {
     setLoading(true);
     fetch(`/api/devs/${id}`, {
@@ -46,6 +61,17 @@ const Profile = props => {
         setLoading(false);
       });
   };
+
+  const fetchPosts = () => {
+    fetch(`/api/posts/`)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        const userPosts = res.filter(post => post.data.post.authorId === id);
+        console.log('users posts', userPosts);
+        setPostsByUser(userPosts);
+      })
+  }
 
   useEffect(() => {
     console.log('Logged in dev: ', loggedInDev);
@@ -62,7 +88,16 @@ const Profile = props => {
         setPersonalProfile(true);
       }
     }
+    fetchPosts();
   }, []);
+
+  const handleClick = (e, post) => {
+    e.preventDefault();
+    console.log('clicked');
+    history.push(`/posts/${post.id}`);
+  };
+
+  const classes = useStyles();
 
   return (
     <>
@@ -99,11 +134,16 @@ const Profile = props => {
               </p>
               <div className="devPosts">
                 <h3>
-                  Posts from
-                  &nbsp;{user.data.name}
+                  Posts by &nbsp;{user.data.name}:
+                  {postsByUser
+                  ? postsByUser.map(post => {
+                    return <Button className={classes.root} onClick={e => handleClick(e, post)}>{post.data.post.title}</Button>;
+                  })
+                  : <h1>Loading...</h1>
+                }
                 </h3>
-                <h4>Something here</h4>
-                <p>About a random subject, written letters</p>
+                <h4>Job title</h4>
+                <p>{user.data.title}</p>
               </div>
             </div>
 
@@ -118,6 +158,7 @@ const Profile = props => {
                   setUpdateDev={setUpdateDev}
                   updateDev={updateDev}
                   profilePic={user.data.profilePic}
+                  title={user.data.title}
                   />
 
                 <Button
@@ -140,7 +181,7 @@ const Profile = props => {
             </div> */}
           </div>
         )
-        : <h1>loading users...</h1>}
+        : <h1>loading...</h1>}
     </>
   );
 };

@@ -28,7 +28,7 @@ const UserList = () => {
             return <DevIntro key={user.id} id={user.id} data={user.data} />;
           }
         })
-        : <h1>loading users...</h1>}
+        : <h1>Loading ...</h1>}
     </>
   );
 };

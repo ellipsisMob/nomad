@@ -60,9 +60,6 @@ const EditDev = props => {
   return (
     <>
       <EditIcon onClick={handleClickOpen} />
-      {/* <Button age="primary" onClick={handleClickOpen}>
-        Edit
-      </Button> */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit dev</DialogTitle>
         <DialogContent>

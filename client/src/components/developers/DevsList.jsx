@@ -16,10 +16,6 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
-  useEffect(() => {
-    console.log('from useEffect hook', users);
-  }, [users]);
-
   return (
     <>
       {!loading

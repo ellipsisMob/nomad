@@ -6,7 +6,6 @@ import './DevIntro.css';
 
 const DevIntro = props => {
   const { id, data } = props;
-  console.log(data);
   return (
     <div className="devSnippet">
       <div className="devIntro">

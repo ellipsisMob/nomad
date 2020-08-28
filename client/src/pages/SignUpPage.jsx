@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,11 +10,10 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import DeveloperContext from '../contexts/DeveloperContext';
-import '../components/password/PasswordStrengthMeter';
-import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import DeveloperContext from '../contexts/DeveloperContext';
+import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -37,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SignUp() {
-  const { signedUp, setSignedUp } = useContext(DeveloperContext);
+  const { setSignedUp } = useContext(DeveloperContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,7 +47,6 @@ export default function SignUp() {
   const isEnabled = pattern.test(email) && password.length > 0;
 
   const history = useHistory();
-
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -79,18 +77,11 @@ export default function SignUp() {
           setEmailTaken(true);
           setLoading(false);
         } else {
-          console.log('coming from the signup response', res);
           setSignedUp(true);
           history.push('/login');
         }
-      })
-      .catch(err => console.log('fake pass', err));
+      });
   };
-
-  useEffect(() => {
-    console.log(email);
-    console.log(password);
-  }, [email, password]);
 
   const classes = useStyles();
 
@@ -106,58 +97,58 @@ export default function SignUp() {
           Sign up
         </Typography>
         {loading
-        ? <CircularProgress />
-        : <form className={classes.form} noValidate>
-          <ValidatorForm>
-            <TextValidator
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              value={email}
-              validators={['required', 'isEmail']}
-              errorMessages={['this field is required', 'email is not valid']}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            </ValidatorForm>
-            <PasswordStrengthMeter password={password} />
-        <Button
-          disabled={!isEnabled}
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={handleSignUp}>
-          Sign Up
-        </Button>
-      </form>}
-      {emailTaken
-      ? (
-        <div className={classes.root}>
-          <Snackbar open={emailTaken} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error">
-              The email you submitted has already been taken.
-            </Alert>
-          </Snackbar>
-        </div>
-      )
-      : null}
+          ? <CircularProgress />
+          : (
+            <form className={classes.form} noValidate>
+              <ValidatorForm>
+                <TextValidator
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  validators={['required', 'isEmail']}
+                  errorMessages={['this field is required', 'email is not valid']}
+                  onChange={e => setEmail(e.target.value)} />
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={e => setPassword(e.target.value)} />
+              </ValidatorForm>
+              <PasswordStrengthMeter password={password} />
+              <Button
+                disabled={!isEnabled}
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={handleSignUp}>
+                Sign Up
+              </Button>
+            </form>
+          )}
+        {emailTaken
+          ? (
+            <div className={classes.root}>
+              <Snackbar open={emailTaken} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">
+                  The email you submitted has already been taken.
+                </Alert>
+              </Snackbar>
+            </div>
+          )
+          : null}
       </div>
     </Container>
   );

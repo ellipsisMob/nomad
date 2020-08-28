@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Editor, EditorState, convertFromRaw } from 'draft-js';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { EditorState, convertFromRaw } from 'draft-js';
 import { useParams } from 'react-router';
 import Post from './Post';
 
-const SinglePost = props => {
+const SinglePost = () => {
   const { id } = useParams();
   const [rawPost, setRawPost] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,20 +19,6 @@ const SinglePost = props => {
     fetchPost();
   }, [id]);
 
-  const handleDelete = id => {
-    if (window.confirm('Do you really want to delete this post?')) {
-      fetch(`/api/posts/${id}`, {
-        method: 'DELETE',
-      })
-        .then(res => window.location.replace('/'))
-        .catch(err => console.log(err));
-    }
-  };
-
-  useEffect(() => {
-    console.log('SinglePost page: ', rawPost);
-  }, [rawPost]);
-
   return (
     <div>
       {!loading
@@ -42,7 +26,7 @@ const SinglePost = props => {
           const postData = raw.data.post;
           const contentState = convertFromRaw(postData);
           const editorState = EditorState.createWithContent(contentState);
-          return <Post rawPost={raw} toRender={editorState} />;
+          return <Post key={raw.id} rawPost={raw} toRender={editorState} />;
         })
         : <h1>Loading ...</h1>}
     </div>

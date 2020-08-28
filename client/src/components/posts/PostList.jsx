@@ -59,10 +59,6 @@ const PostList = () => {
     fetchPosts();
   }, []);
 
-  useEffect(() => {
-    console.log('from useEffect hook', rawPosts);
-  }, [rawPosts]);
-
   return (
     <>
       {!loading

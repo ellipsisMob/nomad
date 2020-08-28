@@ -28,8 +28,7 @@ class PasswordStrengthMeter extends Component {
           className={`password-strength-meter-progress strength-${this.createPasswordLabel(testedResult)}`}
           value={testedResult.score}
           max="4"
-          fullWidth
-  />
+          fullWidth />
         <br />
         <label
           className="password-strength-meter-label"

@@ -1,13 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Nav.css';
 import DeveloperContext from '../../contexts/DeveloperContext';
 
 const Nav = () => {
   const { loggedInDev } = useContext(DeveloperContext);
-  useEffect(() => {
-    console.log('coming from the nav component', loggedInDev);
-  }, [loggedInDev]);
+
   return (
     <div className="navbar">
       <ul>

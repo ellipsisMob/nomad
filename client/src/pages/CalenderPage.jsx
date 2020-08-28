@@ -8,12 +8,10 @@ const CalendarPage = () => {
   const fetchEvents = () => {
     fetch('/api/events')
       .then(res => res.json())
-      .then(data => setEvents(data))
-      .catch(err => console.log(err));
+      .then(data => setEvents(data));
   };
 
   useEffect(() => {
-    console.log('EVENT ADDED', eventAdded);
     fetchEvents();
   }, [eventAdded]);
 

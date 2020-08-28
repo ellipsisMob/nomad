@@ -11,8 +11,6 @@ const {
 } = Draft;
 
 const addPost = (post, token, props) => {
-  console.log('from post method ', post);
-  console.log('from addpost token ', token);
   fetch('api/posts', {
     method: 'POST',
     headers: {
@@ -23,7 +21,6 @@ const addPost = (post, token, props) => {
   })
   .then(res => res.json())
   .then(() => props.history.push('/'))
-  .catch(err => console.log(err))
 }
 
 const randomInteger = Math.floor(Math.random() * Math.floor(1000));
@@ -47,16 +44,12 @@ class MyEditor extends React.Component {
   }
 
   onChange = editorState => {
-    // console.log('log author from state:', this.state.author);
     const contentState = editorState.getCurrentContent();
-    console.log('content state', convertToRaw(contentState));
     this.setState({ editorState });
   }
 
   authorChange = e => {
     this.setState({ [e.target.name]: e.target.value});
-    // console.log('log author from state:', this.state.author);
-    // this.setState({ author });
   }
 
   headerImgChange = e => {
@@ -71,13 +64,11 @@ class MyEditor extends React.Component {
     event.preventDefault();
     const contentState = this.state.editorState;
     const currentState = contentState.getCurrentContent();
-    console.log('to submit ', convertToRaw(currentState));
     let post = convertToRaw(currentState);
     post.author = this.state.author;
     post.createdAt = new Date().toISOString();
     post.headerImg = this.state.headerImg;
     post.title = this.state.title;
-    console.log('post', post);
     addPost(post, this.props.token, this.props);
   }
 
@@ -125,8 +116,6 @@ class MyEditor extends React.Component {
 
   render() {
     const {editorState} = this.state;
-    // If the user changes block type before entering any text, we can
-    // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';
     var contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
@@ -196,7 +185,6 @@ class MyEditor extends React.Component {
   }
   }
 
-  // Custom overrides for "code" style.
   const styleMap = {
   CODE: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',

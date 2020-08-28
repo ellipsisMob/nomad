@@ -1,12 +1,12 @@
 # Nomad: A Platform for Developers
 **Nomad** is a two-week project built by four developers, graduating from an intense 14 week Full Stack JavaScript bootcamp.
 
-As beginning developers, we have experienced the value of working and studying together. Particularly, how the problem solving approach of someone can be enlightening. 
-> *this is  going wrong*
+Programming is problem solving, and we have experienced the value of studying and working together. It can be surprisingly enjoyable to follow along as someone is solving a problem, approaching it completely different than you would. Or to see someone approach the problem in a similar way, but subtly different. Our teamwork in the past months, and especially in the two weeks we took for this project, have convinced us of the need for a community around this phenomenon. **Nomad** provides the platform for this community.
 
-Do you know that feeling, watching someone approach 
+## The product
 
-## Live version
+Watch the pitch on youtube: [`Nomad demo`](https://www.youtube.com/watch?v=o5sWn9y_rU4&feature=youtu.be)
+![youtubeScreenshot](./assets/demo.png)
 
 Try it here: [`nomad-final.herokuapp.com`](https://nomad-final.herokuapp.com/).
 

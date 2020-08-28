@@ -98,8 +98,7 @@ export default function SignIn() {
             setLoggedInDev({ loggedIn: false });
           }
         }
-      })
-      .catch(err => console.log(err));
+      });
 
     setEmail('');
     setPassword('');

@@ -59,7 +59,7 @@ const EditDev = props => {
 
   return (
     <>
-      <EditIcon onClick={handleClickOpen} />
+      <EditIcon onClick={handleClickOpen} className="editIcon" />
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit dev</DialogTitle>
         <DialogContent>
@@ -67,14 +67,14 @@ const EditDev = props => {
           <TextField
             margin="dense"
             name="name"
-            label="Name"
+            label="Name (Required for listing on developers page)"
             value={dev.name}
             onChange={e => handleInputChange(e)}
             fullWidth />
           <TextField
             margin="dense"
             name="profilePic"
-            label="profilePic"
+            label="Profile picture (https:// required at beginning)"
             value={dev.profilePic}
             onChange={e => handleInputChange(e)}
             fullWidth />

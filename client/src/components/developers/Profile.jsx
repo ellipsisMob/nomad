@@ -112,9 +112,6 @@ const Profile = () => {
                   <a href={user.data.linkedin}>
                     <LinkedInIcon />
                   </a>
-                  <a href={user.data.email}>
-                    <EmailIcon />
-                  </a>
                 </div>
               </div>
             </div>
@@ -150,7 +147,6 @@ const Profile = () => {
                     updateDev={updateDev}
                     profilePic={user.data.profilePic}
                     title={user.data.title} />
-
                   <Button
                     startIcon={<DeleteIcon />}
                     color="secondary"

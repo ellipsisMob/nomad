@@ -26,7 +26,7 @@ const SinglePost = () => {
           const postData = raw.data.post;
           const contentState = convertFromRaw(postData);
           const editorState = EditorState.createWithContent(contentState);
-          return <Post rawPost={raw} toRender={editorState} />;
+          return <Post key={raw.id} rawPost={raw} toRender={editorState} />;
         })
         : <h1>Loading ...</h1>}
     </div>

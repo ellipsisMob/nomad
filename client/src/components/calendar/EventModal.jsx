@@ -35,7 +35,6 @@ const AddEvent = props => {
   };
 
   const handleAddEvent = () => {
-    console.log('coming from addevent', date, duration, title);
     fetch('api/events', {
       method: 'POST',
       headers: {
@@ -48,15 +47,12 @@ const AddEvent = props => {
       }),
     })
       .then(res => res.json())
-      .then(res => {
-        console.log('coming from the event page', res);
+      .then(() => {
         props.setEventAdded(props.eventAdded + 1);
         setDuration('');
         setTitle('');
         handleClose();
-        // history.push('/events')
-      })
-      .catch(err => console.log(err));
+      });
   };
 
   const classes = useStyles();

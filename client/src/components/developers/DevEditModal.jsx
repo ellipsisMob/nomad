@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import EditIcon from '@material-ui/icons/Edit';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const EditDev = props => {
-  const { id, name, github, linkedin, about, updateDev, setUpdateDev, profilePic, title } = props;
+  const {
+    id, name, github, linkedin, about, updateDev, setUpdateDev, profilePic, title
+  } = props;
   const [open, setOpen] = useState(false);
   const [dev, setdev] = useState({
     name,
     github,
     linkedin,
-    name,
     about,
     profilePic,
-    title
+    title,
   });
 
   const handleClickOpen = () => {
-    setOpen(true);  
+    setOpen(true);
   };
 
   const handleClose = () => {
@@ -49,17 +49,13 @@ const EditDev = props => {
         linkedin: dev.linkedin,
         about: dev.about,
         profilePic: dev.profilePic,
-        title: dev.title
+        title: dev.title,
 
       }),
     })
       .then(() => setUpdateDev(updateDev + 1))
-      .then(() => handleClose())
+      .then(() => handleClose());
   };
-
-  useEffect(() => {
-    console.log('useEff', dev);
-  }, [dev]);
 
   return (
     <>
@@ -73,54 +69,48 @@ const EditDev = props => {
 
           <TextField
             margin="dense"
-            name='name'
+            name="name"
             label="Name"
             value={dev.name}
             onChange={e => handleInputChange(e)}
-            fullWidth
-          />
+            fullWidth />
           <TextField
             margin="dense"
             name="profilePic"
             label="profilePic"
             value={dev.profilePic}
             onChange={e => handleInputChange(e)}
-            fullWidth
-          />
+            fullWidth />
           <TextField
             margin="dense"
-            name='github'
+            name="github"
             label="Github (https:// required at beginning)"
             value={dev.github}
-            placeholder='https://github.com/profilename'
+            placeholder="https://github.com/profilename"
             onChange={e => handleInputChange(e)}
-            fullWidth
-          />
+            fullWidth />
           <TextField
             margin="dense"
-            name='linkedin'
+            name="linkedin"
             label="Linkedin (https:// required at beginning)"
             placeholder="https://www.linkedin.com/in/example-profile-b2350b153/"
             value={dev.linkedin}
             onChange={e => handleInputChange(e)}
-            fullWidth
-          />
+            fullWidth />
           <TextField
             margin="dense"
-            name='about'
+            name="about"
             label="About"
             value={dev.about}
             onChange={e => handleInputChange(e)}
-            fullWidth
-          />
+            fullWidth />
           <TextField
             margin="dense"
-            name='title'
+            name="title"
             label="Job title"
             value={dev.title}
             onChange={e => handleInputChange(e)}
-            fullWidth
-          />
+            fullWidth />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} age="primary">
